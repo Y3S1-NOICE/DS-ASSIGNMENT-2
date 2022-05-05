@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import reservationSchema from "./reservation";
 
 const billSchema = new mongoose.Schema({
     billId:{
@@ -17,9 +16,9 @@ const billSchema = new mongoose.Schema({
     reservationId:{
         type: String, required: true
     },
-
-    reservationDetails:[reservationSchema],
-
+    cardId:{
+        type:String,
+    },
     checkoutPrice:{
         type: String, required: true
     }
