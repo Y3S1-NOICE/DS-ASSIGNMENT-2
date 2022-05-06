@@ -22,12 +22,12 @@ app.use(express.json());
 app.post('/users/login', login);
 app.get('users/refreshtoken', renewAccessToken);
 
-app.use(authenticate);
+// app.use(authenticate);
 
 app.get('/users', findUsers);
 app.post('/users', registerUser);
-app.put('/users', updateUser);
-app.delete('/users', deleteUser);
+app.put('/users/:id', updateUser);
+app.delete('/users/:id', deleteUser);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${PORT}`);
