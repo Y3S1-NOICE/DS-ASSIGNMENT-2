@@ -60,10 +60,10 @@ const removeCustomerReservation = (req, res) =>{
     const filter = {id:req.params.id};
     customerReservation.findOneAndDelete(filter, (error, reservationDetails) =>{
         !reservationDetails ?
-            res.status(404).json(`No Reservation Found for ${id}`):
+            res.status(404).json('No Reservation Found'):
             error ?
                 res.status(400).json(error):
-                res.status(204).json(`Reservation ${id} successfully removed!`)
+                res.status(204).json('Reservation successfully removed!')
     })
 }
 

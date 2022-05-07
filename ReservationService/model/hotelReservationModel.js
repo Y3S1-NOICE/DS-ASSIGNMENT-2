@@ -13,7 +13,7 @@ const hotelReservationInfoSchema = new mongoose.Schema({
     },
 
     hotelRatings: {
-        type: Number, 
+        type: String, 
         requried: true,
     },
 
