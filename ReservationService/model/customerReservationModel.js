@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import hotelSchema from "./hotel.js";
 import {v4} from 'uuid';
 
 const customerReservationInfoSchema = new mongoose.Schema({
