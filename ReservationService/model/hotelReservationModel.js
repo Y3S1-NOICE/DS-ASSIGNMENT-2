@@ -25,6 +25,8 @@ const hotelReservationInfoSchema = new mongoose.Schema({
     hotelContact: {
         type: String, 
         requried: true,
+        minlength: 9,
+        maxlength: 15,
     },
 
     hotelImage: {
@@ -59,6 +61,6 @@ const hotelReservationInfoSchema = new mongoose.Schema({
     }
 });
 
-const reservation = mongoose.model('hotelReservation', hotelReservationInfoSchema);
+const hotelReservation = mongoose.model('hotelReservation', hotelReservationInfoSchema);
 
-export default reservation;
+export default hotelReservation;

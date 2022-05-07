@@ -17,6 +17,18 @@ const customerReservationInfoSchema = new mongoose.Schema({
         required: true
     },
 
+    contact: {
+        type: String,
+        required: true,
+        minlength: 9,
+        maxlength: 15,
+    },
+
+    email: {
+        type: String,
+        required: true
+    },
+
     checkInDate: {
         type: Date, 
         required: true
@@ -46,6 +58,6 @@ const customerReservationInfoSchema = new mongoose.Schema({
     },
 });
 
-const reservation = mongoose.model('customerReservation', customerReservationInfoSchema);
+const customerReservation = mongoose.model('customerReservation', customerReservationInfoSchema);
 
-export default reservation;
+export default customerReservation;

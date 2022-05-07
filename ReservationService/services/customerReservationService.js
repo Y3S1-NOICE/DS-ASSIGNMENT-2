@@ -1,8 +1,8 @@
-import reservation from "../model/customerReservationModel";
+import customerReservation from "../model/customerReservationModel.js";
 
 //Add
 const addCustomerReservation = (req, res) => {
-    const newReservation = reservation(req.body);
+    const newReservation = customerReservation(req.body);
     newReservation.save((error) =>{
         error ?
             res.status(400).json(error) :
@@ -13,7 +13,7 @@ const addCustomerReservation = (req, res) => {
 //View
 const fetchAllCustomerReservations = (req, res) =>{
     const filter = {id: req.params.id}
-    reservation.find(filter, (error, reservationDetails) =>{
+    customerReservation.find(filter, (error, reservationDetails) =>{
         !reservationDetails ?
             res.status(404).json('No reservations found'):
             error ?
@@ -25,7 +25,7 @@ const fetchAllCustomerReservations = (req, res) =>{
 //fetch ome
 const fetchACustomerReservation = (req, res) =>{
     const filter = {id: req.params.id};
-    reservation.findOne(filter, (error, reservationDetails) =>{
+    customerReservation.findOne(filter, (error, reservationDetails) =>{
         !reservationDetails ?
             res.status(404).json(`No Reservation Found for ${id}`) :
             error?
@@ -47,7 +47,7 @@ const updateCustomerReservation = (req, res) =>{
         adultCount: req.body.adultCount,
         childCount: req.body.childCount
     }
-    reservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{
+    customerReservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{
         !reservationDetails ?
             res.status(404).json(`No Reservation Found for ${id}`):
             error ?
@@ -59,7 +59,7 @@ const updateCustomerReservation = (req, res) =>{
 //Remove
 const removeCustomerReservation = (req, res) =>{
     const filter = {id:req.params.id};
-    reservation.findOneAndDelete(filter, (error, reservationDetails) =>{
+    customerReservation.findOneAndDelete(filter, (error, reservationDetails) =>{
         !reservationDetails ?
             res.status(404).json(`No Reservation Found for ${id}`):
             error ?
