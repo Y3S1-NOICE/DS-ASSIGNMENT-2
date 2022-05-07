@@ -1,5 +1,6 @@
 import bill from "../model/bill.js";
 import card from "../model/card.js";
+import { mailOptions, transporter } from "./emailService.js";
 
 
 //create bill
@@ -17,18 +18,42 @@ const createBill = (req, res) =>{
             }else{
                 let message = "The card payment of Rs: " + newBill.checkoutPrice + "/= is completed!";
                 newBill.save((error) =>{
-                    error ?
-                        res.status(400).json("Payment record unsuccessfull!"):
-                        res.status(201).json(message);
+                    if(error){
+                        res.status(400).json("Payment record unsuccessfull!");
+                    }else{
+                        let mailOpt = {
+                            from:mailOptions.from,
+                            to:req.body.email,
+                            subject:"Reservation Payment",
+                            text:message
+                        }
+                        transporter.sendMail(mailOpt, function(err, success){
+                            err?
+                                console.log(err):
+                                res.status(201).json(message);
+                        })
+                    }  
                 })
             }       
         });
     }else{
         let message = "The cash payment of Rs: " + newBill.checkoutPrice +"/= is completed!";
         newBill.save((error) =>{
-            error ?
-            res.status(400).json("Payment record unsuccessfull!"):
-            res.status(201).json(message);
+            if(error){
+                res.status(400).json("Payment record unsuccessfull!");
+            }else{
+                let mailOpt ={
+                    from:mailOptions.from,
+                    to:req.body.email,
+                    subject:"Reservation Payment",
+                    text:message
+                }
+                transporter.sendMail(mailOpt, function(err, success){
+                    err ?
+                        console.log(err):
+                        res.status(201).json(message);
+                })
+            }
         })
     }
 }
