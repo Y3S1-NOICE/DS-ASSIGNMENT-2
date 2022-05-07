@@ -11,9 +11,8 @@ const addCustomerReservation = (req, res) => {
 }
 
 //View
-const fetchAllCustomerReservations = (req, res) =>{
-    const filter = {id: req.params.id}
-    customerReservation.find(filter, (error, reservationDetails) =>{
+const getAllCustomerReservations = (req, res) =>{
+    customerReservation.find((error, reservationDetails) =>{
         !reservationDetails ?
             res.status(404).json('No reservations found'):
             error ?
@@ -23,7 +22,7 @@ const fetchAllCustomerReservations = (req, res) =>{
 }
 
 //fetch ome
-const fetchACustomerReservation = (req, res) =>{
+const getACustomerReservation = (req, res) =>{
     const filter = {id: req.params.id};
     customerReservation.findOne(filter, (error, reservationDetails) =>{
         !reservationDetails ?
@@ -70,8 +69,8 @@ const removeCustomerReservation = (req, res) =>{
 
 export {
     addCustomerReservation, 
-    fetchAllCustomerReservations, 
-    fetchACustomerReservation, 
+    getAllCustomerReservations, 
+    getACustomerReservation, 
     updateCustomerReservation, 
     removeCustomerReservation
 };

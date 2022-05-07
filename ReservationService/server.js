@@ -4,15 +4,15 @@ import cors from "cors";
 import connectDatabase from "./database/connection.js";
 import { 
     addHotelReservation, 
-    fetchAllHotelReservations,
-    fetchAHotelReservation,
+    getAllHotelReservations,
+    getAHotelReservation,
     updateHotelReservation, 
     removeHotelReservation
 } from "./services/hotelReservationService.js";
 import { 
     addCustomerReservation, 
-    fetchAllCustomerReservations, 
-    fetchACustomerReservation, 
+    getAllCustomerReservations, 
+    getACustomerReservation, 
     updateCustomerReservation, 
     removeCustomerReservation
 } from "./services/customerReservationService.js";
@@ -32,14 +32,14 @@ app.use(cors({origin:"*"}));
 app.use(express.json());
 
 app.post('/admin/reservations', addHotelReservation);
-app.get('/admin/reservations', fetchAllHotelReservations);
-app.get('/admin/reservations/:id', fetchAHotelReservation);
+app.get('/admin/reservations', getAllHotelReservations);
+app.get('/admin/reservations/:id', getAHotelReservation);
 app.put('/admin/reservations/:id', updateHotelReservation);
 app.delete('/admin/reservations/:id', removeHotelReservation);
 
 app.post('/customer/reservations', addCustomerReservation);
-app.get('/customer/reservations', fetchAllCustomerReservations);
-app.get('/customer/reservations/:id', fetchACustomerReservation);
+app.get('/customer/reservations', getAllCustomerReservations);
+app.get('/customer/reservations/:id', getACustomerReservation);
 app.put('/customer/reservations/:id', updateCustomerReservation);
 app.delete('/customer/reservations/:id', removeCustomerReservation);
 

@@ -11,9 +11,8 @@ const addHotelReservation = (req, res) => {
 }
 
 //View
-const fetchAllHotelReservations = (req, res) =>{
-    const filter = {id: req.params.id}
-    hotelReservation.find(filter, (error, reservationDetails) =>{
+const getAllHotelReservations = (req, res) =>{
+    hotelReservation.find((error, reservationDetails) =>{
         !reservationDetails ?
             res.status(404).json('No reservations found'):
             error ?
@@ -23,7 +22,7 @@ const fetchAllHotelReservations = (req, res) =>{
 }
 
 //fetch ome
-const fetchAHotelReservation = (req, res) =>{
+const getAHotelReservation = (req, res) =>{
     const filter = {id: req.params.id};
     hotelReservation.findOne(filter, (error, reservationDetails) =>{
         !reservationDetails ?
@@ -73,8 +72,8 @@ const removeHotelReservation = (req, res) =>{
 
 export {
     addHotelReservation, 
-    fetchAllHotelReservations, 
-    fetchAHotelReservation, 
+    getAllHotelReservations, 
+    getAHotelReservation, 
     updateHotelReservation, 
     removeHotelReservation
 };
