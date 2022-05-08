@@ -226,7 +226,7 @@ const MakeReservation = (props) =>{
                             label="Total Price(LKR)"
                             type="number"
                             disabled={true}
-                            value={reservation.totalPrice || 0}
+                            value={reservation.totalPrice}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}

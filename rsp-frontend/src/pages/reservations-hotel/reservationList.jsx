@@ -131,7 +131,7 @@ const Reservations = () => {
                 <TableCell align="center">{reservation.roomPrice}.00</TableCell>
                 <TableCell align="center">{reservation.servicePrice}.00</TableCell>
                 <TableCell align="center">{reservation.taxesAndCharges}.00</TableCell>
-                <TableCell align="right">{reservation.roomPrice+reservation.servicePrice+reservation.taxesAndCharges}.00</TableCell>
+                <TableCell align="right">{reservation.totalPrice}.00</TableCell>
                 <TableCell align="center">{reservation.availableRooms}</TableCell>
                 <TableCell align="center">{reservation.isHotelAvailable}</TableCell>
                 <TableCell align="right">

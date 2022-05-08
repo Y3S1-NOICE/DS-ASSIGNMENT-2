@@ -81,8 +81,9 @@ const ListOfReservations = () => {
         <center>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {reservations && reservations.map((reservation, index) => (
-            <Grid item xs={2} sm={4} md={3} key={index}>
+            <>
             {reservation.isHotelAvailable === "Available" && (
+            <Grid item xs={2} sm={4} md={3} key={index}>
             <Card sx={{ maxWidth: 345 }} key={index} style={{background:"white",boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"}}>
                 <CardHeader
                     title={<span><b>{reservation.hotelName}</b></span>}
@@ -116,8 +117,9 @@ const ListOfReservations = () => {
                     </Tooltip>
                 </CardActions>
                 </Card>
-                )}
             </Grid>
+            )}
+            </>
             ))}
         </Grid>
         </center>
