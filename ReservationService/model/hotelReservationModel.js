@@ -39,7 +39,6 @@ const hotelReservationInfoSchema = new mongoose.Schema({
 
     roomPrice: {
         type: Number,
-        requried: true,
     },
 
     servicePrice: {
@@ -47,6 +46,10 @@ const hotelReservationInfoSchema = new mongoose.Schema({
     },
 
     taxesAndCharges: {
+        type: Number,
+    },
+
+    totalPrice: {
         type: Number,
     },
 

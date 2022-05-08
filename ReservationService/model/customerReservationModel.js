@@ -49,6 +49,10 @@ const customerReservationInfoSchema = new mongoose.Schema({
         required: true
     },
 
+    totalPrice: {
+        type: Number,
+    },
+    
     adultCount: {
         type: Number,
     },
