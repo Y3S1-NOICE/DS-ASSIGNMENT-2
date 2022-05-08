@@ -135,7 +135,7 @@ const MakeReservation = (props) =>{
                             margin="dense"
                             name="reserveeName"
                             label="Reservee Name"
-                            type="number"
+                            type="text"
                             value={reservation.reserveeName || ''}
                             fullWidth
                             variant="outlined"
