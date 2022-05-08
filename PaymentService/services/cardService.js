@@ -43,7 +43,7 @@ const updateCard = (req, res) =>{
         cardNo: req.body.cardNo,
         nameOnCard: req.body.nameOnCard,
         validThru: req.body.validThru,
-        ccv: req.body.ccv
+        cvc: req.body.cvc
     }
     card.findOneAndUpdate(filter, updatedCardDetails, (error, cardDetails) =>{
         !cardDetails ?
