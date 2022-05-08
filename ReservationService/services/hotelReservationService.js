@@ -47,6 +47,7 @@ const updateHotelReservation = (req, res) =>{
         servicePrice: req.body.servicePrice,
         taxesAndCharges: req.body.taxesAndCharges,
         availableRooms: req.body.availableRooms,
+        totalPrice: req.body.totalPrice,
         isHotelAvailable: req.body.isHotelAvailable
     }
     hotelReservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{

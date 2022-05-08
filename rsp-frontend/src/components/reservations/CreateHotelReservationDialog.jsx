@@ -100,6 +100,10 @@ const CreateHotelReservation = (props) =>{
                 setReservation({...reservation, availableRooms: value});
                 break;
             }
+            case 'totalPrice': {
+                setReservation({...reservation, totalPrice: value});
+                break;
+            }
             case 'isHotelAvailable': {
                 setReservation({...reservation, isHotelAvailable: value});
                 break;
@@ -258,6 +262,17 @@ const CreateHotelReservation = (props) =>{
                         />
                     </Grid>
                     <Grid item xs={6}>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="totalPrice"
+                            label="Total Price(LKR)"
+                            type="number"
+                            value={reservation.totalPrice || 0}
+                            fullWidth
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
                         <FormControl fullWidth style={{marginTop:"8px"}}>
                             <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
                             <Select

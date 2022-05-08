@@ -39,11 +39,14 @@ const updateCustomerReservation = (req, res) =>{
     const updatedReservationDetails = {
         hotelName: req.body.hotelName,
         reserveeName: req.body.reserveeName,
+        contact: req.body.contact,
+        email: req.body.email,
         checkInDate: req.body.checkInDate,
         checkOutDate: req.body.checkOutDate,
         nightCount: req.body.nightCount,
         roomCount: req.body.roomCount,
         adultCount: req.body.adultCount,
+        totalPrice: req.body.totalPrice,
         childCount: req.body.childCount
     }
     customerReservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{

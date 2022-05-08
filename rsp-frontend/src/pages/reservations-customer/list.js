@@ -26,6 +26,7 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Tooltip from '@mui/material/Tooltip';
 import AddTaskIcon from '@mui/icons-material/AddTask';
+import MakeReservation from '../../components/reservations/makeCustomerReservationDialog';
 
 const ListOfReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -127,7 +128,7 @@ const ListOfReservations = () => {
         )
       }
       {editOpen && reservation &&
-        <EditReservation
+        <MakeReservation
           reservation={reservation}
           setEditOpen={setEditOpen}
           handleGetReservations={handleGetReservations}
