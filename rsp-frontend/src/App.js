@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import AddCard from './pages/payment/AddCard';
+import RegisteredCards from './pages/payment/RegisteredCards';
 import Users from './pages/users';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Route path="/login" element={ <Login /> }/> 
       <Route path="/users" element={ <Users/> }/> 
 
-      <Route path="/cards/:cardId" element={ <AddCard/> }/> 
+      <Route path="/cards" element={ <RegisteredCards/> }/> 
 
     </Routes>
   </BrowserRouter>
