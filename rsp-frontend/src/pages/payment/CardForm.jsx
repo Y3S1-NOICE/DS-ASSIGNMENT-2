@@ -7,7 +7,6 @@ import {useForm} from 'react-hook-form'
 export const CardForm = ({card, onSubmit})=>{
     const {register, handleSubmit} = useForm({
         defaultValues: {
-            cardId:card? card.cardId:"C001",
             userId:card ? card.userId : "",
             cardType:card ? card.cardType : "",
             bankName:card ? card.bankName : "",
@@ -28,11 +27,6 @@ export const CardForm = ({card, onSubmit})=>{
         <Paper elevation={3} style={{padding:20}}>
         <Typography variant='h6'><b>GENERAL DETAILS</b></Typography><br/>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={6}>
-                    {/* <Typography><b>User ID</b></Typography> */}
-                    <TextField label="Card ID" name="cardId" type="text" size="small" fullWidth="true" 
-                    {...register("cardId")} />
-                </Grid>
                 <Grid item xs={6}>
                     {/* <Typography><b>User ID</b></Typography> */}
                     <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" 

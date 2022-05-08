@@ -1,8 +1,20 @@
 import card from "../model/card.js";
+import ID from "nodejs-unique-numeric-id-generator";
 
 //Add card
 const addCard = (req, res) => {
-    const newCard = card(req.body);
+    let cardID = ID.generate(new Date().toJSON());
+    const newCard = card({
+        cardId: cardID,
+        userId: req.body.userId,
+        cardType: req.body.cardType,
+        bankName: req.body.bankName,
+        cardNo: req.body.cardNo,
+        nameOnCard: req.body.nameOnCard,
+        validThru: req.body.validThru,
+        cvc: req.body.cvc,
+        
+    })
     newCard.save((error) =>{
         error ?
             res.status(400).json(error) :

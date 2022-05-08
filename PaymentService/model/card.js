@@ -20,7 +20,7 @@ const cardSchema = new mongoose.Schema({
         type: String, required: true
     },
     validThru:{
-        type: Date, required: true
+        type: String, required: true
     },
     cvc:{
         type: String, required: true
