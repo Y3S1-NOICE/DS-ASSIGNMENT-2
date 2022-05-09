@@ -106,8 +106,8 @@ export default function RegisteredCards() {
         setCardID(cardId);
     };
 
-    const deleteCard = (cardId) =>{
-        removeCard(userId, cardId)
+    const deleteCard = () =>{
+        removeCard(userId, cardID)
         .then((res) =>{
             setCard(res.data);
             fetchCards(userId)
@@ -243,7 +243,7 @@ export default function RegisteredCards() {
                                                 </DialogContent>
                                                 <DialogActions>
                                                 <Button onClick={handleCloseDelete}>NO</Button>
-                                                <Button onClick={()=> deleteCard(row.cardId)} autoFocus>
+                                                <Button onClick={deleteCard} autoFocus>
                                                     YES
                                                 </Button>
                                                 </DialogActions>
