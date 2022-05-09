@@ -17,7 +17,7 @@ const Login = () => {
                 console.log(res)
                 if(res.data.isSuccessful) {
                     localStorage.setItem('authentication', res.data.accessToken);
-                    window.location.href='/';
+                    window.location.href='/users/my-reservations';
                 } else {
                     handleError();
                 }

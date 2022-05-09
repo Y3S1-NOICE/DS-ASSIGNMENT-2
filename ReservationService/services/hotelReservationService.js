@@ -44,8 +44,6 @@ const updateHotelReservation = (req, res) =>{
         hotelImage: req.body.hotelImage,
         description: req.body.description,
         roomPrice: req.body.roomPrice,
-        servicePrice: req.body.servicePrice,
-        taxesAndCharges: req.body.taxesAndCharges,
         availableRooms: req.body.availableRooms,
         totalPrice: req.body.totalPrice,
         isHotelAvailable: req.body.isHotelAvailable

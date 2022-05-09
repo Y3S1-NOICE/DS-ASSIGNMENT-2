@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 // axios.defaults.baseURL = 'http://localhost:5002/';
+axios.defaults.headers.common['authentication'] = localStorage.getItem('authentication');
 
 export const makeReservation = (payload) => axios.post('http://localhost:5002/customer/reservations', payload);
 export const fetchAllReservations = (payload) => axios.get('http://localhost:5002/customer/reservations', payload);

@@ -2,7 +2,25 @@ import customerReservation from "../model/customerReservationModel.js";
 
 //Add
 const addCustomerReservation = (req, res) => {
-    const newReservation = customerReservation(req.body);
+    // const newReservation = customerReservation(req.body);
+    // let totPrice=null;
+    const room = 5000 
+    let totRoom = (5000 * req.body.roomCount) * req.body.nightCount; 
+    const newReservation = customerReservation(
+       {    "userId":req.body.userId,
+            "hotelName":req.body.hotelName,
+            "reserveeName":req.body.reserveeName,
+            "contact":req.body.contact,
+            "email":req.body.email,
+            "checkInDate":req.body.checkIntDate,
+            "checkOutDate":req.body.checkOutDate,
+            "nightCount":req.body.nightCount,
+            "roomCount":req.body.roomCount,
+            "totalPrice":totRoom,
+            "adultCount":req.body.adultCount,
+            "childCount":req.body.childCount
+        }
+    );
     newReservation.save((error) =>{
         error ?
             res.status(400).json(error) :
@@ -36,6 +54,8 @@ const getACustomerReservation = (req, res) =>{
 //update
 const updateCustomerReservation = (req, res) =>{
     const filter = {id: req.params.id};
+    const room = 5000 
+    let totRoom = (5000 * req.body.roomCount) * req.body.nightCount;
     const updatedReservationDetails = {
         hotelName: req.body.hotelName,
         reserveeName: req.body.reserveeName,
@@ -46,7 +66,7 @@ const updateCustomerReservation = (req, res) =>{
         nightCount: req.body.nightCount,
         roomCount: req.body.roomCount,
         adultCount: req.body.adultCount,
-        totalPrice: req.body.totalPrice,
+        totalPrice: totRoom,
         childCount: req.body.childCount
     }
     customerReservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{

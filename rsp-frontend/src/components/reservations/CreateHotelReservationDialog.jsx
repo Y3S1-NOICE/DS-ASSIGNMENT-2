@@ -84,18 +84,6 @@ const CreateHotelReservation = (props) =>{
                 setReservation({...reservation, description: value});
                 break;
             }
-            case 'roomPrice': {
-                setReservation({...reservation, roomPrice: value});
-                break;
-            }
-            case 'servicePrice': {
-                setReservation({...reservation, servicePrice: value});
-                break;
-            }
-            case 'taxesAndCharges': {
-                setReservation({...reservation, taxesAndCharges: value});
-                break;
-            }
             case 'availableRooms': {
                 setReservation({...reservation, availableRooms: value});
                 break;
@@ -217,41 +205,6 @@ const CreateHotelReservation = (props) =>{
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="roomPrice"
-                            label="Room Price(LKR)"
-                            type="number"
-                            value={reservation.roomPrice || 0}
-                            fullWidth
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="servicePrice"
-                            label="Service Price(LKR)"
-                            type="number"
-                            value={reservation.servicePrice || 0}
-                            fullWidth
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="taxesAndCharges"
-                            label="Taxes And Charges(LKR)"
-                            type="number"
-                            value={reservation.taxesAndCharges || 0}
-                            fullWidth
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
                             name="availableRooms"
                             label="Available Rooms"
                             type="number"
@@ -260,8 +213,6 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         />
-                    </Grid>
-                    <Grid item xs={6}>
                         <TextField
                             autoFocus
                             margin="dense"
@@ -273,6 +224,8 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         />
+                    </Grid>
+                    <Grid item xs={6}>
                         <FormControl fullWidth style={{marginTop:"8px"}}>
                             <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
                             <Select

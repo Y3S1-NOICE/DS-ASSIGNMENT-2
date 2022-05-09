@@ -7,6 +7,11 @@ const customerReservationInfoSchema = new mongoose.Schema({
         default: v4
     },
 
+    userId: {
+        type: String, 
+        required: true
+    },
+
     hotelName: {
         type: String,
         required: true
@@ -31,12 +36,12 @@ const customerReservationInfoSchema = new mongoose.Schema({
 
     checkInDate: {
         type: Date, 
-        required: true
+        // required: true
     },
 
     checkOutDate: {
         type: Date, 
-        required: true
+        // required: true
     },
 
     nightCount: {

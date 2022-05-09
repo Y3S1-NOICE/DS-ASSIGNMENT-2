@@ -7,6 +7,7 @@ import PaymentGateway from './pages/payment/PaymentGateway';
 import RegisteredCards from './pages/payment/RegisteredCards';
 import Users from './pages/users';
 import BillList from './pages/payment/BillList';
+import MyReservations from './pages/reservations-customer/myReservations';
 
 function App() {
   return (
@@ -14,9 +15,11 @@ function App() {
     <Routes>
       <Route path="/login" element={ <Login /> }/> 
       <Route path="/users" element={ <Users/> }/> 
+
       <Route path="/hotel/reservations" element={ <Reservations/> }/> 
       <Route path="/hotel/customer-reservations" element={ <CustomerReservationsList/> }/> 
       <Route path="/users/reservations" element={ <ListOfReservations/> }/> 
+      <Route path="/my-reservations" element={ <MyReservations/> }/>
 
       <Route path="/cards" element={ <RegisteredCards/> }/> 
       <Route path="/payments" element={ <PaymentGateway/> }/> 
