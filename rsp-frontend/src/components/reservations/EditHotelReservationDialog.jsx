@@ -264,7 +264,7 @@ const EditReservation = (props) =>{
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField
+                        {/* <TextField
                             autoFocus
                             margin="dense"
                             name="totalPrice"
@@ -274,7 +274,7 @@ const EditReservation = (props) =>{
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                        />
+                        /> */}
                         <FormControl fullWidth style={{marginTop:"8px"}}>
                             <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
                             <Select

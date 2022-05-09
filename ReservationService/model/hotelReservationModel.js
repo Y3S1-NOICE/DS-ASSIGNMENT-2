@@ -49,10 +49,6 @@ const hotelReservationInfoSchema = new mongoose.Schema({
         type: Number,
     },
 
-    totalPrice: {
-        type: Number,
-    },
-
     availableRooms: {
         type: Number,
         requried: true,

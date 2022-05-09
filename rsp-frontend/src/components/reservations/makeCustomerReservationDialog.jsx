@@ -89,10 +89,10 @@ const MakeReservation = (props) =>{
                 setReservation({...reservation, roomCount: value});
                 break;
             }
-            case 'totalPrice': {
-                setReservation({...reservation, totalPrice: value});
-                break;
-            }
+            // case 'totalPrice': {
+            //     setReservation({...reservation, totalPrice: value});
+            //     break;
+            // }
             case 'adultCount': {
                 setReservation({...reservation, adultCount: value});
                 break;
@@ -222,18 +222,6 @@ const MakeReservation = (props) =>{
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="totalPrice"
-                            label="Total Price(LKR)"
-                            type="number"
-                            disabled={true}
-                            value={reservation.totalPrice}
-                            fullWidth
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
                             name="adultCount"
                             label="Adult Count"
                             type="number"
@@ -242,9 +230,7 @@ const MakeReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
+                         <TextField
                             autoFocus
                             margin="dense"
                             name="childCount"

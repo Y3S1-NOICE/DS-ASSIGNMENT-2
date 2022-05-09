@@ -110,7 +110,6 @@ const Reservations = () => {
               <TableCell align="center">Room Price(LKR)</TableCell>
               <TableCell align="center">Service Price</TableCell>
               <TableCell align="center">Tax</TableCell>
-              <TableCell align="center">Total Price</TableCell>
               <TableCell align="center">Available Rooms</TableCell>
               <TableCell align="center">Status</TableCell>
               <TableCell align="right"></TableCell>
@@ -131,7 +130,6 @@ const Reservations = () => {
                 <TableCell align="center">{reservation.roomPrice}.00</TableCell>
                 <TableCell align="center">{reservation.servicePrice}.00</TableCell>
                 <TableCell align="center">{reservation.taxesAndCharges}.00</TableCell>
-                <TableCell align="right">{reservation.totalPrice}.00</TableCell>
                 <TableCell align="center">{reservation.availableRooms}</TableCell>
                 <TableCell align="center">{reservation.isHotelAvailable}</TableCell>
                 <TableCell align="right">

@@ -34,7 +34,7 @@ const customerReservationInfoSchema = new mongoose.Schema({
         required: true
     },
 
-    checkOutDate: {
+    checkInDate: {
         type: Date, 
         required: true
     },
