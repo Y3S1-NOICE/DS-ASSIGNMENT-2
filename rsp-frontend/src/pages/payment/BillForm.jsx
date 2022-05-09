@@ -9,7 +9,7 @@ export const BillForm = ({bill, onSubmit})=>{
         defaultValues: {
             userId:bill ? bill.userId : "",
             userName:bill ? bill.userName : "",
-            billName:bill ? bill.billName : "",
+            billDate:bill ? bill.billDate : "",
             reservationId:bill ? bill.reservationId : "",
             cardId:bill ? bill.cardId : "",
             checkoutPrice:bill ? bill.checkoutPrice : "",
