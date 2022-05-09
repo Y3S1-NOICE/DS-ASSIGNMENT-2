@@ -1,11 +1,22 @@
 import bill from "../model/bill.js";
 import card from "../model/card.js";
+import ID from "nodejs-unique-numeric-id-generator";
+
 import { mailOptions, transporter } from "./emailService.js";
 
 
 //create bill
 const createBill = (req, res) =>{
-    const newBill = bill(req.body);
+    let billID = ID.generate(new Date().toJSON());
+    const newBill = bill({
+        billId:billID,
+        userId:req.body.userId,
+        userName:req.body.userName,
+        billDate:req.body.billDate,
+        reservationId:req.body.reservationId,
+        cardId:req.body.cardId,
+        checkoutPrice:req.body.checkoutPrice 
+    })
     let status = null;
     if(newBill.cardId){
         const cardFilter = {cardId: newBill.cardId}
