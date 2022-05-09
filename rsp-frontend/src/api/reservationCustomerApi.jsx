@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5002/';
+// axios.defaults.baseURL = 'http://localhost:5002/';
 
-export const makeReservation = (payload) => axios.post('customer/reservations', payload);
-export const fetchAllReservations = (payload) => axios.get('customer/reservations', payload);
-export const fetchReservation = (id, payload) => axios.get(`customer/reservations/${id}`, payload);
-export const updateReservation = (id, payload) => axios.put(`customer/reservations/${id}`, payload);
-export const deleteReservation = (id) => axios.delete(`customer/reservations/${id}`);
+export const makeReservation = (payload) => axios.post('http://localhost:5002/customer/reservations', payload);
+export const fetchAllReservations = (payload) => axios.get('http://localhost:5002/customer/reservations', payload);
+export const fetchReservation = (id, payload) => axios.get(`http://localhost:5002/customer/reservations/${id}`, payload);
+export const updateReservation = (id, payload) => axios.put(`http://localhost:5002/customer/reservations/${id}`, payload);
+export const deleteReservation = (id) => axios.delete(`http://localhost:5002/customer/reservations/${id}`);

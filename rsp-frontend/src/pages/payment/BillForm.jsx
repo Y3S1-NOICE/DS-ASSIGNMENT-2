@@ -29,37 +29,31 @@ export const BillForm = ({bill, onSubmit})=>{
         </center>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12}>
-                    {/* <Typography><b>User ID</b></Typography> */}
                     <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" 
                     {...register("userId")} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="User Name" name="userName" type="text" size="small" fullWidth="true"
                     {...register("userName" )} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
+                    <Typography>Bill Date</Typography>
                     <TextField name="billDate" type="date" size="small" fullWidth="true"
                     {...register("billDate" )} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true"
                     {...register("reservationId" )} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="Card ID" name="cardId" type="text" size="small" fullWidth="true"
                     {...register("cardId" )} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="Checkout Price" name="checkoutPrice" type="text" size="small" fullWidth="true"
                     {...register("checkoutPrice" )} />
                 </Grid>
                 <Grid item xs={12}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="User Email" name="email" type="text" size="small" fullWidth="true"
                     {...register("email" )} />
                 </Grid>
