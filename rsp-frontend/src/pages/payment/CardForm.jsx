@@ -28,12 +28,10 @@ export const CardForm = ({card, onSubmit})=>{
         <Typography variant='h6'><b>GENERAL DETAILS</b></Typography><br/>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
-                    {/* <Typography><b>User ID</b></Typography> */}
                     <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" 
                     {...register("userId")} />
                 </Grid>
                 <Grid item xs={6}>
-                    {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="Card Type" name="cardType" type="text" size="small" fullWidth="true"
                     {...register("cardType" )} />
                 </Grid>
@@ -43,17 +41,14 @@ export const CardForm = ({card, onSubmit})=>{
             <Typography variant='h6'><b>CARD DETAILS</b></Typography><br/>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={6}>
-                {/* <Typography><b>Bank Name</b></Typography> */}
                 <TextField label="Bank Name" name="bankName" type="text" size="small" fullWidth="true" 
                 {...register("bankName")} />
             </Grid>
             <Grid item xs={6}>
-                    {/* <Typography><b>Card Number</b></Typography> */}
                     <TextField label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
                     {...register("cardNo")} />
                 </Grid>
                 <Grid item xs={6}>
-                    {/* <Typography><b>Name on Card</b></Typography> */}
                     <TextField label="Name On Card" name="nameOnCard" type="text" size="small" fullWidth="true"
                     {...register("nameOnCard")} />
                 </Grid>
@@ -63,7 +58,6 @@ export const CardForm = ({card, onSubmit})=>{
                     {...register("validThru")} />
                 </Grid>
                 <Grid item xs={6}>
-                    {/* <Typography><b>CVC</b></Typography> */}
                     <TextField label="CVC" name="cvc" type="text" size="small" fullWidth="true" 
                     {...register("cvc")} />
                 </Grid>

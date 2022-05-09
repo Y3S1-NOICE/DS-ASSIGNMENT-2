@@ -10,13 +10,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { BillForm } from './BillForm';
-import { fetchCards } from '../../api/paymentServiceApi';
+import { createBill, fetchCards } from '../../api/paymentServiceApi';
 import jwtDecode from 'jwt-decode';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { fetchReservation } from '../../api/reservationCustomerApi';
 
 export default function PaymentGateway() {
     // const userId = jwtDecode(localStorage.getItem('authentication').id);
@@ -26,7 +27,6 @@ export default function PaymentGateway() {
     const [reservationData, setReservationData] = useState();
     const [cardData, setCardData] = useState([]);
     const [selectedCard, setSelectedCard] = useState("");
-    const [paymentData, setPaymentData] = useState();
     const [billData, setBillData] = useState("");
     const [open, setOpen] = React.useState(false);
 
@@ -42,11 +42,17 @@ export default function PaymentGateway() {
     //     getUser();
     // })
 
-    useEffect(() =>{
-        function getResevationData(){
-
-        }
-    })
+    // useEffect(() =>{
+    //     function getResevationData(){   
+    //         fetchReservation(reservationId)
+    //         .then((res) =>{
+    //             setReservationData(res.data);
+    //         }).catch((err) =>{
+    //             console.error(err);
+    //         })
+    //     }
+    //     getResevationData();
+    // })
 
     useEffect(()=>{
         function getCards(){
@@ -73,12 +79,20 @@ export default function PaymentGateway() {
             checkoutPrice:"50000"
         })
         setOpen(true);       
-
     };
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    const onSubmit = (data) =>{
+        createBill(userId, data)
+        .then((res) =>{
+            console.log(res.data)
+        }).catch((err) =>{
+            console.error(err);
+        })
+    }
 
   return (
     <div>
@@ -190,7 +204,7 @@ export default function PaymentGateway() {
                                     <div>
                                         <br/>
                                         <Container maxWidth="100%">
-                                            <BillForm bill={billData}/>
+                                            <BillForm bill={billData} onSubmit={onSubmit}/>
                                         </Container>
                                     </div>
                                 ):(

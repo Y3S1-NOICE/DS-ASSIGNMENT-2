@@ -6,6 +6,7 @@ import Reservations from './pages/reservations-hotel/reservationList';
 import PaymentGateway from './pages/payment/PaymentGateway';
 import RegisteredCards from './pages/payment/RegisteredCards';
 import Users from './pages/users';
+import BillList from './pages/payment/BillList';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
       <Route path="/cards" element={ <RegisteredCards/> }/> 
       <Route path="/payments" element={ <PaymentGateway/> }/> 
+      <Route path="/bills" element={ <BillList/> }/> 
 
     </Routes>
   </BrowserRouter>
