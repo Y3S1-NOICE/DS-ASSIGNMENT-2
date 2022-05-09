@@ -16,7 +16,7 @@ const Login = () => {
             .then(res => {
                 console.log(res)
                 if(res.data.isSuccessful) {
-                    localStorage.setItem('authentication', res.data.responseData.accessToken);
+                    localStorage.setItem('authentication', res.data.accessToken);
                     window.location.href='/';
                 } else {
                     handleError();
