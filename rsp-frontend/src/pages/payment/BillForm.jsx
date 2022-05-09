@@ -40,7 +40,7 @@ export const BillForm = ({bill, onSubmit})=>{
                 </Grid>
                 <Grid item xs={12}>
                     {/* <Typography><b>Card Type</b></Typography> */}
-                    <TextField label="Bill Date" name="billDate" type="text" size="small" fullWidth="true"
+                    <TextField name="billDate" type="date" size="small" fullWidth="true"
                     {...register("billDate" )} />
                 </Grid>
                 <Grid item xs={12}>
@@ -57,6 +57,11 @@ export const BillForm = ({bill, onSubmit})=>{
                     {/* <Typography><b>Card Type</b></Typography> */}
                     <TextField label="Checkout Price" name="checkoutPrice" type="text" size="small" fullWidth="true"
                     {...register("checkoutPrice" )} />
+                </Grid>
+                <Grid item xs={12}>
+                    {/* <Typography><b>Card Type</b></Typography> */}
+                    <TextField label="User Email" name="email" type="text" size="small" fullWidth="true"
+                    {...register("email" )} />
                 </Grid>
             </Grid><br />
             <Grid item xs={6}>
