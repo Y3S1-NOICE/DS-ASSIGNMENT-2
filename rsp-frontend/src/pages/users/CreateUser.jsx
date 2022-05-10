@@ -50,7 +50,7 @@ const CreateUser = () => {
 
     return (
         <>
-            <h1>Create new Template</h1>
+            <h1>Create new User</h1>
             <TextField
                 autoFocus
                 margin="dense"
