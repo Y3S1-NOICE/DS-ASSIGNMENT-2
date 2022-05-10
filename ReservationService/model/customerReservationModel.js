@@ -7,6 +7,12 @@ const customerReservationInfoSchema = new mongoose.Schema({
         default: v4
     },
 
+    userId: {
+        type: String, 
+        // required: true
+    },
+
+    
     hotelName: {
         type: String,
         required: true
