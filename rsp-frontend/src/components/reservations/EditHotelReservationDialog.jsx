@@ -8,19 +8,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { handleError } from '../../helper/helper';
-import { updateReservation } from '../../api/reservatiosHotelApi';
 import Slide from '@mui/material/Slide';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import toast, { Toaster } from 'react-hot-toast';
+import { updateReservation } from '../../api/reservationCustomerApi';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const EditReservation = (props) =>{
+const EditMyReservation = (props) =>{
     const [reservation, setReservation] = useState(props.reservation);
 
     const handleSubmit = () => {
@@ -66,48 +66,48 @@ const EditReservation = (props) =>{
                 setReservation({...reservation, hotelName: value});
                 break;
             }
-            case 'hotelRatings': {
-                setReservation({...reservation, hotelRatings: value});
+            case 'reserveeName': {
+                setReservation({...reservation, reserveeName: value});
                 break;
             }
-            case 'hotelAddress': {
-                setReservation({...reservation, hotelAddress: value});
+            case 'contact': {
+                setReservation({...reservation, contact: value});
                 break;
             }
             case 'hotelContact': {
                 setReservation({...reservation, hotelContact: value});
                 break;
             }
-            case 'hotelImage': {
-                setReservation({...reservation, hotelImage: value});
+            case 'email': {
+                setReservation({...reservation, email: value});
                 break;
             }
-            case 'description': {
-                setReservation({...reservation, description: value});
+            case 'checkInDate': {
+                setReservation({...reservation, checkInDate: value});
                 break;
             }
-            case 'roomPrice': {
-                setReservation({...reservation, roomPrice: value});
+            case 'checkOutDate': {
+                setReservation({...reservation, checkOutDate: value});
                 break;
             }
-            case 'servicePrice': {
-                setReservation({...reservation, servicePrice: value});
+            case 'nightCount': {
+                setReservation({...reservation, nightCount: value});
                 break;
             }
-            case 'taxesAndCharges': {
-                setReservation({...reservation, taxesAndCharges: value});
-                break;
-            }
-            case 'availableRooms': {
-                setReservation({...reservation, availableRooms: value});
+            case 'roomCount': {
+                setReservation({...reservation, roomCount: value});
                 break;
             }
             case 'totalPrice': {
                 setReservation({...reservation, totalPrice: value});
                 break;
             }
-            case 'isHotelAvailable': {
-                setReservation({...reservation, isHotelAvailable: value});
+            case 'adultCount': {
+                setReservation({...reservation, adultCount: value});
+                break;
+            }
+            case 'childCount': {
+                setReservation({...reservation, childCount: value});
                 break;
             }
             default: {}
@@ -123,7 +123,7 @@ const EditReservation = (props) =>{
             TransitionComponent={Transition}
             keepMounted
         >
-            <DialogTitle>Update Reservation</DialogTitle>
+            <DialogTitle>Make Reservation</DialogTitle>
             <DialogContent>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={6}>
@@ -137,55 +137,41 @@ const EditReservation = (props) =>{
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
+                            disabled={true}
                         />
-                        {/* <TextField
+                        <TextField
                             autoFocus
                             margin="dense"
-                            name="hotelRatings"
-                            label="hotelRatings"
-                            type="number"
-                            value={reservation.hotelRatings || ''}
+                            name="reserveeName"
+                            label="Reservee Name"
+                            type="text"
+                            value={reservation.reserveeName || ''}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                        /> */}
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Ratings</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={reservation.hotelRatings || 0}
-                                label="Hotel Ratings"
-                                onChange={handleChange}
-                                name="hotelRatings"
-                            >
-                            <MenuItem value="Tourist">Tourist</MenuItem>
-                            <MenuItem value="Standard">Standard</MenuItem>
-                            <MenuItem value="Comfort">Comfort</MenuItem>
-                            <MenuItem value="First Class">First Class</MenuItem>
-                            <MenuItem value="Luxury">Luxury</MenuItem>
-                            </Select>
-                        </FormControl>
+                            InputLabelProps={{ required: true }}
+                        />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="hotelAddress"
-                            label="Hotel Address"
+                            name="contact"
+                            label="Contact Number"
                             type="text"
-                            value={reservation.hotelAddress || ''}
+                            value={reservation.contact || ''}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
+                            InputLabelProps={{ required: true }}
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="hotelContact"
-                            label="Hotel Contact"
+                            name="email"
+                            label="Email"
                             type="text"
-                            value={reservation.hotelContact || ''}
+                            value={reservation.email || ''}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
@@ -195,58 +181,36 @@ const EditReservation = (props) =>{
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="hotelImage"
-                            label="Hotel Image"
-                            type="text"
-                            value={reservation.hotelImage || ''}
+                            name="checkInDate"
+                            label="Check In Date"
+                            type="date"
+                            value={reservation.checkInDate || ''}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="description"
-                            label="Description"
-                            type="text"
-                            value={reservation.description || ''}
+                            name="checkOutDate"
+                            label="Check Out Date"
+                            type="date"
+                            value={reservation.checkOutDate || ''}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="roomPrice"
-                            label="Room Price(LKR)"
-                            type="number"
-                            value={reservation.roomPrice || 0}
-                            fullWidth
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            name="servicePrice"
-                            label="Service Price(LKR)"
-                            type="number"
-                            value={reservation.servicePrice || 0}
-                            fullWidth
-                            variant="outlined"
-                            onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="taxesAndCharges"
-                            label="Taxes And Charges(LKR)"
+                            name="nightCount"
+                            label="Night Count"
                             type="number"
-                            value={reservation.taxesAndCharges || 0}
+                            value={reservation.nightCount || 0}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
@@ -254,10 +218,10 @@ const EditReservation = (props) =>{
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="availableRooms"
-                            label="Available Rooms"
+                            name="roomCount"
+                            label="Room Count"
                             type="number"
-                            value={reservation.availableRooms || 0}
+                            value={reservation.roomCount || 0}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
@@ -270,25 +234,36 @@ const EditReservation = (props) =>{
                             name="totalPrice"
                             label="Total Price(LKR)"
                             type="number"
-                            value={reservation.totalPrice || 0}
+                            disabled={true}
+                            value={reservation.totalPrice}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
                         />
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={reservation.isHotelAvailable || ''}
-                                label="Hotel Available Status"
-                                onChange={handleChange}
-                                name="isHotelAvailable"
-                            >
-                            <MenuItem value="Available">Available</MenuItem>
-                            <MenuItem value="Not Available">Not Available</MenuItem>
-                            </Select>
-                        </FormControl>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="adultCount"
+                            label="Adult Count"
+                            type="number"
+                            value={reservation.adultCount || 0}
+                            fullWidth
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="childCount"
+                            label="Child Count"
+                            type="number"
+                            value={reservation.childCount || 0}
+                            fullWidth
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
                     </Grid>
                 </Grid>
             </DialogContent>
@@ -302,4 +277,4 @@ const EditReservation = (props) =>{
 }
 
 
-export default EditReservation;
+export default EditMyReservation;
