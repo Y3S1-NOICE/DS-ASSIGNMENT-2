@@ -42,14 +42,14 @@ export default function NavBar(props) {
                     <Button color="inherit" onClick={() => window.location.href='/bills'}>Bills</Button>
                     <Button color="inherit" onClick={() => window.location.href='/hotel/reservations'}>Manage Reservations</Button>
                     <Button color="inherit" onClick={() => window.location.href='/hotel/customer-reservations'}>Customer Reservations</Button>
-                    <Button color="inherit" onClick={() => window.location.href='/users/reservations'}>Reservations</Button>
-                    <Button color="inherit" onClick={() => window.location.href='/my-reservations'}>My Reservations</Button>
                 </>
             }
             {
                 role === CUSTUMOER && 
                 <>
                     <Button color="inherit" onClick={() => window.location.href='/cards'} >Cards</Button>
+                    <Button color="inherit" onClick={() => window.location.href='/users/reservations'}>Reservations</Button>
+                    <Button color="inherit" onClick={() => window.location.href='/my-reservations'}>My Reservations</Button>
                 </>
 
             }

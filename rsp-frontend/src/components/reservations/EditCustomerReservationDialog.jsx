@@ -7,12 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { handleError } from '../../helper/helper';
 import Slide from '@mui/material/Slide';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import toast, { Toaster } from 'react-hot-toast';
 import { updateReservation } from '../../api/reservationCustomerApi';
 
