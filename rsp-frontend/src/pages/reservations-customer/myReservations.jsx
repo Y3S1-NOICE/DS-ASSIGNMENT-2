@@ -39,7 +39,7 @@ const MyReservations = () => {
         handleGetReservations();
     }, []);
 
-      const handleGetReservations = () => {
+    const handleGetReservations = () => {
         fetchReservation(userId).then(res => {
             setReservation(res.data);
             console.log(res.data);
@@ -57,7 +57,7 @@ const MyReservations = () => {
                 },
             });
         });
-      }
+    }
 
       const handleDeleteReservation = (id) => {
         deleteReservation(id)
