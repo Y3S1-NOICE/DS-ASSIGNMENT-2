@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { login } from "../api/userServiceApi";
 import { handleError } from "../helper/helper";
@@ -15,14 +14,14 @@ const Login = () => {
         login(credentials)
             .then(res => {
                 console.log(res)
-                if(res.data.isSuccessful) {
+                if(res.data) {
                     localStorage.setItem('authentication', res.data.accessToken);
-                    window.location.href='/users/my-reservations';
+                    window.location.href='/';
                 } else {
-                    handleError();
+                    alert('Authentication Failed!')
                 }
             })
-            .catch(() => handleError());
+            .catch(err => alert('Authentication Failed!'));
 
     }
 

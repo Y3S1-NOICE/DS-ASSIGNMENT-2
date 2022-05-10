@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react';
+import {useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -6,36 +7,24 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { handleError } from '../../helper/helper';
 import Slide from '@mui/material/Slide';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import toast, { Toaster } from 'react-hot-toast';
-import { makeReservation } from '../../api/reservationCustomerApi';
-import jwtDecode from 'jwt-decode';
-import { fetchUsers } from '../../api/userServiceApi';
+import { updateReservation } from '../../api/reservationCustomerApi';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const MakeReservation = (props) =>{
-    const userId = jwtDecode(localStorage.getItem('authentication')).id;
+const EditMyReservation = (props) =>{
     const [reservation, setReservation] = useState(props.reservation);
-    const [user, setUser] = useState();
-
-    useEffect(() =>{
-        function getUser(){
-            fetchUsers(`?id=${userId}`)
-            .then((res) =>{
-                setUser(res.data);
-                console.log(res.data);
-            }).catch((err) =>{
-                console.error(err);
-            })
-        }
-        getUser();
-    }, []);
 
     const handleSubmit = () => {
-        makeReservation(reservation)
+        updateReservation(reservation.id, reservation)
             .then((res) => {
                 props.handleGetReservations();
                 toast.success('Successfully Updated!', {
@@ -50,7 +39,7 @@ const MakeReservation = (props) =>{
                       secondary: '#FFFAEE',
                     },
                 });
-                window.location.reload('/users/reservations');
+                window.location.reload('/hotel/reservations');
                 //props.setEditOpen(false);
             })
             .catch((e) => {
@@ -73,10 +62,6 @@ const MakeReservation = (props) =>{
     const handleChange = (event) => {
         const {name, value} = event.target;
         switch(name) {
-            case 'userId': {
-                setReservation({...reservation, userId: value});
-                break;
-            }
             case 'hotelName': {
                 setReservation({...reservation, hotelName: value});
                 break;
@@ -87,6 +72,10 @@ const MakeReservation = (props) =>{
             }
             case 'contact': {
                 setReservation({...reservation, contact: value});
+                break;
+            }
+            case 'hotelContact': {
+                setReservation({...reservation, hotelContact: value});
                 break;
             }
             case 'email': {
@@ -167,14 +156,14 @@ const MakeReservation = (props) =>{
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="userId"
-                            label="User Id"
+                            name="contact"
+                            label="Contact Number"
                             type="text"
-                            value={reservation.userId || ''}
+                            value={reservation.contact || ''}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                            defaultValue={userId}
+                            InputLabelProps={{ required: true }}
                         />
                         <TextField
                             autoFocus
@@ -242,14 +231,14 @@ const MakeReservation = (props) =>{
                         <TextField
                             autoFocus
                             margin="dense"
-                            name="contact"
-                            label="Contact Number"
-                            type="text"
-                            value={reservation.contact || ''}
+                            name="totalPrice"
+                            label="Total Price(LKR)"
+                            type="number"
+                            disabled={true}
+                            value={reservation.totalPrice}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                            InputLabelProps={{ required: true }}
                         />
                         <TextField
                             autoFocus
@@ -288,4 +277,4 @@ const MakeReservation = (props) =>{
 }
 
 
-export default MakeReservation;
+export default EditMyReservation;

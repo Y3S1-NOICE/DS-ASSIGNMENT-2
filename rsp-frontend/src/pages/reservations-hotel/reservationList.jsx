@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { handleError } from "../../helper/helper";
+import React, { useEffect, useState } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,12 +16,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import toast, { Toaster } from 'react-hot-toast';
+import TablePagination from '@mui/material/TablePagination';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [reservation, setReservation] = useState({});
   const [editOpen, setEditOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   useEffect(() => {
     handleGetReservations();
@@ -92,6 +94,16 @@ const Reservations = () => {
     setAddOpen(true);
   }
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
   return (
     <>
     <Toaster/>
@@ -116,7 +128,7 @@ const Reservations = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {reservations && reservations.map((reservation, index) => (
+            {reservations.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((reservation, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -143,6 +155,16 @@ const Reservations = () => {
               </TableRow>
             ))}
           </TableBody>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 15]}
+              count={reservations.length}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </TableRow>
         </Table>
       </TableContainer>
       {addOpen && (

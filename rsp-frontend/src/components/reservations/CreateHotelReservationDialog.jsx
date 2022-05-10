@@ -1,5 +1,4 @@
-import * as React from 'react';
-import {useState} from 'react';
+import React, { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -19,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CreateHotelReservation = (props) =>{
+const CreateHotelReservation = (props) =>{    
     const [reservation, setReservation] = useState({});
 
     const handleSubmit = () => {
@@ -213,7 +212,7 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         />
-                        <TextField
+                        {/* <TextField
                             autoFocus
                             margin="dense"
                             name="totalPrice"
@@ -223,9 +222,7 @@ const CreateHotelReservation = (props) =>{
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
+                        /> */}
                         <FormControl fullWidth style={{marginTop:"8px"}}>
                             <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
                             <Select
@@ -241,6 +238,9 @@ const CreateHotelReservation = (props) =>{
                             </Select>
                         </FormControl>
                     </Grid>
+                    {/* <Grid item xs={6}>
+                        
+                    </Grid> */}
                 </Grid>
             </DialogContent>
             <DialogActions>

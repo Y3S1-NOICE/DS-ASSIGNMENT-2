@@ -9,7 +9,7 @@ const customerReservationInfoSchema = new mongoose.Schema({
 
     userId: {
         type: String, 
-        required: true
+        // required: true
     },
 
     hotelName: {
