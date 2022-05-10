@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Paper, Typography } from '@mui/material';
+import { Paper } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,7 +10,6 @@ import { fetchUsers } from '../../api/userServiceApi';
 import jwtDecode from 'jwt-decode';
 import { fetchReservation, deleteReservation } from '../../api/reservationCustomerApi';
 import toast, { Toaster } from 'react-hot-toast';
-import TablePagination from '@mui/material/TablePagination';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,15 +18,12 @@ import EditMyReservation from '../../components/reservations/EditCustomerReserva
 
 const MyReservations = () => {
     const userId = jwtDecode(localStorage.getItem('authentication')).id;
-    const [reservations, setReservations] = useState([]);
-    const [reservation, setReservation] = useState({});
+    const [reservation, setReservation] = useState([]);
     const [user, setUser] = useState();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [editOpen, setEditOpen] = useState(false);
 
     useEffect(() =>{
-        function getUser(){
+        function getUser() {
             fetchUsers(`?id=${userId}`)
             .then((res) =>{
                 setUser(res.data);
@@ -41,12 +37,12 @@ const MyReservations = () => {
 
     useEffect(() => {
         handleGetReservations();
-      }, [userId]);
+    }, []);
 
       const handleGetReservations = () => {
         fetchReservation(userId).then(res => {
-            setReservations(res.data);
-            console.log(res.data)
+            setReservation(res.data);
+            console.log(res.data);
         }).catch(() => {
             toast.error('Error!', {
                 position: "top-right",
@@ -97,15 +93,6 @@ const MyReservations = () => {
             })
       }
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-      
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
     const setEditingReservation = (payload) => {
         setReservation(payload);
         setEditOpen(true);
@@ -115,6 +102,9 @@ const MyReservations = () => {
     <div>
        <>
        <Toaster/>
+       {/* {Object.keys(reservation).map(key => ( 
+            <li>{reservation[key].hotelName}</li>      
+        ))} */}
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -134,9 +124,9 @@ const MyReservations = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {
-                            reservations.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((reservation, index) => (
-                                <TableRow key={index}>
+                        {/* {
+                            reservation.map((reservation) => ( */}
+                                <TableRow>
                                     <TableCell align="left">{reservation.hotelName}</TableCell>
                                     <TableCell align="center">{reservation.reserveeName}</TableCell>
                                     <TableCell align="center">{reservation.contact}</TableCell>
@@ -159,19 +149,9 @@ const MyReservations = () => {
                                         </Stack>
                                     </TableCell>
                                 </TableRow>
-                            ))
-                        }
+                            {/* ))
+                        } */}
                     </TableBody>
-                    <TableRow>
-                        <TablePagination
-                           rowsPerPageOptions={[5, 10, 15]}
-                           count={reservations.length}
-                           page={page}
-                           onPageChange={handleChangePage}
-                           rowsPerPage={rowsPerPage}
-                           onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
-                    </TableRow>
                 </Table>
             </TableContainer>
        </>
