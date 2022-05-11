@@ -9,6 +9,7 @@ import Users from './pages/users';
 import BillList from './pages/payment/BillList';
 import Signup from './pages/Signup';
 import Home from './pages/home/Home';
+import MyReservations from './pages/reservations-customer/myReservations';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/cards" element={ <RegisteredCards/> }/> 
         <Route path="/payments" element={ <PaymentGateway/> }/> 
         <Route path="/bills" element={ <BillList/> }/> 
+        <Route path="/my-reservations" element={ <MyReservations/> }/>
       </Routes>
     </BrowserRouter>
   );

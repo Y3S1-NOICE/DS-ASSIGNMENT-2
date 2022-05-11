@@ -2,7 +2,23 @@ import customerReservation from "../model/customerReservationModel.js";
 
 //Add
 const addCustomerReservation = (req, res) => {
-    const newReservation = customerReservation(req.body);
+    const room = 5000 
+    let totRoom = (5000 * req.body.roomCount) * req.body.nightCount; 
+    const newReservation = customerReservation(
+       {    "userId":req.params.userId,
+            "hotelName":req.body.hotelName,
+            "reserveeName":req.body.reserveeName,
+            "contact":req.body.contact,
+            "email":req.body.email,
+            "checkInDate":req.body.checkInDate,
+            "checkOutDate":req.body.checkOutDate,
+            "nightCount":req.body.nightCount,
+            "roomCount":req.body.roomCount,
+            "totalPrice":totRoom,
+            "adultCount":req.body.adultCount,
+            "childCount":req.body.childCount
+        }
+    );
     newReservation.save((error) =>{
         error ?
             res.status(400).json(error) :
@@ -23,10 +39,10 @@ const getAllCustomerReservations = (req, res) =>{
 
 //fetch ome
 const getACustomerReservation = (req, res) =>{
-    const filter = {id: req.params.id};
+    const filter = {userId: req.params.userId};
     customerReservation.findOne(filter, (error, reservationDetails) =>{
         !reservationDetails ?
-            res.status(404).json(`No Reservation Found for ${id}`) :
+        res.status(404).json('No Reservation Found') :
             error?
                 res.status(400).json(error):
                 res.status(200).json(reservationDetails)
@@ -36,6 +52,8 @@ const getACustomerReservation = (req, res) =>{
 //update
 const updateCustomerReservation = (req, res) =>{
     const filter = {id: req.params.id};
+    const room = 5000 
+    let totRoom = (5000 * req.body.roomCount) * req.body.nightCount;
     const updatedReservationDetails = {
         hotelName: req.body.hotelName,
         reserveeName: req.body.reserveeName,
@@ -46,12 +64,12 @@ const updateCustomerReservation = (req, res) =>{
         nightCount: req.body.nightCount,
         roomCount: req.body.roomCount,
         adultCount: req.body.adultCount,
-        totalPrice: req.body.totalPrice,
+        totalPrice: totRoom,
         childCount: req.body.childCount
     }
     customerReservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{
         !reservationDetails ?
-            res.status(404).json(`No Reservation Found for ${id}`):
+            res.status(404).json('No Reservation Found'):
             error ?
                 res.status(400).json(error):
                 res.status(200).json(updatedReservationDetails)
