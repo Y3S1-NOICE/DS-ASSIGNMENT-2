@@ -19,14 +19,14 @@ import { IconButton } from '@mui/material';
 import { addCard, fetchCard, fetchCards, removeCard, updateCard } from '../../api/paymentServiceApi';
 import jwtDecode from 'jwt-decode';
 import { CardForm } from './CardForm';
+import { getAuth } from '../../util/Utils';
 
 export default function RegisteredCards() {
+    const userId = getAuth().id
     const [cardData, setCardData] = useState([]);
     const [newCard, setNewCard] = useState();
     const [card, setCard] = useState("");
     const [cardID, setCardID] = useState("");
-    // const userId = jwtDecode(localStorage.getItem('authentication').id);
-    const userId = "U001";
     const [open, setOpen] = React.useState(false);
     const [openCreate, setOpenCreate] = React.useState(false);
     const [openDelete, setOpenDelete] = React.useState(false);

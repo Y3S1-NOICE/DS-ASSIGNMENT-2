@@ -13,6 +13,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
+import PaymentIcon from '@mui/icons-material/Payment';
 import IconButton from '@mui/material/IconButton';
 import EditMyReservation from '../../components/reservations/EditCustomerReservationDialog';
 
@@ -145,6 +146,9 @@ const MyReservations = () => {
                                             </IconButton>
                                             <IconButton onClick={() => setEditingReservation(reservation)}>
                                                 <EditIcon />
+                                            </IconButton>
+                                            <IconButton >
+                                                <PaymentIcon onClick={() => window.location.href=`/payments/${reservation.id}`}/>
                                             </IconButton>
                                         </Stack>
                                     </TableCell>
