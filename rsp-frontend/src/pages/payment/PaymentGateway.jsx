@@ -10,7 +10,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { BillForm } from './BillForm';
+import { BillForm } from '../../components/payment/BillForm';
 import { createBill, fetchCards } from '../../api/paymentServiceApi';
 import jwtDecode from 'jwt-decode';
 import Dialog from '@mui/material/Dialog';
