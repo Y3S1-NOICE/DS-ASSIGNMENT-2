@@ -12,6 +12,7 @@ export const BillForm = ({bill, onSubmit})=>{
             billDate:bill ? bill.billDate : "",
             reservationId:bill ? bill.reservationId : "",
             cardId:bill ? bill.cardId : "",
+            cardNo:"",
             checkoutPrice:bill ? bill.checkoutPrice : "",
             email: bill? bill.email:""
         }
@@ -46,8 +47,37 @@ export const BillForm = ({bill, onSubmit})=>{
                     {...register("reservationId" )} />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label="Card ID" name="cardId" type="text" size="small" fullWidth="true"
-                    {...register("cardId" )} />
+                    <hr></hr>
+                    <Typography>
+                        <b>CARD DETAILS</b>
+                    </Typography>
+                </Grid>
+                {
+                    bill.cardId ?
+                    <>
+                        <Grid item xs={12}>
+                            <TextField label="Card ID" name="cardId" type="text" size="small" fullWidth="true"
+                            {...register("cardId" )} />
+                        </Grid>
+                    </>:
+                    <>
+                        <Grid item xs={12}>
+                            <TextField label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
+                            {...register("cardNo" )} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography>Valid Thru</Typography>
+                            <TextField  name="validThru" type="date" size="small" fullWidth="true"
+                            {...register("validThru" )} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField label="CVC" name="cvc" type="text" size="small" fullWidth="true"
+                            {...register("cvc" )} />
+                        </Grid>
+                    </>
+                }
+               <Grid item xs={12}>
+                    <hr></hr>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField label="Checkout Price" name="checkoutPrice" type="text" size="small" fullWidth="true"

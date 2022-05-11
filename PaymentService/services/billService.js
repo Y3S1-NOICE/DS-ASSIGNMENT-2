@@ -27,7 +27,7 @@ const createBill = (req, res) =>{
                 res.status(400).json(error);
                 status = false;
             }else{
-                let message = "The card payment of Rs: " + newBill.checkoutPrice + "/= is completed!";
+                let message = "The card payment of Rs: " + newBill.checkoutPrice + "/= is completed! Used pre-registered card with ID: " + req.body.cardId;
                 newBill.save((error) =>{
                     if(error){
                         res.status(400).json("Payment record unsuccessfull!");
@@ -48,7 +48,12 @@ const createBill = (req, res) =>{
             }       
         });
     }else{
-        let message = "The cash payment of Rs: " + newBill.checkoutPrice +"/= is completed!";
+        let message = "";
+        if(req.body.cardNo){
+            message = "The card payment of Rs: " + newBill.checkoutPrice +"/= is completed! Used Card No.: " + req.body.cardNo;
+        }else{
+            message = "The cash payment of Rs: " + newBill.checkoutPrice +"/= is completed!";
+        }
         newBill.save((error) =>{
             if(error){
                 res.status(400).json("Payment record unsuccessfull!");

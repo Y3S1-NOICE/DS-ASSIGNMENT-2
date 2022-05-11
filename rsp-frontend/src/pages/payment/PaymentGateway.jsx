@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import {useMatch}  from 'react-router-dom'
 import { Container } from '@mui/material'
 import { Grid, Paper, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -9,74 +10,74 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { BillForm } from './BillForm';
-import { createBill, fetchCards } from '../../api/paymentServiceApi';
-import jwtDecode from 'jwt-decode';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { BillForm } from '../../components/payment/BillForm';
+import { createBill, fetchCards } from '../../api/paymentServiceApi';
 import { fetchReservation } from '../../api/reservationCustomerApi';
+import { fetchUsers } from '../../api/userServiceApi';
+import { getAuth } from '../../util/Utils';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function PaymentGateway() {
-    // const userId = jwtDecode(localStorage.getItem('authentication').id);
-    const userId = "U001";
-    const reservationId ="R001";
-    const [user, setUser] = useState();
-    const [reservationData, setReservationData] = useState();
+    const userId = getAuth().id;
+    const match = useMatch('/payments/:id')
+    const reservationId = match.params.id;
+    const [user, setUser] = useState("");
+    const [reservationData, setReservationData] = useState("");
     const [cardData, setCardData] = useState([]);
     const [selectedCard, setSelectedCard] = useState("");
     const [billData, setBillData] = useState("");
     const [open, setOpen] = React.useState(false);
 
-    // useEffect(() =>{
-    //     function getUser(){
-    //         fetchUsers(`?id=${userId}`)
-    //         .then((res) =>{
-    //             setUser(res.data);
-    //         }).catch((err) =>{
-    //             console.error(err);
-    //         })
-    //     }
-    //     getUser();
-    // })
-
-    // useEffect(() =>{
-    //     function getResevationData(){   
-    //         fetchReservation(reservationId)
-    //         .then((res) =>{
-    //             setReservationData(res.data);
-    //         }).catch((err) =>{
-    //             console.error(err);
-    //         })
-    //     }
-    //     getResevationData();
-    // })
-
-    useEffect(()=>{
-        function getCards(){
-            fetchCards(userId)
-            .then((res) =>{
-                setCardData(res.data);
-            }).catch((err) =>{
-                console.error(err);
-            })
-        }
+    useEffect(() =>{
+        getUser();
+        getReservationData();
         getCards();
-    },[])
+    },[userId])
+
+    const getReservationData = () =>{
+        fetchReservation(reservationId)
+        .then((res) =>{
+            setReservationData(res.data);
+        }).catch((err) =>{
+            toast.error("Error in fetching reservation details!")
+        })
+    }
+
+    const getCards = () =>{
+        fetchCards(userId)
+        .then((res) =>{
+            setCardData(res.data);
+        }).catch((err) =>{
+            toast.error("Error in fetching registered cards!")
+        })
+    }
+
+    const getUser = () =>{
+        fetchUsers(`?id=${userId}`)
+        .then((res) =>{
+            setUser(res.data[0]);
+        }).catch((err) =>{
+            toast.error("Error in fetching user details!")
+        })
+    }
 
     const selectCard = (cardId) =>{
         setSelectedCard(cardId);
+        toast.success("Card Selected!")
     }
-
 
     const handleClickOpen = () => {
         setBillData({
             userId:userId,
+            userName:user.name,
             reservationId:reservationId,
             cardId:selectedCard,
-            checkoutPrice:"50000"
+            checkoutPrice:reservationData.totalPrice
         })
         setOpen(true);       
     };
@@ -88,27 +89,34 @@ export default function PaymentGateway() {
     const onSubmit = (data) =>{
         createBill(userId, data)
         .then((res) =>{
-            console.log(res.data)
+            toast.success("Payment Successful!")
+            setOpen(false);
         }).catch((err) =>{
-            console.error(err);
+            toast.error("Payment Unsuccessful!")
+            setOpen(false);
         })
     }
 
   return (
     <div>
+        <br />
+        <Toaster
+            position="top-right"
+            reverseOrder={false}
+        />
        <Container>
+            <Typography variant='h5'>
+                <center>
+                    <b>PAYMENT GATEWAY</b>
+                </center>
+            </Typography><br/>
             <Grid>
                 <Paper elevation={3} style={{padding:20}}>
                 <Paper elevation={3} style={{padding:20}}>
                 <Typography variant='h6'><b>GENERAL DETAILS</b></Typography><br/>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={3}>
-                            {/* <Typography><b>User ID</b></Typography> */}
                             <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" defaultValue={userId} disabled />
-                        </Grid>
-                        <Grid item xs={9}>
-                            {/* <Typography><b>Card Type</b></Typography> */}
-                            <TextField label="User Name" name="name" type="text" size="small" fullWidth="true"/>
                         </Grid>
                     </Grid><br />
                 </Paper><br/>
@@ -117,41 +125,40 @@ export default function PaymentGateway() {
                     
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={6}>
-                        {/* <Typography><b>Bank Name</b></Typography> */}
-                        <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true" defaultValue={reservationId}/>
+                        <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true" defaultValue={reservationId} disabled/>
                     </Grid>
                     </Grid><br/>
                     <Paper elevation={3} style={{padding:20}}>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid item xs={12}>
-                                <Typography align='center'><b>Hotel Name : </b> Hotel Glassgow</Typography>
+                                <Typography align='center'><b>Hotel Name : </b> {reservationData.hotelName}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography align='right'><b>Check In Date : </b> 12/05/2022 </Typography>
+                                <Typography align='right'><b>Check In Date : </b> {reservationData.checkInDate} </Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography align='left'><b>Check Out Date : </b> 14/05/2022</Typography>
+                                <Typography align='left'><b>Check Out Date : </b> {reservationData.checkOutDate}</Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <hr></hr>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography align='center'><b>Night Count : </b> 1</Typography>
+                                <Typography align='center'><b>Night Count : </b> {reservationData.nightCount}</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography align='center'><b>Room Count : </b> 2</Typography>
+                                <Typography align='center'><b>Room Count : </b> {reservationData.roomCount}</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography align='center'><b>Adult Count : </b> 4</Typography>
+                                <Typography align='center'><b>Adult Count : </b> {reservationData.adultCount}</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography align='center'><b>Children Count : </b> 5</Typography>
+                                <Typography align='center'><b>Children Count : </b> {reservationData.childCount}</Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <hr></hr>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography align='center'><b>Total Price : Rs.</b> 25,000.00</Typography>
+                                <Typography align='center'><b>Total Price : Rs.</b>{reservationData.totalPrice}</Typography>
                             </Grid>
                         </Grid> 
                     </Paper>
@@ -226,11 +233,3 @@ export default function PaymentGateway() {
     </div>
   )
 }
-
-{/* <Grid item xs={6}>
-<Paper elevation={3} style={{padding:20}}>
-    <Typography variant='h6'><b>BILL DETAILS</b></Typography><br/>
-    <br/>
-    <BillForm bill={billData}/>
-</Paper>
-</Grid> */}

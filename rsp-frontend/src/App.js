@@ -23,7 +23,7 @@ function App() {
         <Route path="/hotel/customer-reservations" element={ <CustomerReservationsList/> }/> 
         <Route path="/users/reservations" element={ <ListOfReservations/> }/> 
         <Route path="/cards" element={ <RegisteredCards/> }/> 
-        <Route path="/payments" element={ <PaymentGateway/> }/> 
+        <Route path="/payments/:id" element={ <PaymentGateway/> }/> 
         <Route path="/bills" element={ <BillList/> }/> 
         <Route path="/my-reservations" element={ <MyReservations/> }/>
       </Routes>
