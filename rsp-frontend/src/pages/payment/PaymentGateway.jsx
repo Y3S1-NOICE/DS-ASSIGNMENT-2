@@ -10,17 +10,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { BillForm } from '../../components/payment/BillForm';
-import { createBill, fetchCards } from '../../api/paymentServiceApi';
-import jwtDecode from 'jwt-decode';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { BillForm } from '../../components/payment/BillForm';
+import { createBill, fetchCards } from '../../api/paymentServiceApi';
 import { fetchReservation } from '../../api/reservationCustomerApi';
 import { fetchUsers } from '../../api/userServiceApi';
 import { getAuth } from '../../util/Utils';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function PaymentGateway() {
     const userId = getAuth().id;
@@ -33,49 +33,42 @@ export default function PaymentGateway() {
     const [billData, setBillData] = useState("");
     const [open, setOpen] = React.useState(false);
 
-
     useEffect(() =>{
-        function getUser(){
-            console.log(userId)
-            fetchUsers(`?id=${userId}`)
-            .then((res) =>{
-                setUser(res.data[0]);
-                console.log(user.name)
-            }).catch((err) =>{
-                console.error(err);
-            })
-        }
         getUser();
+        getReservationData();
+        getCards();
     },[userId])
 
-    useEffect(() =>{
-        function getResevationData(){   
-            fetchReservation(reservationId)
-            .then((res) =>{
-                setReservationData(res.data);
-                console.log(reservationData)
-            }).catch((err) =>{
-                console.error(err);
-            })
-        }
-        getResevationData();
-    },[])
+    const getReservationData = () =>{
+        fetchReservation(reservationId)
+        .then((res) =>{
+            setReservationData(res.data);
+        }).catch((err) =>{
+            toast.error("Error in fetching reservation details!")
+        })
+    }
 
-    useEffect(()=>{
-        console.log(user.name)
-        function getCards(){
-            fetchCards(userId)
-            .then((res) =>{
-                setCardData(res.data);
-            }).catch((err) =>{
-                console.error(err);
-            })
-        }
-        getCards();
-    },[reservationData])
+    const getCards = () =>{
+        fetchCards(userId)
+        .then((res) =>{
+            setCardData(res.data);
+        }).catch((err) =>{
+            toast.error("Error in fetching registered cards!")
+        })
+    }
+
+    const getUser = () =>{
+        fetchUsers(`?id=${userId}`)
+        .then((res) =>{
+            setUser(res.data[0]);
+        }).catch((err) =>{
+            toast.error("Error in fetching user details!")
+        })
+    }
 
     const selectCard = (cardId) =>{
         setSelectedCard(cardId);
+        toast.success("Card Selected!")
     }
 
     const handleClickOpen = () => {
@@ -96,15 +89,21 @@ export default function PaymentGateway() {
     const onSubmit = (data) =>{
         createBill(userId, data)
         .then((res) =>{
-            console.log(res.data)
+            toast.success("Payment Successful!")
+            setOpen(false);
         }).catch((err) =>{
-            console.error(err);
+            toast.error("Payment Unsuccessful!")
+            setOpen(false);
         })
     }
 
   return (
     <div>
         <br />
+        <Toaster
+            position="top-right"
+            reverseOrder={false}
+        />
        <Container>
             <Typography variant='h5'>
                 <center>
@@ -126,8 +125,7 @@ export default function PaymentGateway() {
                     
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={6}>
-                        {/* <Typography><b>Bank Name</b></Typography> */}
-                        <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true" defaultValue={reservationId}/>
+                        <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true" defaultValue={reservationId} disabled/>
                     </Grid>
                     </Grid><br/>
                     <Paper elevation={3} style={{padding:20}}>
@@ -235,11 +233,3 @@ export default function PaymentGateway() {
     </div>
   )
 }
-
-{/* <Grid item xs={6}>
-<Paper elevation={3} style={{padding:20}}>
-    <Typography variant='h6'><b>BILL DETAILS</b></Typography><br/>
-    <br/>
-    <BillForm bill={billData}/>
-</Paper>
-</Grid> */}
