@@ -25,8 +25,6 @@ const hotelReservationInfoSchema = new mongoose.Schema({
     hotelContact: {
         type: String, 
         requried: true,
-        minlength: 9,
-        maxlength: 15,
     },
 
     hotelImage: {
@@ -38,14 +36,6 @@ const hotelReservationInfoSchema = new mongoose.Schema({
     },
 
     roomPrice: {
-        type: Number,
-    },
-
-    servicePrice: {
-        type: Number,
-    },
-
-    taxesAndCharges: {
         type: Number,
     },
 

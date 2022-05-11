@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 import { handleError } from "../../helper/helper";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,11 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from "@mui/material";
-import EditReservation from "../../components/reservations/EditHotelReservationDialog";
-import CreateHotelReservation from "../../components/reservations/CreateHotelReservationDialog";
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import TablePagination from '@mui/material/TablePagination';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
@@ -20,9 +16,8 @@ import { fetchAllReservations, deleteReservation } from "../../api/reservationCu
 
 const CustomerReservationsList = () => {
   const [reservations, setReservations] = useState([]);
-  const [reservation, setReservation] = useState({});
-  const [editOpen, setEditOpen] = useState(false);
-  const [addOpen, setAddOpen] = useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   useEffect(() => {
     handleGetReservations();
@@ -82,6 +77,15 @@ const CustomerReservationsList = () => {
         })
   }
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <>
     <Toaster/>
@@ -106,7 +110,7 @@ const CustomerReservationsList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {reservations && reservations.map((reservation, index) => (
+            {reservations.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((reservation, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -125,7 +129,7 @@ const CustomerReservationsList = () => {
                 <TableCell align="center">{reservation.childCount}</TableCell>
                 <TableCell align="right">
                   <Stack direction="row" spacing={1}>
-                    <IconButton aria-label="fingerprint" style={{color:"#FF0000"}} onClick={() => handleDeleteReservation(reservation.id)}>
+                    <IconButton aria-label="delete" style={{color:"#FF0000"}} onClick={() => handleDeleteReservation(reservation.id)}>
                         <DeleteIcon />
                     </IconButton>
                   </Stack>
@@ -133,6 +137,16 @@ const CustomerReservationsList = () => {
               </TableRow>
             ))}
           </TableBody>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 15]}
+              count={reservations.length}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </TableRow>
         </Table>
       </TableContainer>
     </>
