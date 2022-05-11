@@ -9,7 +9,7 @@ import {roles, getAuth, logout} from '../util/Utils';
 
 export default function NavBar(props) {
     const [role, setRole] = useState(null);
-    const {ADMIN, WORKER, CUSTUMOER} = roles;
+    const {ADMIN, WORKER, CUSTOMER} = roles;
     
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function NavBar(props) {
                 </>
             }
             {
-                role === CUSTUMOER && 
+                role === CUSTOMER && 
                 <>
                     <Button color="inherit" onClick={() => window.location.href='/cards'} >Cards</Button>
                     <Button color="inherit" onClick={() => window.location.href='/users/reservations'}>Reservations</Button>
