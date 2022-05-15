@@ -8,16 +8,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import toast, { Toaster } from 'react-hot-toast';
 import { fetchAllReservations, deleteReservation } from "../../api/reservationCustomerApi";
+import EditStatus from './editStatus';
 
 const CustomerReservationsList = () => {
+  const [reservation, setReservation] = useState([]);
   const [reservations, setReservations] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [editOpen, setEditOpen] = useState(false);
 
   useEffect(() => {
     handleGetReservations();
@@ -86,6 +90,11 @@ const CustomerReservationsList = () => {
     setPage(0);
   };
 
+  const setEditingStatus = (payload) => {
+    setReservation(payload);
+    setEditOpen(true);
+  }
+
   return (
     <>
     <Toaster/>
@@ -103,9 +112,10 @@ const CustomerReservationsList = () => {
               <TableCell align="center"><b>Check Out Date</b></TableCell>
               <TableCell align="center"><b>Night Count</b></TableCell>
               <TableCell align="center"><b>Room Count</b></TableCell>
-              <TableCell align="center"><b>Total Price</b></TableCell>
+              <TableCell align="center"><b>Total Price(LKR)</b></TableCell>
               <TableCell align="center"><b>Adult Count</b></TableCell>
               <TableCell align="center"><b>Child Count</b></TableCell>
+              <TableCell align="center"><b>Status</b></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
@@ -125,10 +135,14 @@ const CustomerReservationsList = () => {
                 <TableCell align="center">{reservation.nightCount}</TableCell>
                 <TableCell align="center">{reservation.roomCount}</TableCell>
                 <TableCell align="center">{reservation.totalPrice}.00</TableCell>
-                <TableCell align="right">{reservation.adultCount}</TableCell>
+                <TableCell align="center">{reservation.adultCount}</TableCell>
                 <TableCell align="center">{reservation.childCount}</TableCell>
+                <TableCell align="center" style={{color:"red"}}>{reservation.status}</TableCell>
                 <TableCell align="right">
                   <Stack direction="row" spacing={1}>
+                    <IconButton onClick={() => setEditingStatus(reservation)}>
+                        <AddCircleIcon />
+                    </IconButton>
                     <IconButton aria-label="delete" style={{color:"#FF0000"}} onClick={() => handleDeleteReservation(reservation.id)}>
                         <DeleteIcon />
                     </IconButton>
@@ -149,6 +163,13 @@ const CustomerReservationsList = () => {
           </TableRow>
         </Table>
       </TableContainer>
+      {editOpen && reservation &&
+          <EditStatus
+            reservation={reservation}
+            setEditOpen={setEditOpen}
+            handleGetReservations={handleGetReservations}
+          />
+      }
     </>
   )
 }
