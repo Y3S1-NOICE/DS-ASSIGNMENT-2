@@ -40,7 +40,7 @@ const updateTaxi = (req, res) =>{
         vehicleType: req.body.vehicleType,
         vehicleNo: req.body.vehicleNo,
         driverName: req.body.driverName,
-        contacNumber: req.body.contacNumber,
+        contactNumber: req.body.contactNumber,
     }
     taxi.findOneAndUpdate(filter, updatedTaxiDetails, (error, taxiDetails) =>{
         !taxiDetails ?

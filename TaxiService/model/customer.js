@@ -1,24 +1,27 @@
 import mongoose from "mongoose";
 
-const taxiSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
     id:{
         type: String, required: true, unique: true,
     },
+    name:{
+        type: String, required: true
+    },
     vehicleType:{
-        type: String, required: true
-    },
-    vehicleNo:{
-        type: String, required: true
-    },
-    driverName:{
         type: String, required: true
     },
     contactNumber:{
         type: String, required: true
     },
+    pickUp:{
+        type: String, required: true
+    },
+    dropOff:{
+        type: String, required: true
+    },
 
 });
 
-const taxi = mongoose.model('taxi', taxiSchema);;
+const customer = mongoose.model('customer', customerSchema);;
 
-export default taxi;
+export default customer;

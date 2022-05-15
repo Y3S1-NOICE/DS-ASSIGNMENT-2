@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDatabase from "./database/connection.js";
 import {addTaxi, viewAllTaxis, viewATaxi, updateTaxi, removeTaxi} from "./services/taxiService.js";
+import { addCustomer, viewACustomer, viewAllCustomers, updateCustomer,removeCustomer } from "./services/customerService.js";
 
 
 //Enable .env file
@@ -26,6 +27,11 @@ app.get('/taxis/:id', viewATaxi);
 app.put('/taxis/:id', updateTaxi);
 app.delete('/taxis/:id', removeTaxi);
 
+app.post('/customers', addCustomer);
+app.get('/customers', viewAllCustomers);
+app.get('/customers/:id', viewACustomer);
+app.put('/customers/:id', updateCustomer);
+app.delete('/customers/:id', removeCustomer);
 
 app.listen(process.env.PORT, () =>{
     console.log(`Server is running on port ${PORT}`);
