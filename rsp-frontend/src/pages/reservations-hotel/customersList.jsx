@@ -120,8 +120,8 @@ const CustomerReservationsList = () => {
                 <TableCell align="center">{reservation.reserveeName}</TableCell>
                 <TableCell align="center">{reservation.contact}</TableCell>
                 <TableCell align="center">{reservation.email}</TableCell>
-                <TableCell align="center">{reservation.checkInDate}</TableCell>
-                <TableCell align="center">{reservation.checkOutDate}</TableCell>
+                <TableCell align="center">{reservation.checkInDate.replace('T00:00:00.000Z','')}</TableCell>
+                <TableCell align="center">{reservation.checkOutDate.replace('T00:00:00.000Z','')}</TableCell>
                 <TableCell align="center">{reservation.nightCount}</TableCell>
                 <TableCell align="center">{reservation.roomCount}</TableCell>
                 <TableCell align="center">{reservation.totalPrice}.00</TableCell>

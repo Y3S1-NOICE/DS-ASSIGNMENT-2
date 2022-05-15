@@ -123,7 +123,7 @@ const ListOfReservations = () => {
                               Contact - {reservation.hotelContact}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                              Prices Starting from - LKR. {reservation.roomPrice}.00
+                              Prices Starting from - LKR. 5000.00
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
                               Available Rooms {reservation.availableRooms}
