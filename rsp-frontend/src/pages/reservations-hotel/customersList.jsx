@@ -95,17 +95,17 @@ const CustomerReservationsList = () => {
           <TableHead>
             <TableRow>
               {/* <TableCell>ID</TableCell> */}
-              <TableCell align="left">Hotel Name</TableCell>
-              <TableCell align="center">reserveeName</TableCell>
-              <TableCell align="center">contact</TableCell>
-              <TableCell align="center">email</TableCell>
-              <TableCell align="center">checkInDate</TableCell>
-              <TableCell align="center">checkOutDate</TableCell>
-              <TableCell align="center">nightCount</TableCell>
-              <TableCell align="center">roomCount</TableCell>
-              <TableCell align="center">totalPrice</TableCell>
-              <TableCell align="center">adultCount</TableCell>
-              <TableCell align="center">childCount</TableCell>
+              <TableCell align="left"><b>Hotel Name</b></TableCell>
+              <TableCell align="center"><b>Reservee Name</b></TableCell>
+              <TableCell align="center"><b>Contact</b></TableCell>
+              <TableCell align="center"><b>Email</b></TableCell>
+              <TableCell align="center"><b>Check In Date</b></TableCell>
+              <TableCell align="center"><b>Check Out Date</b></TableCell>
+              <TableCell align="center"><b>Night Count</b></TableCell>
+              <TableCell align="center"><b>Room Count</b></TableCell>
+              <TableCell align="center"><b>Total Price</b></TableCell>
+              <TableCell align="center"><b>Adult Count</b></TableCell>
+              <TableCell align="center"><b>Child Count</b></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>

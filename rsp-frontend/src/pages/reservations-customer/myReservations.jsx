@@ -8,7 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { fetchUsers } from '../../api/userServiceApi';
 import jwtDecode from 'jwt-decode';
-import { fetchReservation, deleteReservation } from '../../api/reservationCustomerApi';
+import { getAuth } from '../../util/Utils';
+import { fetchReservation, deleteReservation, fetchAllReservations } from '../../api/reservationCustomerApi';
 import toast, { Toaster } from 'react-hot-toast';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
@@ -18,14 +19,15 @@ import IconButton from '@mui/material/IconButton';
 import EditMyReservation from '../../components/reservations/EditCustomerReservationDialog';
 
 const MyReservations = () => {
-    const userId = jwtDecode(localStorage.getItem('authentication')).id;
+    const loggedUserId = getAuth().id
     const [reservation, setReservation] = useState([]);
+    const [reservations, setReservations] = useState([]);
     const [user, setUser] = useState();
     const [editOpen, setEditOpen] = useState(false);
 
     useEffect(() =>{
         function getUser() {
-            fetchUsers(`?id=${userId}`)
+            fetchUsers(`?id=${loggedUserId}`)
             .then((res) =>{
                 setUser(res.data);
                 console.log(res.data);
@@ -41,8 +43,8 @@ const MyReservations = () => {
     }, []);
 
     const handleGetReservations = () => {
-        fetchReservation(userId).then(res => {
-            setReservation(res.data);
+        fetchAllReservations().then(res => {
+            setReservations(res.data);
             console.log(res.data);
         }).catch(() => {
             toast.error('Error!', {
@@ -59,6 +61,26 @@ const MyReservations = () => {
             });
         });
     }
+
+    // const handleGetReservations = () => {
+    //     fetchReservation(userId).then(res => {
+    //         setReservation(res.data);
+    //         console.log(res.data);
+    //     }).catch(() => {
+    //         toast.error('Error!', {
+    //             position: "top-right",
+    //             style: {
+    //               padding: '16px',
+    //               color: 'white',
+    //               background: '#FF0000'
+    //             },
+    //             iconTheme: {
+    //               primary: 'red',
+    //               secondary: '#FFFAEE',
+    //             },
+    //         });
+    //     });
+    // }
 
       const handleDeleteReservation = (id) => {
         deleteReservation(id)
@@ -125,9 +147,11 @@ const MyReservations = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* {
-                            reservation.map((reservation) => ( */}
-                                <TableRow>
+                        {
+                            reservations.map((reservation, index) => (
+                                reservation.userId === loggedUserId && (
+                                    <>
+                                <TableRow key={index}>
                                     <TableCell align="left">{reservation.hotelName}</TableCell>
                                     <TableCell align="center">{reservation.reserveeName}</TableCell>
                                     <TableCell align="center">{reservation.contact}</TableCell>
@@ -153,8 +177,10 @@ const MyReservations = () => {
                                         </Stack>
                                     </TableCell>
                                 </TableRow>
-                            {/* ))
-                        } */}
+                                </>
+                                )
+                             ))
+                        } 
                     </TableBody>
                 </Table>
             </TableContainer>

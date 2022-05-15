@@ -63,7 +63,8 @@ const ListOfReservations = () => {
   return (
     <>
     <Toaster/>
-    <h1>Available Reservations</h1>
+    {/* <h1>Available Reservations</h1> */}
+      <br/><br/><br/>
         <center>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {reservations && reservations.map((reservation, index) => (

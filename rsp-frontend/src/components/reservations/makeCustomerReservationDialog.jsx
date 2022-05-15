@@ -11,15 +11,16 @@ import toast, { Toaster } from 'react-hot-toast';
 import { makeReservation } from '../../api/reservationCustomerApi';
 import jwtDecode from 'jwt-decode';
 import { fetchUsers } from '../../api/userServiceApi';
+import { getAuth } from '../../util/Utils';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const MakeReservation = (props) =>{
-    const userId = jwtDecode(localStorage.getItem('authentication')).id;
+    const userId = getAuth().id;
     const [reservation, setReservation] = useState(props.reservation);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState([]);
 
     useEffect(() =>{
         function getUser(){
@@ -35,8 +36,22 @@ const MakeReservation = (props) =>{
     }, []);
 
     const handleSubmit = () => {
-        makeReservation(reservation)
+        const resObj = {
+            userId: userId,
+            hotelName: reservation.hotelName,
+            reserveeName: reservation.reserveeName,
+            contact: reservation.contact,
+            email: reservation.email,
+            checkInDate: reservation.checkInDate,
+            checkOutDate: reservation.checkOutDate,
+            nightCount: reservation.nightCount,
+            roomCount: reservation.roomCount,
+            adultCount: reservation.adultCount,
+            childCount: reservation.childCount,
+        }
+        makeReservation(resObj)
             .then((res) => {
+                console.log(res.data)
                 props.handleGetReservations();
                 toast.success('Successfully Updated!', {
                     position: "top-right",
@@ -54,7 +69,7 @@ const MakeReservation = (props) =>{
                 //props.setEditOpen(false);
             })
             .catch((e) => {
-                //console.log(e);
+                console.log(e);
                 toast.error('Error!', {
                     position: "top-right",
                     style: {
@@ -107,10 +122,6 @@ const MakeReservation = (props) =>{
             }
             case 'roomCount': {
                 setReservation({...reservation, roomCount: value});
-                break;
-            }
-            case 'totalPrice': {
-                setReservation({...reservation, totalPrice: value});
                 break;
             }
             case 'adultCount': {
@@ -170,11 +181,12 @@ const MakeReservation = (props) =>{
                             name="userId"
                             label="User Id"
                             type="text"
-                            value={reservation.userId || ''}
+                            value={userId}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
                             defaultValue={userId}
+                            disabled={true}
                         />
                         <TextField
                             autoFocus

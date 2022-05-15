@@ -88,10 +88,26 @@ const removeCustomerReservation = (req, res) =>{
     })
 }
 
+//update customer status
+const updateStatus = (req, res) =>{
+    const filter = {id: req.params.id || 'invalidId'};
+    const statusDetails = {
+        status: req.body.status
+    }
+    customerReservation.findOneAndUpdate(filter, statusDetails, (error, reservationDetails) =>{
+        !reservationDetails ?
+        res.status(404).json('No Reservation Found'):
+        error?
+        res.status(400).json(error):
+        res.status(200).json(statusDetails)
+    });   
+}
+
 export {
     addCustomerReservation, 
     getAllCustomerReservations, 
     getACustomerReservation, 
     updateCustomerReservation, 
-    removeCustomerReservation
+    removeCustomerReservation,
+    updateStatus
 };
