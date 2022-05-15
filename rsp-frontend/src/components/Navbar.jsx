@@ -22,7 +22,7 @@ export default function NavBar(props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{background:"#232B2B"}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -48,7 +48,7 @@ export default function NavBar(props) {
                 role === CUSTOMER && 
                 <>
                     <Button color="inherit" onClick={() => window.location.href='/cards'} >Cards</Button>
-                    <Button color="inherit" onClick={() => window.location.href='/users/reservations'}>Reservations</Button>
+                    <Button color="inherit" onClick={() => window.location.href='/users/reservations'}>Hotels</Button>
                     <Button color="inherit" onClick={() => window.location.href='/my-reservations'}>My Reservations</Button>
                 </>
 
