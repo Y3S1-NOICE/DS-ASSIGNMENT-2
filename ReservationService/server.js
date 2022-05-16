@@ -18,6 +18,10 @@ import {
     updateStatus
 } from "./services/customerReservationService.js";
 
+import { roles } from "./utils/utilities.js";
+import { authenticate, authorize } from "./middleware/auth.js";
+const {ADMIN, CUSTOMER} = roles;
+
 //Enable .env file
 dotenv.config();
 const PORT = process.env.PORT;
@@ -32,18 +36,20 @@ app.use(cors({origin:"*"}));
 //Let express know to use json for http requests and response.
 app.use(express.json());
 
-app.post('/admin/reservations', addHotelReservation);
-app.get('/admin/reservations', getAllHotelReservations);
-app.get('/admin/reservations/:id', getAHotelReservation);
-app.put('/admin/reservations/:id', updateHotelReservation);
-app.delete('/admin/reservations/:id', removeHotelReservation);
+app.use(authenticate);
 
-app.post('/customer/reservations', addCustomerReservation);
-app.get('/customer/reservations', getAllCustomerReservations);
-app.get('/customer/reservations/:id', getACustomerReservation);
-app.put('/customer/reservations/:id', updateCustomerReservation);
-app.delete('/customer/reservations/:id', removeCustomerReservation);
-app.put('/updateStatus/:id', updateStatus);
+app.post('/admin/reservations', authorize(ADMIN), addHotelReservation);
+app.get('/admin/reservations', authorize(ADMIN, CUSTOMER), getAllHotelReservations);
+app.get('/admin/reservations/:id', authorize(ADMIN), getAHotelReservation);
+app.put('/admin/reservations/:id', authorize(ADMIN), updateHotelReservation);
+app.delete('/admin/reservations/:id', authorize(ADMIN), removeHotelReservation);
+
+app.post('/customer/reservations', authorize(CUSTOMER), addCustomerReservation);
+app.get('/customer/reservations', authorize(CUSTOMER, ADMIN),getAllCustomerReservations);
+app.get('/customer/reservations/:id', authorize(CUSTOMER),getACustomerReservation);
+app.put('/customer/reservations/:id', authorize(CUSTOMER),updateCustomerReservation);
+app.delete('/customer/reservations/:id', authorize(CUSTOMER),removeCustomerReservation);
+app.put('/updateStatus/:id', authorize(ADMIN), updateStatus);
 
 app.listen(process.env.PORT, () =>{
     console.log(`Server is running on port ${PORT}`);

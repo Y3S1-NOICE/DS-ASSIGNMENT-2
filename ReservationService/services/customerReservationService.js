@@ -39,7 +39,7 @@ const getAllCustomerReservations = (req, res) =>{
 
 //fetch ome
 const getACustomerReservation = (req, res) =>{
-    const filter = {userId: req.params.userId};
+    const filter = {id: req.params.id};
     customerReservation.findOne(filter, (error, reservationDetails) =>{
         !reservationDetails ?
         res.status(404).json('No Reservation Found') :

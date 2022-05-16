@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {useMatch}  from 'react-router-dom'
-import { Container } from '@mui/material'
+import { Container, IconButton } from '@mui/material'
 import { Grid, Paper, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -20,7 +20,11 @@ import { createBill, fetchCards } from '../../api/paymentServiceApi';
 import { fetchReservation } from '../../api/reservationCustomerApi';
 import { fetchUsers } from '../../api/userServiceApi';
 import { getAuth } from '../../util/Utils';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+import { createEmail } from '../../api/emailServiceApi';
+import { errorToast, successToast } from '../../helper/helper';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { red } from '@mui/material/colors';
 
 export default function PaymentGateway() {
     const userId = getAuth().id;
@@ -29,7 +33,7 @@ export default function PaymentGateway() {
     const [user, setUser] = useState("");
     const [reservationData, setReservationData] = useState("");
     const [cardData, setCardData] = useState([]);
-    const [selectedCard, setSelectedCard] = useState("");
+    const [selectedCard, setSelectedCard] = useState(null);
     const [billData, setBillData] = useState("");
     const [open, setOpen] = React.useState(false);
 
@@ -44,7 +48,7 @@ export default function PaymentGateway() {
         .then((res) =>{
             setReservationData(res.data);
         }).catch((err) =>{
-            toast.error("Error in fetching reservation details!")
+            errorToast("Error in fetching reservation details!")
         })
     }
 
@@ -53,7 +57,7 @@ export default function PaymentGateway() {
         .then((res) =>{
             setCardData(res.data);
         }).catch((err) =>{
-            toast.error("Error in fetching registered cards!")
+            errorToast("Error in fetching registered cards!")
         })
     }
 
@@ -62,19 +66,22 @@ export default function PaymentGateway() {
         .then((res) =>{
             setUser(res.data[0]);
         }).catch((err) =>{
-            toast.error("Error in fetching user details!")
+            errorToast("Error in fetching user details!")
         })
     }
 
     const selectCard = (cardId) =>{
         setSelectedCard(cardId);
-        toast.success("Card Selected!")
+        successToast("Card Selected!")
     }
 
     const handleClickOpen = () => {
+        let dateTemplate = new Date();
+        let date = (dateTemplate.getMonth()+1) + '-' + dateTemplate.getDate() + '-' + dateTemplate.getFullYear() ;
         setBillData({
             userId:userId,
             userName:user.name,
+            billDate:date,
             reservationId:reservationId,
             cardId:selectedCard,
             checkoutPrice:reservationData.totalPrice
@@ -89,12 +96,30 @@ export default function PaymentGateway() {
     const onSubmit = (data) =>{
         createBill(userId, data)
         .then((res) =>{
-            toast.success("Payment Successful!")
+            if(res.status === 201){
+                let emailObj ={
+                    email:data.email,
+                    subject:"Reservation Payment",
+                    message:res.data
+                }
+                createEmail(emailObj)
+                .then((res) =>{
+                    successToast("Email sent!")
+                }).catch((error) =>{
+                    errorToast("Email sending failed!")
+                })
+            }
+            successToast("Payment Successful!")
             setOpen(false);
         }).catch((err) =>{
-            toast.error("Payment Unsuccessful!")
+            errorToast("Payment Unsuccessful!")
             setOpen(false);
         })
+    }
+
+    const clear = () =>{
+        setSelectedCard("");
+        successToast("Card Deselected!")
     }
 
   return (
@@ -111,8 +136,8 @@ export default function PaymentGateway() {
                 </center>
             </Typography><br/>
             <Grid>
-                <Paper elevation={3} style={{padding:20}}>
-                <Paper elevation={3} style={{padding:20}}>
+                <Paper elevation={0} style={{padding:20, backgroundColor:'transparent'}}>
+                <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                 <Typography variant='h6'><b>GENERAL DETAILS</b></Typography><br/>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={3}>
@@ -120,7 +145,7 @@ export default function PaymentGateway() {
                         </Grid>
                     </Grid><br />
                 </Paper><br/>
-                <Paper elevation={3} style={{padding:20}}>
+                <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                     <Typography variant='h6'><b>RESERVATION DETAILS</b></Typography><br/>
                     
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -128,7 +153,7 @@ export default function PaymentGateway() {
                         <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true" defaultValue={reservationId} disabled/>
                     </Grid>
                     </Grid><br/>
-                    <Paper elevation={3} style={{padding:20}}>
+                    <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid item xs={12}>
                                 <Typography align='center'><b>Hotel Name : </b> {reservationData.hotelName}</Typography>
@@ -163,18 +188,18 @@ export default function PaymentGateway() {
                         </Grid> 
                     </Paper>
                     <br/>
-                    <Paper elevation={3} style={{padding:20}}>
+                    <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                         <Typography variant='h6'><b>CARD DETAILS</b></Typography><br/>
-                        <Paper elevation={3} style={{padding:10}} sx={{ display: 'grid'}}>
-                        <TableContainer component={Paper}>
+                        <Paper elevation={0} style={{padding:10, backgroundColor:'transparent'}} sx={{ display: 'grid'}}>
+                        <TableContainer style={{opacity: 1, background: 'transparent'}}>
                             <Table sx={{ minWidth: 400 }} aria-label="simple table">
                                 <TableHead>
                                 <TableRow>
-                                    <TableCell>Card ID</TableCell>
-                                    <TableCell >Bank Name</TableCell>
-                                    <TableCell >Card Type</TableCell>
-                                    <TableCell >Validity</TableCell>
-                                    <TableCell >Actions</TableCell>
+                                    <TableCell ><b>CARD ID</b></TableCell>
+                                    <TableCell ><b>BANK NAME</b></TableCell>
+                                    <TableCell ><b>CARD TYPE</b></TableCell>
+                                    <TableCell ><b>VALIDITY</b></TableCell>
+                                    <TableCell ><b>ACTIONS</b></TableCell>
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -186,12 +211,22 @@ export default function PaymentGateway() {
                                             <TableCell >{row.cardType}</TableCell>
                                             <TableCell >{row.validThru}</TableCell>
                                             <TableCell>
-                                                <Button variant='contained' onClick={()=> selectCard(row.cardId)}>Select</Button>
+                                                <Button variant='contained' onClick={()=> selectCard(row.cardId)} disabled={selectedCard === row.cardId}>Select</Button>
                                             </TableCell>
+                                            <TableCell>
+                                            {
+                                                    selectedCard === row.cardId ?
+                                                    <IconButton >
+                                                        <CancelIcon style={{ color: red[500], fontSize: '25'  }}onClick={clear}/>
+                                                    </IconButton>:
+                                                    <>
+                                                    </>
+                                            }
+                                            </TableCell>
+
                                         </TableRow>
                                         ))
                                     }
-                                    
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -199,7 +234,10 @@ export default function PaymentGateway() {
                     </Paper>
                     <br/>
                     <Grid item xs={6}>
-                        <Button variant="contained" type="submit" onClick={handleClickOpen}>Submit</Button>
+                        <center>
+                            <Button variant="contained" type="submit" onClick={handleClickOpen}>Submit</Button>
+                        </center>
+                        
                         <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={"lg"}>
                         <DialogTitle><b>MAKE PAYMENT</b></DialogTitle>
                         <DialogContent>
@@ -210,7 +248,7 @@ export default function PaymentGateway() {
                                 billData ?(
                                     <div>
                                         <br/>
-                                        <Container maxWidth="100%">
+                                        <Container maxWidth="100%" >
                                             <BillForm bill={billData} onSubmit={onSubmit}/>
                                         </Container>
                                     </div>

@@ -2,12 +2,9 @@ import bill from "../model/bill.js";
 import card from "../model/card.js";
 import ID from "nodejs-unique-numeric-id-generator";
 
-import { mailOptions, transporter } from "./emailService.js";
-
-
 //create bill
 const createBill = (req, res) =>{
-    let billID = ID.generate(new Date().toJSON());
+    let billID = "B" + ID.generate(new Date().toJSON());
     const newBill = bill({
         billId:billID,
         userId:req.body.userId,
@@ -17,61 +14,35 @@ const createBill = (req, res) =>{
         cardId:req.body.cardId,
         checkoutPrice:req.body.checkoutPrice 
     })
-    let status = null;
-    if(newBill.cardId){
+    if(newBill.cardId){ //checks if the new bill has a card ID
         const cardFilter = {cardId: newBill.cardId}
-        card.findOne(cardFilter, (error, cardDetails) =>{
+        card.findOne(cardFilter, (error, cardDetails) =>{ //checks if the cardID exists in database
             if(!cardDetails){
                 res.status(404).json("No Registered Card Found!")
             }else if(error){
                 res.status(400).json(error);
-                status = false;
             }else{
                 let message = "The card payment of Rs: " + newBill.checkoutPrice + "/= is completed! Used pre-registered card with ID: " + req.body.cardId;
                 newBill.save((error) =>{
-                    if(error){
-                        res.status(400).json("Payment record unsuccessfull!");
-                    }else{
-                        let mailOpt = {
-                            from:mailOptions.from,
-                            to:req.body.email,
-                            subject:"Reservation Payment",
-                            text:message
-                        }
-                        transporter.sendMail(mailOpt, function(err, success){
-                            err?
-                                console.log(err):
-                                res.status(201).json(message);
-                        })
-                    }  
-                })
-            }       
-        });
+                    error ?
+                        res.status(400).json("Payment record unsuccessfull!"):
+                        res.status(201).json(message);
+                });
+            }
+        })
     }else{
         let message = "";
-        if(req.body.cardNo){
+        if(req.body.cardNo){//checks if the request body has a cardNumber
             message = "The card payment of Rs: " + newBill.checkoutPrice +"/= is completed! Used Card No.: " + req.body.cardNo;
         }else{
             message = "The cash payment of Rs: " + newBill.checkoutPrice +"/= is completed!";
         }
         newBill.save((error) =>{
-            if(error){
-                res.status(400).json("Payment record unsuccessfull!");
-            }else{
-                let mailOpt ={
-                    from:mailOptions.from,
-                    to:req.body.email,
-                    subject:"Reservation Payment",
-                    text:message
-                }
-                transporter.sendMail(mailOpt, function(err, success){
-                    err ?
-                        console.log(err):
-                        res.status(201).json(message);
-                })
-            }
+            error ?
+                res.status(400).json("Payment record unsuccessfull!"):
+                res.status(201).json(message);
         })
-    }
+    } 
 }
 
 //fetchAllBills

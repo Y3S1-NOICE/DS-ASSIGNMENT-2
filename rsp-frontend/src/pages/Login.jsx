@@ -48,7 +48,7 @@ const Login = () => {
                 direction="column"
                 alignItems="center"
             >
-                <h1>RMT App</h1>
+                <h1>LOGIN</h1>
                 <Grid item xs={12} md={12}>
                     <TextField
                         autoFocus
