@@ -21,6 +21,7 @@ import { fetchReservation } from '../../api/reservationCustomerApi';
 import { fetchUsers } from '../../api/userServiceApi';
 import { getAuth } from '../../util/Utils';
 import toast, { Toaster } from 'react-hot-toast';
+import { createEmail } from '../../api/emailServiceApi';
 
 export default function PaymentGateway() {
     const userId = getAuth().id;
@@ -92,6 +93,19 @@ export default function PaymentGateway() {
     const onSubmit = (data) =>{
         createBill(userId, data)
         .then((res) =>{
+            if(res.status === 201){
+                let emailObj ={
+                    email:data.email,
+                    subject:"Reservation Payment",
+                    message:res.data
+                }
+                createEmail(emailObj)
+                .then((res) =>{
+                    console.log("emailsent")
+                }).catch((error) =>{
+                    console.log(error)
+                })
+            }
             toast.success("Payment Successful!")
             setOpen(false);
         }).catch((err) =>{
