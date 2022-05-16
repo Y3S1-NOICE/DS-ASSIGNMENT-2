@@ -14,7 +14,8 @@ import {
     getAllCustomerReservations, 
     getACustomerReservation, 
     updateCustomerReservation, 
-    removeCustomerReservation
+    removeCustomerReservation,
+    updateStatus
 } from "./services/customerReservationService.js";
 
 //Enable .env file
@@ -42,6 +43,7 @@ app.get('/customer/reservations', getAllCustomerReservations);
 app.get('/customer/reservations/:id', getACustomerReservation);
 app.put('/customer/reservations/:id', updateCustomerReservation);
 app.delete('/customer/reservations/:id', removeCustomerReservation);
+app.put('/updateStatus/:id', updateStatus);
 
 app.listen(process.env.PORT, () =>{
     console.log(`Server is running on port ${PORT}`);
