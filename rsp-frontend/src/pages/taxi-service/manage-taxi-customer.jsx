@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react"
 import { handleError } from "../../helper/helper";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { Button } from "@mui/material";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { removeTaxi, viewAllTaxis } from "../../api/taxiServiceApi";
-import EditTaxi from "./EditTaxi";
+import BookTaxi from "./BookTaxi";
+import Grid from '@mui/material/Grid';
+
+const bull = (
+    <Box
+      component="span"
+      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    >
+      •
+    </Box>
+);
 
 const ManageTaxiCustomerView = () => {
     const [taxis, setTaxis] = useState([]);
@@ -46,45 +55,35 @@ const ManageTaxiCustomerView = () => {
 
     return (
         <>
-        <h1>Taxi Service</h1>
-        <a href="/addTaxi"><Button>Add Taxi</Button></a>
-            <TableContainer >
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Taxi ID</TableCell>
-                            <TableCell align="left">Vehicle Type</TableCell>
-                            <TableCell align="center">Vehicle Number</TableCell>
-                            <TableCell align="center">Driver name</TableCell>
-                            <TableCell align="center">Contact Number</TableCell>
-                            <TableCell align="right">Options</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {taxis && taxis.map((taxi, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {taxi.id}
-                                </TableCell>
-                                <TableCell align="left">{taxi.vehicleType}</TableCell>
-                                <TableCell align="center">{taxi.vehicleNo}</TableCell>
-                                <TableCell align="center">{taxi.driverName}</TableCell>
-                                <TableCell align="center">{taxi.contactNumber}</TableCell>
-                                <TableCell align="right">
-                                    <Button onClick={() => setEditingTaxi(taxi)}>Edit</Button>
-                                    <Button onClick={() => handleDeleteTaxi(taxi.id)}>Delete</Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+        <h1>Book Taxi</h1>
+        {
+            taxis && taxis.map((taxi, index) => (
+                <Grid item xs={2} sm={4} md={3} key={index}>
+                    <Card sx={{ maxWidth: 345 }} key={index} style={{backgroundColor:"#d4d4d4"}}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            ID - {taxi.id}
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                            {bull} <b>{taxi.vehicleType}</b> : {taxi.vehicleNo}
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                            Driver name - {taxi.driverName}
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                            Contact Number - {taxi.contactNumber}
+                            </Typography>
+                        </CardContent>
+                        <hr/>
+                        <CardActions>
+                            <Button size="small" onClick={() => setEditingTaxi(taxi)}>Book Now</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+        ))}
             
             {editOpen && taxi &&
-                <EditTaxi
+                <BookTaxi
                     taxi={taxi}
                     setEditOpen={setEditOpen}
                     handleFetchTaxis={handleFetchTaxis}

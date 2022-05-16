@@ -10,6 +10,9 @@ const customerSchema = new mongoose.Schema({
     vehicleType:{
         type: String, required: true
     },
+    driverName:{
+        type: String, required: true
+    },
     contactNumber:{
         type: String, required: true
     },

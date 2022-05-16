@@ -41,6 +41,7 @@ const updateCustomer = (req, res) =>{
         name:req.body.name,
         vehicleType: req.body.vehicleType,
         contactNumber: req.body.contactNumber,
+        driverName: req.body.driverName,
         pickUp: req.body.pickUp,
         dropOff: req.body.dropOff,
     }
