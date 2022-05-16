@@ -20,9 +20,9 @@ import { addCard, fetchCard, fetchCards, removeCard, updateCard } from '../../ap
 import { CardForm } from '../../components/payment/CardForm'
 import { getAuth } from '../../util/Utils';
 import {yellow} from '@mui/material/colors'
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { red } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
+import { errorToast, successToast } from '../../helper/helper';
 
 export default function RegisteredCards() {
     const userId = getAuth().id
@@ -50,17 +50,16 @@ export default function RegisteredCards() {
     const onCreate = (data) =>{
         addCard(userId, data)
         .then((res) =>{
-            toast.success("Card Registration Successful!")
+            successToast("Card Registration Successful!")
             fetchCards(userId)
             .then((res)=>{
                 setCardData(res.data);
-                
             }).catch((err) =>{
                 console.error(err);
             })
         }).catch((err) =>{
             console.error(err);
-            toast.error("Card Registration Failed!")
+            errorToast("Card Registration Failed!")
         })
         setOpen(false);
     }
@@ -71,10 +70,10 @@ export default function RegisteredCards() {
             fetchCards(userId)
             .then((res)=>{
                 setCardData(res.data);
-                toast.success("Card details updated Successfully!")
+                successToast("Card details updated Successfully!")
             }).catch((err) =>{
                 console.error(err);
-                toast.error("Card details update Failed!")
+                errorToast("Card details update Failed!")
             })
         }).catch((err) =>{
             console.error(err);
@@ -123,7 +122,7 @@ export default function RegisteredCards() {
     const deleteCard = () =>{
         removeCard(userId, cardID)
         .then((res) =>{
-            toast.success("Card Details Removed Successfully!")
+            successToast("Card Details Removed Successfully!")
             setCard(res.data);
             fetchCards(userId)
             .then((res)=>{
@@ -133,7 +132,7 @@ export default function RegisteredCards() {
             })
         }).catch((err) =>{
             console.error(err);
-            toast.error("Card Details Removal Failed!")
+            errorToast("Card Details Removal Failed!")
         })
         setOpen(false);
     }
@@ -146,15 +145,6 @@ export default function RegisteredCards() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover,
-        },
-        '&:last-child td, &:last-child th': {
-          border: 0,
-        },
-    }));
 
     return cardData.length !== 0 ?(
     <div>
@@ -172,15 +162,15 @@ export default function RegisteredCards() {
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }}  aria-label="customized table">
                             <TableHead>
-                            <StyledTableRow>
-                                <TableCell><b>Card ID</b></TableCell>
-                                <TableCell ><b>Bank Name</b></TableCell>
-                                <TableCell ><b>Name On Card</b></TableCell>
-                                <TableCell ><b>Card Type</b></TableCell>
-                                <TableCell ><b>Card Number</b></TableCell>
-                                <TableCell ><b>Validity</b></TableCell>
-                                <TableCell ><b>Actions</b></TableCell>
-                            </StyledTableRow>
+                            <TableRow>
+                                <TableCell><b>CARD ID</b></TableCell>
+                                <TableCell ><b>BANK NAME</b></TableCell>
+                                <TableCell ><b>NAME ON CARD</b></TableCell>
+                                <TableCell ><b>CARD TYPE</b></TableCell>
+                                <TableCell ><b>CARD NUMBER</b></TableCell>
+                                <TableCell ><b>VALIDITY</b></TableCell>
+                                <TableCell ><b>ACTIONS</b></TableCell>
+                            </TableRow>
                             </TableHead>
                             <TableBody>
                                 {

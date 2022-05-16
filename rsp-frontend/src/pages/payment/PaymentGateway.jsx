@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {useMatch}  from 'react-router-dom'
-import { Container } from '@mui/material'
+import { Container, IconButton } from '@mui/material'
 import { Grid, Paper, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -20,8 +20,11 @@ import { createBill, fetchCards } from '../../api/paymentServiceApi';
 import { fetchReservation } from '../../api/reservationCustomerApi';
 import { fetchUsers } from '../../api/userServiceApi';
 import { getAuth } from '../../util/Utils';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { createEmail } from '../../api/emailServiceApi';
+import { errorToast, successToast } from '../../helper/helper';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { red } from '@mui/material/colors';
 
 export default function PaymentGateway() {
     const userId = getAuth().id;
@@ -30,7 +33,7 @@ export default function PaymentGateway() {
     const [user, setUser] = useState("");
     const [reservationData, setReservationData] = useState("");
     const [cardData, setCardData] = useState([]);
-    const [selectedCard, setSelectedCard] = useState("");
+    const [selectedCard, setSelectedCard] = useState(null);
     const [billData, setBillData] = useState("");
     const [open, setOpen] = React.useState(false);
 
@@ -45,7 +48,7 @@ export default function PaymentGateway() {
         .then((res) =>{
             setReservationData(res.data);
         }).catch((err) =>{
-            toast.error("Error in fetching reservation details!")
+            errorToast("Error in fetching reservation details!")
         })
     }
 
@@ -54,7 +57,7 @@ export default function PaymentGateway() {
         .then((res) =>{
             setCardData(res.data);
         }).catch((err) =>{
-            toast.error("Error in fetching registered cards!")
+            errorToast("Error in fetching registered cards!")
         })
     }
 
@@ -63,13 +66,13 @@ export default function PaymentGateway() {
         .then((res) =>{
             setUser(res.data[0]);
         }).catch((err) =>{
-            toast.error("Error in fetching user details!")
+            errorToast("Error in fetching user details!")
         })
     }
 
     const selectCard = (cardId) =>{
         setSelectedCard(cardId);
-        toast.success("Card Selected!")
+        successToast("Card Selected!")
     }
 
     const handleClickOpen = () => {
@@ -101,17 +104,22 @@ export default function PaymentGateway() {
                 }
                 createEmail(emailObj)
                 .then((res) =>{
-                    console.log("emailsent")
+                    successToast("Email sent!")
                 }).catch((error) =>{
-                    console.log(error)
+                    errorToast("Email sending failed!")
                 })
             }
-            toast.success("Payment Successful!")
+            successToast("Payment Successful!")
             setOpen(false);
         }).catch((err) =>{
-            toast.error("Payment Unsuccessful!")
+            errorToast("Payment Unsuccessful!")
             setOpen(false);
         })
+    }
+
+    const clear = () =>{
+        setSelectedCard("");
+        successToast("Card Deselected!")
     }
 
   return (
@@ -187,11 +195,11 @@ export default function PaymentGateway() {
                             <Table sx={{ minWidth: 400 }} aria-label="simple table">
                                 <TableHead>
                                 <TableRow>
-                                    <TableCell>Card ID</TableCell>
-                                    <TableCell >Bank Name</TableCell>
-                                    <TableCell >Card Type</TableCell>
-                                    <TableCell >Validity</TableCell>
-                                    <TableCell >Actions</TableCell>
+                                    <TableCell ><b>CARD ID</b></TableCell>
+                                    <TableCell ><b>BANK NAME</b></TableCell>
+                                    <TableCell ><b>CARD TYPE</b></TableCell>
+                                    <TableCell ><b>VALIDITY</b></TableCell>
+                                    <TableCell ><b>ACTIONS</b></TableCell>
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -203,12 +211,22 @@ export default function PaymentGateway() {
                                             <TableCell >{row.cardType}</TableCell>
                                             <TableCell >{row.validThru}</TableCell>
                                             <TableCell>
-                                                <Button variant='contained' onClick={()=> selectCard(row.cardId)}>Select</Button>
+                                                <Button variant='contained' onClick={()=> selectCard(row.cardId)} disabled={selectedCard === row.cardId}>Select</Button>
                                             </TableCell>
+                                            <TableCell>
+                                            {
+                                                    selectedCard === row.cardId ?
+                                                    <IconButton >
+                                                        <CancelIcon style={{ color: red[500], fontSize: '25'  }}onClick={clear}/>
+                                                    </IconButton>:
+                                                    <>
+                                                    </>
+                                            }
+                                            </TableCell>
+
                                         </TableRow>
                                         ))
                                     }
-                                    
                                 </TableBody>
                             </Table>
                         </TableContainer>

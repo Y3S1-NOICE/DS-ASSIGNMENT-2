@@ -17,9 +17,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { fetchBill, fetchBills, removeBills } from '../../api/paymentServiceApi';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { red, yellow } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
+import { errorToast, successToast } from '../../helper/helper';
 
 
 export default function BillList() {
@@ -83,7 +83,7 @@ export default function BillList() {
     const deleteBill = () =>{
         removeBills(billID)
         .then((res) =>{
-            toast.success("Bill Deleted Successfully!")
+            successToast("Bill Deleted Successfully!")
             fetchBills()
             .then((res)=>{
                 setBillData(res.data);
@@ -91,20 +91,10 @@ export default function BillList() {
                 console.error(err);
             })
         }).catch((err) =>{
-            toast.error("Error in deleting the Bill!");
+            errorToast("Error in deleting the Bill!");
         })
         setOpen(false);
     }
-
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover,
-        },
-        '&:last-child td, &:last-child th': {
-          border: 0,
-        },
-    }));
-
 
   return (
     <div>
@@ -121,13 +111,13 @@ export default function BillList() {
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
-                            <StyledTableRow>
-                                <TableCell ><b>Bill ID</b></TableCell>
-                                <TableCell ><b>User ID</b></TableCell>
-                                <TableCell ><b>Bill Date</b></TableCell>
-                                <TableCell ><b>Reservation ID</b></TableCell>
-                                <TableCell ><b>Actions</b></TableCell>
-                            </StyledTableRow>
+                            <TableRow>
+                                <TableCell ><b>BILL ID</b></TableCell>
+                                <TableCell ><b>USER ID</b></TableCell>
+                                <TableCell ><b>BILL DATE</b></TableCell>
+                                <TableCell ><b>RESERVATION ID</b></TableCell>
+                                <TableCell ><b>ACTIONS</b></TableCell>
+                            </TableRow>
                             </TableHead>
                             <TableBody>
                                 {

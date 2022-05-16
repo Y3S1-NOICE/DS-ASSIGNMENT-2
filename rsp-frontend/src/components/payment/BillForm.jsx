@@ -3,8 +3,14 @@ import { Grid, Paper, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useForm} from 'react-hook-form'
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Switch from '@mui/material/Switch';
+import Divider from '@mui/material/Divider';
 
 export const BillForm = ({bill, onSubmit})=>{
+    const [expanded, setExpanded] = React.useState(false);
     const {register, handleSubmit, formState:{errors}} = useForm({
         defaultValues: {
             userId:bill ? bill.userId : "",
@@ -21,6 +27,10 @@ export const BillForm = ({bill, onSubmit})=>{
         onSubmit(data)
         console.log(data)
     })
+
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+      };
 
   return (
     <div>
@@ -49,7 +59,7 @@ export const BillForm = ({bill, onSubmit})=>{
                 <Grid item xs={12}>
                     <hr></hr>
                     <Typography>
-                        <b>CARD DETAILS</b>
+                        <b>USE CARD</b> <Switch onChange={handleChange('panel1')} defaultChecked={bill.cardId} disabled={bill.cardId}/>
                     </Typography>
                 </Grid>
                 {
@@ -62,17 +72,32 @@ export const BillForm = ({bill, onSubmit})=>{
                     </>:
                     <>
                         <Grid item xs={12}>
-                            <TextField label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
-                            {...register("cardNo" )} />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography>Valid Thru</Typography>
-                            <TextField  name="validThru" type="date" size="small" fullWidth="true"
-                            {...register("validThru" )} />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField label="CVC" name="cvc" type="text" size="small" fullWidth="true"
-                            {...register("cvc" )} />
+                            <Accordion expanded={expanded === 'panel1'} >
+                                <AccordionSummary aria-controls="panel1a-content" id="panel1a-header"  >
+                                    <Typography><b>CARD DETAILS</b></Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Grid item xs={12}>
+                                        <TextField label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
+                                        {...register("cardNo" )} />
+                                    </Grid><br/>
+                                    <Grid container rowSpacing={1} direction="row" alignItems="center" columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                        <Grid item xs>
+                                            <Typography > Valid Thru :</Typography>
+                                        </Grid>
+                                        <Divider orientation="vertical" flexItem/>
+                                        <Grid item xs ={9}>
+                                            <TextField  name="validThru" type="date" size="small" fullWidth="true"
+                                            {...register("validThru" )} />
+                                        </Grid>
+                                    </Grid>
+                                    <br/>
+                                    <Grid item xs={12}>
+                                        <TextField label="CVC" name="cvc" type="text" size="small" fullWidth="true"
+                                        {...register("cvc" )} />
+                                    </Grid>
+                                </AccordionDetails>
+                                </Accordion>
                         </Grid>
                     </>
                 }
