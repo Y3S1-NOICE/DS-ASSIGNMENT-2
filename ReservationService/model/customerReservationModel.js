@@ -11,7 +11,6 @@ const customerReservationInfoSchema = new mongoose.Schema({
         type: String, 
         // required: true
     },
-
     
     hotelName: {
         type: String,
@@ -65,6 +64,11 @@ const customerReservationInfoSchema = new mongoose.Schema({
 
     childCount: {
         type: Number,
+    },
+
+    status: {
+        type: String,
+        default:"Reservation Pending"
     },
 });
 
