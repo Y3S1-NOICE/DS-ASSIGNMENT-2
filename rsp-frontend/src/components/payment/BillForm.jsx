@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import {useForm} from 'react-hook-form'
 
 export const BillForm = ({bill, onSubmit})=>{
-    const {register, handleSubmit} = useForm({
+    const {register, handleSubmit, formState:{errors}} = useForm({
         defaultValues: {
             userId:bill ? bill.userId : "",
             userName:bill ? bill.userName : "",
@@ -21,6 +21,7 @@ export const BillForm = ({bill, onSubmit})=>{
         onSubmit(data)
         console.log(data)
     })
+
   return (
     <div>
         <form onSubmit={submitHandler}>
@@ -31,20 +32,19 @@ export const BillForm = ({bill, onSubmit})=>{
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12}>
                     <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" 
-                    {...register("userId")} />
+                    {...register("userId")} disabled/>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField label="User Name" name="userName" type="text" size="small" fullWidth="true"
-                    {...register("userName" )} />
+                    {...register("userName" )} disabled/>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography>Bill Date</Typography>
-                    <TextField name="billDate" type="date" size="small" fullWidth="true"
-                    {...register("billDate" )} />
+                    <TextField label="Bill Date" name="billDate" type="text" size="small" fullWidth="true"
+                    {...register("billDate" )} disabled/>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true"
-                    {...register("reservationId" )} />
+                    {...register("reservationId" )} disabled />
                 </Grid>
                 <Grid item xs={12}>
                     <hr></hr>
@@ -57,7 +57,7 @@ export const BillForm = ({bill, onSubmit})=>{
                     <>
                         <Grid item xs={12}>
                             <TextField label="Card ID" name="cardId" type="text" size="small" fullWidth="true"
-                            {...register("cardId" )} />
+                            {...register("cardId" )} disabled/>
                         </Grid>
                     </>:
                     <>
@@ -81,11 +81,11 @@ export const BillForm = ({bill, onSubmit})=>{
                 </Grid>
                 <Grid item xs={12}>
                     <TextField label="Checkout Price" name="checkoutPrice" type="text" size="small" fullWidth="true"
-                    {...register("checkoutPrice" )} />
+                    {...register("checkoutPrice" )} disabled/>
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label="User Email" name="email" type="text" size="small" fullWidth="true"
-                    {...register("email" )} />
+                    <TextField error={errors.email} label={ "User Email"} name="email" type="text" size="small" fullWidth="true"
+                    {...register("email", {required: true} )} helperText={errors.email && "This is a required field!"} />
                 </Grid>
             </Grid><br />
             <Grid item xs={6}>

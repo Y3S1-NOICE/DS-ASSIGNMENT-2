@@ -72,9 +72,12 @@ export default function PaymentGateway() {
     }
 
     const handleClickOpen = () => {
+        let dateTemplate = new Date();
+        let date = (dateTemplate.getMonth()+1) + '-' + dateTemplate.getDate() + '-' + dateTemplate.getFullYear() ;
         setBillData({
             userId:userId,
             userName:user.name,
+            billDate:date,
             reservationId:reservationId,
             cardId:selectedCard,
             checkoutPrice:reservationData.totalPrice
