@@ -20,7 +20,8 @@ export const BillForm = ({bill, onSubmit})=>{
             cardId:bill ? bill.cardId : "",
             cardNo:"",
             checkoutPrice:bill ? bill.checkoutPrice : "",
-            email: bill? bill.email:""
+            email: bill? bill.email:"",
+            phone: bill? bill.phone:""
         }
     })
     const submitHandler = handleSubmit((data) =>{
@@ -111,6 +112,10 @@ export const BillForm = ({bill, onSubmit})=>{
                 <Grid item xs={12}>
                     <TextField error={errors.email} label={ "User Email"} name="email" type="text" size="small" fullWidth="true"
                     {...register("email", {required: true} )} helperText={errors.email && "This is a required field!"} />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField error={errors.phone} label={ "User Phone Number"} name="phone" type="text" size="small" fullWidth="true"
+                    {...register("phone", {required: true} )} helperText={errors.phone && "This is a required field!"} />
                 </Grid>
             </Grid><br />
             <Grid item xs={6}>
