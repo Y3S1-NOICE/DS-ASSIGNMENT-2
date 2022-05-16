@@ -25,6 +25,7 @@ import { createEmail } from '../../api/emailServiceApi';
 import { errorToast, successToast } from '../../helper/helper';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { red } from '@mui/material/colors';
+import { sendSms } from '../../api/smsServiceApi';
 
 export default function PaymentGateway() {
     const userId = getAuth().id;
@@ -36,6 +37,7 @@ export default function PaymentGateway() {
     const [selectedCard, setSelectedCard] = useState(null);
     const [billData, setBillData] = useState("");
     const [open, setOpen] = React.useState(false);
+    const [status, setStatus] = useState("");
 
     useEffect(() =>{
         getUser();
@@ -108,9 +110,23 @@ export default function PaymentGateway() {
                 }).catch((error) =>{
                     errorToast("Email sending failed!")
                 })
+                
+                let smsObj ={
+                    from:"Hotel Reservation System",
+                    to:data.phone,
+                    subject:"Reservation Payment",
+                    message:res.data
+                }
+                sendSms(smsObj)
+                .then((res) =>{
+                    successToast("SMS Sent!");
+                }).catch((error)=>{
+                    errorToast("SMS Sending Failed!");
+                })
             }
             successToast("Payment Successful!")
             setOpen(false);
+            setStatus("Paid")
         }).catch((err) =>{
             errorToast("Payment Unsuccessful!")
             setOpen(false);
@@ -143,6 +159,7 @@ export default function PaymentGateway() {
                         <Grid item xs={3}>
                             <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" defaultValue={userId} disabled />
                         </Grid>
+                       
                     </Grid><br />
                 </Paper><br/>
                 <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
@@ -235,7 +252,14 @@ export default function PaymentGateway() {
                     <br/>
                     <Grid item xs={6}>
                         <center>
-                            <Button variant="contained" type="submit" onClick={handleClickOpen}>Submit</Button>
+                        {
+                            status === "Paid" ?
+                            <Button variant='contained' onClick={() => window.location.href='/my-reservations'} >BACK</Button>:
+                            <>
+                                <Button variant="contained" type="submit" onClick={handleClickOpen}>Submit</Button>
+                            </>
+                        }
+                            
                         </center>
                         
                         <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={"lg"}>
