@@ -1,7 +1,6 @@
 import axios from "axios";
 
 axios.defaults.headers.common['authentication'] = localStorage.getItem('authentication');
-
 //Add card to user
 export const addCard = (userId, cardObj) => axios.post(`http://localhost:5001/users/${userId}/cards`, cardObj);
 
