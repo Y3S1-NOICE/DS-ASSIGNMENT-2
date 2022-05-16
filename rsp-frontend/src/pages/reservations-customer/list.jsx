@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 import MakeReservation from '../../components/reservations/makeCustomerReservationDialog';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 
 const ListOfReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -101,8 +102,6 @@ const ListOfReservations = () => {
               }
             }).map((reservation, index) => (
             <>
-              {
-                reservation.isHotelAvailable === "Available" && (
                   <Grid item xs={2} sm={4} md={3} key={index}>
                   <Card sx={{ maxWidth: 345 }} key={index} style={{background:"white",boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"}}>
                       <CardHeader
@@ -130,16 +129,26 @@ const ListOfReservations = () => {
                           </Typography>
                       </CardContent>
                       <CardActions disableSpacing style={{float:"right"}}>
-                          <Tooltip title="Reserve Now">
-                              <IconButton onClick={() => setEditingReservation(reservation)}>
-                                  <AddTaskIcon />
-                              </IconButton>
-                          </Tooltip>
+                        {reservation.isHotelAvailable === "Available" ?
+                          <>
+                            <Tooltip title="Reserve Now">
+                                <IconButton onClick={() => setEditingReservation(reservation)}>
+                                    <AddTaskIcon />
+                                </IconButton>
+                            </Tooltip>
+                          </>
+                        :
+                          <>
+                            <Tooltip title="Hotel Not Available">
+                                <IconButton disabled={true} >
+                                    <DoNotDisturbAltIcon/>
+                                </IconButton>
+                            </Tooltip>
+                          </>
+                        }
                       </CardActions>
                       </Card>
                   </Grid>
-                )
-              }
             </>
             ))}
         </Grid>

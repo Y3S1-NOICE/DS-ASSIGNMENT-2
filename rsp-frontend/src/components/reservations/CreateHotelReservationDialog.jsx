@@ -120,8 +120,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelName || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         {/* <TextField
                             autoFocus
@@ -134,15 +135,16 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         /> */}
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Ratings</InputLabel>
+                        <FormControl fullWidth style={{marginTop:"8px"}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Hotel Ratings</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
                                 value={reservation.hotelRatings || 0}
                                 label="Hotel Ratings"
                                 onChange={handleChange}
                                 name="hotelRatings"
+                                InputLabelProps={{ shrink: true, required: true }}
                             >
                             <MenuItem value="Tourist">Tourist</MenuItem>
                             <MenuItem value="Standard">Standard</MenuItem>
@@ -161,8 +163,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelAddress || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         <TextField
                             autoFocus
@@ -172,8 +175,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelContact || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -185,8 +189,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelImage || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         <TextField
                             autoFocus
@@ -196,8 +201,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.description || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -209,8 +215,9 @@ const CreateHotelReservation = (props) =>{
                             type="number"
                             value={reservation.availableRooms || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         {/* <TextField
                             autoFocus
@@ -223,15 +230,16 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         /> */}
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
+                        <FormControl fullWidth style={{marginTop:"8px"}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Hotel Available Status</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
                                 value={reservation.isHotelAvailable || ''}
                                 label="Hotel Available Status"
                                 onChange={handleChange}
                                 name="isHotelAvailable"
+                                InputLabelProps={{ shrink: true, required: true }}
                             >
                             <MenuItem value="Available">Available</MenuItem>
                             <MenuItem value="Not Available">Not Available</MenuItem>

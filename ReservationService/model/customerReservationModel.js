@@ -9,7 +9,7 @@ const customerReservationInfoSchema = new mongoose.Schema({
 
     userId: {
         type: String, 
-        // required: true
+        required: true,
     },
     
     hotelName: {
@@ -25,8 +25,6 @@ const customerReservationInfoSchema = new mongoose.Schema({
     contact: {
         type: String,
         required: true,
-        minlength: 9,
-        maxlength: 15,
     },
 
     email: {

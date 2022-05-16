@@ -114,16 +114,16 @@ const Reservations = () => {
           <TableHead>
             <TableRow>
               {/* <TableCell>ID</TableCell> */}
-              <TableCell align="left">Hotel Name</TableCell>
-              <TableCell align="center">Ratings</TableCell>
-              <TableCell align="center">Address</TableCell>
-              <TableCell align="center">Contact</TableCell>
-              <TableCell align="center">Description</TableCell>
-              <TableCell align="center">Room Price(LKR)</TableCell>
+              <TableCell align="left"><b>Hotel Name</b></TableCell>
+              <TableCell align="center"><b>Ratings</b></TableCell>
+              <TableCell align="center"><b>Address</b></TableCell>
+              <TableCell align="center"><b>Contact</b></TableCell>
+              <TableCell align="center"><b>Description</b></TableCell>
+              <TableCell align="center"><b>Room Price(LKR)</b></TableCell>
               {/* <TableCell align="center">Service Price</TableCell>
               <TableCell align="center">Tax</TableCell> */}
-              <TableCell align="center">Available Rooms</TableCell>
-              <TableCell align="center">Status</TableCell>
+              <TableCell align="center"><b>Available Rooms</b></TableCell>
+              <TableCell align="center"><b>Status</b></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
