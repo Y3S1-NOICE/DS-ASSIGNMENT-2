@@ -4,7 +4,9 @@ import cors from "cors";
 import connectDatabase from "./database/connection.js";
 import {addTaxi, viewAllTaxis, viewATaxi, updateTaxi, removeTaxi} from "./services/taxiService.js";
 import { addCustomer, viewACustomer, viewAllCustomers, updateCustomer,removeCustomer } from "./services/customerService.js";
-
+import {roles} from "./utils/utilities.js"
+import { authenticate, authorize } from "./middleware/auth.js";
+const { ADMIN, CUSTOMER } = roles;
 
 //Enable .env file
 dotenv.config();
@@ -19,19 +21,19 @@ app.use(cors({origin:"*"}));
 
 //Let express know to use json for http requests and response.
 app.use(express.json());
+app.use(authenticate);
 
+app.post('/taxis', authorize(ADMIN), addTaxi);
+app.get('/taxis', authorize(ADMIN, CUSTOMER), viewAllTaxis);
+app.get('/taxis/:id', authorize(ADMIN, CUSTOMER), viewATaxi);
+app.put('/taxis/:id', authorize(ADMIN), updateTaxi);
+app.delete('/taxis/:id', authorize(ADMIN), removeTaxi);
 
-app.post('/taxis', addTaxi);
-app.get('/taxis', viewAllTaxis);
-app.get('/taxis/:id', viewATaxi);
-app.put('/taxis/:id', updateTaxi);
-app.delete('/taxis/:id', removeTaxi);
-
-app.post('/customers', addCustomer);
-app.get('/customers', viewAllCustomers);
-app.get('/customers/:id', viewACustomer);
-app.put('/customers/:id', updateCustomer);
-app.delete('/customers/:id', removeCustomer);
+app.post('/customers', authorize(CUSTOMER), addCustomer);
+app.get('/customers', authorize(CUSTOMER, ADMIN), viewAllCustomers);
+app.get('/customers/:id', authorize(ADMIN), viewACustomer);
+app.put('/customers/:id', authorize(ADMIN), updateCustomer);
+app.delete('/customers/:id', authorize(CUSTOMER, ADMIN), removeCustomer);
 
 app.listen(process.env.PORT, () =>{
     console.log(`Server is running on port ${PORT}`);
