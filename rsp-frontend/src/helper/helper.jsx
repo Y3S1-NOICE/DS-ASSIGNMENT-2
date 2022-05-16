@@ -1,0 +1,1 @@
+export const handleError = () => alert('Something went wrong');

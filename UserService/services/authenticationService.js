@@ -13,9 +13,9 @@ const login = (req, res) => {
         } else if (users.length > 0){
             const { id, role } = users[0];
             const authBody = { id, role };
-            const accessToken = jwt.sign(authBody, process.env.ACCESS_SECRET, { expiresIn: '1h' });
+            const accessToken = jwt.sign(authBody, process.env.ACCESS_SECRET);
             const refreshToken = jwt.sign(authBody, process.env.REFRESH_SECRET);
-            res.status(200).json({accessToken: accessToken, refreshToken: refreshToken});
+            res.status(200).json({isSuccessful:true, accessToken: accessToken, refreshToken: refreshToken});
         } else {
             res.status(401).json('invalid credentials');
         }

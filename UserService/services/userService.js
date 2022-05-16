@@ -10,7 +10,7 @@ const findUsers = (req, res) => {
     user.find(filter, (error, users) => {
         error ? 
             res.status(500).json(error) :
-            res.status(http.OK).json(users);
+            res.status(200).json(users);
         })
 }
 
@@ -24,7 +24,7 @@ const registerUser = (req, res) => {
 }
 
 const updateUser = (req, res) => {
-    const filter = { id: req.query.id || 'inavlidId' };
+    const filter = { id: req.params.id || 'inavlidId' };
     const getUpdatedData = { new: true };
 
     user.findOneAndUpdate(filter, req.body, getUpdatedData, (error, updatedUser) => {
@@ -37,7 +37,7 @@ const updateUser = (req, res) => {
 }
 
 const deleteUser = (req, res) => {
-    const filter = { id: req.query.id || 'inavlidId' };
+    const filter = { id: req.params.id || 'inavlidId' };
 
     user.findOneAndDelete(filter, (error, deletedUser) => {
         !deletedUser ? 
