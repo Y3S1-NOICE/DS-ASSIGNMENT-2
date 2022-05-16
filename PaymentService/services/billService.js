@@ -7,7 +7,7 @@ import { mailOptions, transporter } from "./emailService.js";
 
 //create bill
 const createBill = (req, res) =>{
-    let billID = ID.generate(new Date().toJSON());
+    let billID = "B" + ID.generate(new Date().toJSON());
     const newBill = bill({
         billId:billID,
         userId:req.body.userId,
@@ -18,9 +18,9 @@ const createBill = (req, res) =>{
         checkoutPrice:req.body.checkoutPrice 
     })
     let status = null;
-    if(newBill.cardId){
+    if(newBill.cardId){ //checks if the new bill has a card ID
         const cardFilter = {cardId: newBill.cardId}
-        card.findOne(cardFilter, (error, cardDetails) =>{
+        card.findOne(cardFilter, (error, cardDetails) =>{ //checks if the cardID exists in database
             if(!cardDetails){
                 res.status(404).json("No Registered Card Found!")
             }else if(error){
@@ -32,13 +32,13 @@ const createBill = (req, res) =>{
                     if(error){
                         res.status(400).json("Payment record unsuccessfull!");
                     }else{
-                        let mailOpt = {
+                        let mailOpt = {//creating the email sending options
                             from:mailOptions.from,
                             to:req.body.email,
                             subject:"Reservation Payment",
                             text:message
                         }
-                        transporter.sendMail(mailOpt, function(err, success){
+                        transporter.sendMail(mailOpt, function(err, success){//calling sendMail method
                             err?
                                 console.log(err):
                                 res.status(201).json(message);
@@ -49,7 +49,7 @@ const createBill = (req, res) =>{
         });
     }else{
         let message = "";
-        if(req.body.cardNo){
+        if(req.body.cardNo){//checks if the request body has a cardNumber
             message = "The card payment of Rs: " + newBill.checkoutPrice +"/= is completed! Used Card No.: " + req.body.cardNo;
         }else{
             message = "The cash payment of Rs: " + newBill.checkoutPrice +"/= is completed!";
@@ -58,13 +58,13 @@ const createBill = (req, res) =>{
             if(error){
                 res.status(400).json("Payment record unsuccessfull!");
             }else{
-                let mailOpt ={
+                let mailOpt ={//creating the email sending options
                     from:mailOptions.from,
                     to:req.body.email,
                     subject:"Reservation Payment",
                     text:message
                 }
-                transporter.sendMail(mailOpt, function(err, success){
+                transporter.sendMail(mailOpt, function(err, success){//calling sendMail method
                     err ?
                         console.log(err):
                         res.status(201).json(message);

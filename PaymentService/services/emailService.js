@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+//email sender details
 const transporter = nodemailer.createTransport({
     service:"gmail",
     auth:{
@@ -8,6 +9,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+//mail ootions method
 const mailOptions = {
     from:"reservation.hotel.app@gmail.com",
     to:"",
