@@ -5,7 +5,7 @@ const addCustomerReservation = (req, res) => {
     const room = 5000 
     let totRoom = (5000 * req.body.roomCount) * req.body.nightCount; 
     const newReservation = customerReservation(
-       {    "userId":req.params.userId,
+       {    "userId":req.body.userId,
             "hotelName":req.body.hotelName,
             "reserveeName":req.body.reserveeName,
             "contact":req.body.contact,

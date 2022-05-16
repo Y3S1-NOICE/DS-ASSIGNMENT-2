@@ -9,7 +9,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import toast, { Toaster } from 'react-hot-toast';
 import { makeReservation } from '../../api/reservationCustomerApi';
-import jwtDecode from 'jwt-decode';
 import { fetchUsers } from '../../api/userServiceApi';
 import { getAuth } from '../../util/Utils';
 
@@ -18,13 +17,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const MakeReservation = (props) =>{
-    const userId = getAuth().id;
+    const loggedUserId = getAuth().id;
     const [reservation, setReservation] = useState(props.reservation);
     const [user, setUser] = useState([]);
 
     useEffect(() =>{
         function getUser(){
-            fetchUsers(`?id=${userId}`)
+            fetchUsers(`?id=${loggedUserId}`)
             .then((res) =>{
                 setUser(res.data);
                 console.log(res.data);
@@ -37,7 +36,7 @@ const MakeReservation = (props) =>{
 
     const handleSubmit = () => {
         const resObj = {
-            userId: userId,
+            userId: loggedUserId,
             hotelName: reservation.hotelName,
             reserveeName: reservation.reserveeName,
             contact: reservation.contact,
@@ -172,6 +171,7 @@ const MakeReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                             InputLabelProps={{ required: true }}
+                            required
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -181,11 +181,10 @@ const MakeReservation = (props) =>{
                             name="userId"
                             label="User Id"
                             type="text"
-                            value={userId}
+                            value={loggedUserId}
                             fullWidth
                             variant="outlined"
                             onChange={handleChange}
-                            defaultValue={userId}
                             disabled={true}
                         />
                         <TextField
