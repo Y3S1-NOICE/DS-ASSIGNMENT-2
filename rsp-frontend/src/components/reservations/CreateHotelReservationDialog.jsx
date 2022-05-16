@@ -135,16 +135,15 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         /> */}
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Ratings</InputLabel>
+                        <FormControl fullWidth style={{marginTop:"8px"}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Hotel Ratings</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
                                 value={reservation.hotelRatings || 0}
                                 label="Hotel Ratings"
                                 onChange={handleChange}
                                 name="hotelRatings"
-                                variant="standard"
                                 InputLabelProps={{ shrink: true, required: true }}
                             >
                             <MenuItem value="Tourist">Tourist</MenuItem>
@@ -231,16 +230,15 @@ const CreateHotelReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         /> */}
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
+                        <FormControl fullWidth style={{marginTop:"8px"}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Hotel Available Status</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
                                 value={reservation.isHotelAvailable || ''}
                                 label="Hotel Available Status"
                                 onChange={handleChange}
                                 name="isHotelAvailable"
-                                variant="standard"
                                 InputLabelProps={{ shrink: true, required: true }}
                             >
                             <MenuItem value="Available">Available</MenuItem>

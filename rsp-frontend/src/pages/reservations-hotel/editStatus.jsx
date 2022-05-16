@@ -81,16 +81,15 @@ const EditStatus = (props) =>{
             <DialogContent style={{width:"500px", height:"100px"}}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={12}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Reservation Status</InputLabel>
+                    <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Reservation Status</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
                             value={reservation.status}
                             name="status"
                             label="Reservation Status"
                             onChange={handleChange}
-                            variant="standard"
                         >
                             <MenuItem value="Reservation Pending">Reservation Pending</MenuItem>
                             <MenuItem value="Reservation Confirmed">Reservation Confirmed</MenuItem>
