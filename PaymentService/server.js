@@ -23,13 +23,13 @@ app.use(cors({origin:"*"}));
 app.use(express.json());
 app.use(authenticate);
 
-app.post('/users/:userId/cards', authorize(CUSTOMER), addCard);
-app.get('/users/:userId/cards', authorize(CUSTOMER), fetchCards);
-app.get('/users/:userId/cards/:cardId', authorize(CUSTOMER), fetchCard);
-app.put('/users/:userId/cards/:cardId', authorize(CUSTOMER), updateCard);
-app.delete('/users/:userId/cards/:cardId', authorize(CUSTOMER), removeCard);
+app.post('/customers/:userId/cards', authorize(CUSTOMER), addCard);
+app.get('/customers/:userId/cards', authorize(CUSTOMER), fetchCards);
+app.get('/customers/:userId/cards/:cardId', authorize(CUSTOMER), fetchCard);
+app.put('/customers/:userId/cards/:cardId', authorize(CUSTOMER), updateCard);
+app.delete('/customers/:userId/cards/:cardId', authorize(CUSTOMER), removeCard);
 
-app.post('/users/:userId/payments', authorize(CUSTOMER),createBill);
+app.post('/customers/:userId/payments', authorize(CUSTOMER),createBill);
 app.get('/bills', authorize(ADMIN),fetchBills);
 app.get('/bills/:billId', authorize(ADMIN),fetchBill);
 app.delete('/bills/:billId', authorize(ADMIN),removeBills);

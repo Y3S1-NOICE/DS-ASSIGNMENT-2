@@ -28,7 +28,7 @@ export default function BillList() {
     const [billID, setBillID] = useState("")
     const [open, setOpen] = React.useState(false);
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(2);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [reqType, setReqType] = useState("")
 
     useEffect(() =>{
@@ -107,8 +107,8 @@ export default function BillList() {
             <Typography variant='h5'><b>PAID BILLS</b></Typography><br/>
         </center>
         <Grid>
-                <Paper elevation={3} style={{padding:10}} sx={{ display: 'grid'}}>
-                    <TableContainer component={Paper}>
+                <Paper elevation={0} style={{padding:10, backgroundColor:'transparent'}} sx={{ display: 'grid'}} >
+                    <TableContainer  style={{opacity: 1, background: 'transparent'}}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                             <TableRow>
@@ -208,7 +208,7 @@ export default function BillList() {
                             </TableBody>
                             <TableRow>
                             <TablePagination
-                                rowsPerPageOptions={[2, 3, 5]}
+                                rowsPerPageOptions={[5, 10, 15]}
                                 count={billData.length}
                                 page={page}
                                 onPageChange={handleChangePage}

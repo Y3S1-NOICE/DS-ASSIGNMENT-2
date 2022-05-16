@@ -39,7 +39,7 @@ app.use(express.json());
 app.use(authenticate);
 
 app.post('/admin/reservations', authorize(ADMIN), addHotelReservation);
-app.get('/admin/reservations', authorize(ADMIN), getAllHotelReservations);
+app.get('/admin/reservations', authorize(ADMIN, CUSTOMER), getAllHotelReservations);
 app.get('/admin/reservations/:id', authorize(ADMIN), getAHotelReservation);
 app.put('/admin/reservations/:id', authorize(ADMIN), updateHotelReservation);
 app.delete('/admin/reservations/:id', authorize(ADMIN), removeHotelReservation);

@@ -136,8 +136,8 @@ export default function PaymentGateway() {
                 </center>
             </Typography><br/>
             <Grid>
-                <Paper elevation={3} style={{padding:20}}>
-                <Paper elevation={3} style={{padding:20}}>
+                <Paper elevation={0} style={{padding:20, backgroundColor:'transparent'}}>
+                <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                 <Typography variant='h6'><b>GENERAL DETAILS</b></Typography><br/>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={3}>
@@ -145,7 +145,7 @@ export default function PaymentGateway() {
                         </Grid>
                     </Grid><br />
                 </Paper><br/>
-                <Paper elevation={3} style={{padding:20}}>
+                <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                     <Typography variant='h6'><b>RESERVATION DETAILS</b></Typography><br/>
                     
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -153,7 +153,7 @@ export default function PaymentGateway() {
                         <TextField label="Reservation ID" name="reservationId" type="text" size="small" fullWidth="true" defaultValue={reservationId} disabled/>
                     </Grid>
                     </Grid><br/>
-                    <Paper elevation={3} style={{padding:20}}>
+                    <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid item xs={12}>
                                 <Typography align='center'><b>Hotel Name : </b> {reservationData.hotelName}</Typography>
@@ -188,10 +188,10 @@ export default function PaymentGateway() {
                         </Grid> 
                     </Paper>
                     <br/>
-                    <Paper elevation={3} style={{padding:20}}>
+                    <Paper elevation={3} style={{padding:20, backgroundColor:'transparent'}}>
                         <Typography variant='h6'><b>CARD DETAILS</b></Typography><br/>
-                        <Paper elevation={3} style={{padding:10}} sx={{ display: 'grid'}}>
-                        <TableContainer component={Paper}>
+                        <Paper elevation={0} style={{padding:10, backgroundColor:'transparent'}} sx={{ display: 'grid'}}>
+                        <TableContainer style={{opacity: 1, background: 'transparent'}}>
                             <Table sx={{ minWidth: 400 }} aria-label="simple table">
                                 <TableHead>
                                 <TableRow>
@@ -234,7 +234,10 @@ export default function PaymentGateway() {
                     </Paper>
                     <br/>
                     <Grid item xs={6}>
-                        <Button variant="contained" type="submit" onClick={handleClickOpen}>Submit</Button>
+                        <center>
+                            <Button variant="contained" type="submit" onClick={handleClickOpen}>Submit</Button>
+                        </center>
+                        
                         <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={"lg"}>
                         <DialogTitle><b>MAKE PAYMENT</b></DialogTitle>
                         <DialogContent>
@@ -245,7 +248,7 @@ export default function PaymentGateway() {
                                 billData ?(
                                     <div>
                                         <br/>
-                                        <Container maxWidth="100%">
+                                        <Container maxWidth="100%" >
                                             <BillForm bill={billData} onSubmit={onSubmit}/>
                                         </Container>
                                     </div>

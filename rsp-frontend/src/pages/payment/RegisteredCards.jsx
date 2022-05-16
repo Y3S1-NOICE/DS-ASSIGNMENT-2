@@ -158,8 +158,8 @@ export default function RegisteredCards() {
             <Button variant='contained' onClick={()=> handleClickOpen(userId, "ADD-CARD")}>Add Card</Button>
         </center><br/>
             <Grid>
-                <Paper elevation={3} style={{padding:10}} sx={{ display: 'grid'}}>
-                    <TableContainer component={Paper}>
+                <Paper elevation={0} style={{padding:10, backgroundColor:'transparent'}} sx={{ display: 'grid'}}>
+                    <TableContainer style={{opacity: 1, background: 'transparent'}}>
                         <Table sx={{ minWidth: 650 }}  aria-label="customized table">
                             <TableHead>
                             <TableRow>
