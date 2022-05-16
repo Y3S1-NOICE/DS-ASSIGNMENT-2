@@ -123,7 +123,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelName || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         {/* <TextField
@@ -146,6 +146,7 @@ const EditReservation = (props) =>{
                                 label="Hotel Ratings"
                                 onChange={handleChange}
                                 name="hotelRatings"
+                                variant="standard"
                             >
                             <MenuItem value="Tourist">Tourist</MenuItem>
                             <MenuItem value="Standard">Standard</MenuItem>
@@ -164,7 +165,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelAddress || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         <TextField
@@ -175,7 +176,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelContact || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                     </Grid>
@@ -188,7 +189,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelImage || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         <TextField
@@ -199,7 +200,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.description || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                     </Grid>
@@ -212,7 +213,7 @@ const EditReservation = (props) =>{
                             type="number"
                             value={reservation.availableRooms || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         <FormControl fullWidth style={{marginTop:"8px"}}>
@@ -224,6 +225,7 @@ const EditReservation = (props) =>{
                                 label="Hotel Available Status"
                                 onChange={handleChange}
                                 name="isHotelAvailable"
+                                variant="standard"
                             >
                             <MenuItem value="Available">Available</MenuItem>
                             <MenuItem value="Not Available">Not Available</MenuItem>

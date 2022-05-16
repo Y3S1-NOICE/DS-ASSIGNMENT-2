@@ -90,7 +90,7 @@ const EditStatus = (props) =>{
                             name="status"
                             label="Reservation Status"
                             onChange={handleChange}
-                            variant="outlined"
+                            variant="standard"
                         >
                             <MenuItem value="Reservation Pending">Reservation Pending</MenuItem>
                             <MenuItem value="Reservation Confirmed">Reservation Confirmed</MenuItem>

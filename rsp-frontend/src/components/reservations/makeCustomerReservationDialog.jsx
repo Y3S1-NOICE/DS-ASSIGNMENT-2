@@ -156,7 +156,7 @@ const MakeReservation = (props) =>{
                             type="text"
                             value={reservation.hotelName || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                             disabled={true}
                         />
@@ -168,9 +168,9 @@ const MakeReservation = (props) =>{
                             type="text"
                             value={reservation.reserveeName || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
-                            InputLabelProps={{ required: true }}
+                            InputLabelProps={{ shrink: true, required: true }}
                             required
                         />
                     </Grid>
@@ -183,7 +183,7 @@ const MakeReservation = (props) =>{
                             type="text"
                             value={loggedUserId}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                             disabled={true}
                         />
@@ -195,8 +195,9 @@ const MakeReservation = (props) =>{
                             type="text"
                             value={reservation.email || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -208,7 +209,7 @@ const MakeReservation = (props) =>{
                             type="date"
                             value={reservation.checkInDate || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
                         />
@@ -220,7 +221,7 @@ const MakeReservation = (props) =>{
                             type="date"
                             value={reservation.checkOutDate || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
                         />
@@ -234,8 +235,9 @@ const MakeReservation = (props) =>{
                             type="number"
                             value={reservation.nightCount || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         <TextField
                             autoFocus
@@ -245,8 +247,9 @@ const MakeReservation = (props) =>{
                             type="number"
                             value={reservation.roomCount || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -258,7 +261,7 @@ const MakeReservation = (props) =>{
                             type="text"
                             value={reservation.contact || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ required: true }}
                         />
@@ -270,7 +273,7 @@ const MakeReservation = (props) =>{
                             type="number"
                             value={reservation.adultCount || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                     </Grid>
@@ -283,7 +286,7 @@ const MakeReservation = (props) =>{
                             type="number"
                             value={reservation.childCount || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                     </Grid>

@@ -120,8 +120,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelName || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         {/* <TextField
                             autoFocus
@@ -143,6 +144,8 @@ const CreateHotelReservation = (props) =>{
                                 label="Hotel Ratings"
                                 onChange={handleChange}
                                 name="hotelRatings"
+                                variant="standard"
+                                InputLabelProps={{ shrink: true, required: true }}
                             >
                             <MenuItem value="Tourist">Tourist</MenuItem>
                             <MenuItem value="Standard">Standard</MenuItem>
@@ -161,8 +164,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelAddress || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         <TextField
                             autoFocus
@@ -172,8 +176,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelContact || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -185,8 +190,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.hotelImage || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         <TextField
                             autoFocus
@@ -196,8 +202,9 @@ const CreateHotelReservation = (props) =>{
                             type="text"
                             value={reservation.description || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -209,8 +216,9 @@ const CreateHotelReservation = (props) =>{
                             type="number"
                             value={reservation.availableRooms || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
+                            InputLabelProps={{ shrink: true, required: true }}
                         />
                         {/* <TextField
                             autoFocus
@@ -232,6 +240,8 @@ const CreateHotelReservation = (props) =>{
                                 label="Hotel Available Status"
                                 onChange={handleChange}
                                 name="isHotelAvailable"
+                                variant="standard"
+                                InputLabelProps={{ shrink: true, required: true }}
                             >
                             <MenuItem value="Available">Available</MenuItem>
                             <MenuItem value="Not Available">Not Available</MenuItem>
