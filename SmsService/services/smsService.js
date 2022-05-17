@@ -6,9 +6,5 @@ export const sendSms = (req, res) =>{
         subject:req.body.subject,
         message:req.body.message
     }
-    try{
         res.status(200).json(smsObj)
-    }catch(error){
-        res.status(400).json(error)
-    }
 }

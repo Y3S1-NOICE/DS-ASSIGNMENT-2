@@ -17,6 +17,7 @@ const mailOptions = {
     text:""
 }
 
+//create email method
 const createEmail = (req, res) =>{
     let mailOpt ={
         from:mailOptions.from,

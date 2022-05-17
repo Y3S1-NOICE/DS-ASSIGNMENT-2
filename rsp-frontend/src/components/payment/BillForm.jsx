@@ -19,6 +19,7 @@ export const BillForm = ({bill, onSubmit})=>{
             reservationId:bill ? bill.reservationId : "",
             cardId:bill ? bill.cardId : "",
             cardNo:"",
+            cardHolderName:"",
             checkoutPrice:bill ? bill.checkoutPrice : "",
             email: bill? bill.email:"",
             phone: bill? bill.phone:""
@@ -82,6 +83,11 @@ export const BillForm = ({bill, onSubmit})=>{
                                         <TextField label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
                                         {...register("cardNo" )} />
                                     </Grid><br/>
+                                    <Grid item xs={12}>
+                                        <TextField label="Card Holders Name" name="cardHolderName" type="text" size="small" fullWidth="true"
+                                        {...register("cardHolderName" )} />
+                                    </Grid>
+                                    <br/>
                                     <Grid container rowSpacing={1} direction="row" alignItems="center" columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                         <Grid item xs>
                                             <Typography > Valid Thru :</Typography>
