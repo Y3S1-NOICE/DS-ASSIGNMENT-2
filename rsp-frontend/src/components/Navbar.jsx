@@ -9,13 +9,12 @@ import {roles, getAuth, logout} from '../util/Utils';
 
 export default function NavBar(props) {
     const [role, setRole] = useState(null);
-    const {ADMIN, WORKER, CUSTOMER} = roles;
+    const {SYSTEM_ADMIN, HOTEL_ADMIN, CUSTOMER} = roles;
     
 
     useEffect(() => {
         if (!props.noReRender) {
             const auth = getAuth(); 
-            console.log(auth);
             auth && auth.role && setRole(auth.role);
         }
     },[]);
@@ -36,7 +35,7 @@ export default function NavBar(props) {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {
-                role === ADMIN && 
+                role === SYSTEM_ADMIN && 
                 <>
                     <Button color="inherit" onClick={() => window.location.href='/users'}>Users</Button>
                     <Button color="inherit" onClick={() => window.location.href='/bills'}>Bills</Button>
@@ -58,7 +57,7 @@ export default function NavBar(props) {
 
             }
             {
-                role === WORKER && 
+                role === HOTEL_ADMIN && 
                 <>
                     <Button color="inherit" onClick={() => window.location.href='/bills'}>Bills</Button>
                     <Button color="inherit" >Reservations</Button>

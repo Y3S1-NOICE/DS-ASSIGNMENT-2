@@ -90,7 +90,7 @@ class MapComponent extends Component {
                     </Map>
                 }
 
-                {this.state.role === 'Admin' &&
+                {this.state.role === 'SystemAdmin' &&
                     <Dialog open={this.state.open} onClose={() => this.setState(prevState => ({ ...prevState, open: false }))}>
                         <DialogTitle>Change Hotel Location</DialogTitle>
                         <DialogContent>

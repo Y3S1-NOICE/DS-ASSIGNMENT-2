@@ -6,7 +6,7 @@ import {addTaxi, viewAllTaxis, viewATaxi, updateTaxi, removeTaxi} from "./servic
 import { addCustomer, viewACustomer, viewAllCustomers, updateCustomer,removeCustomer } from "./services/customerService.js";
 import {roles} from "./utils/utilities.js"
 import { authenticate, authorize } from "./middleware/auth.js";
-const { ADMIN, CUSTOMER } = roles;
+const { SYSTEM_ADMIN, CUSTOMER } = roles;
 
 //Enable .env file
 dotenv.config();
@@ -23,17 +23,17 @@ app.use(cors({origin:"*"}));
 app.use(express.json());
 app.use(authenticate);
 
-app.post('/taxis', authorize(ADMIN), addTaxi);
-app.get('/taxis', authorize(ADMIN, CUSTOMER), viewAllTaxis);
-app.get('/taxis/:id', authorize(ADMIN, CUSTOMER), viewATaxi);
-app.put('/taxis/:id', authorize(ADMIN), updateTaxi);
-app.delete('/taxis/:id', authorize(ADMIN), removeTaxi);
+app.post('/taxis', authorize(SYSTEM_ADMIN), addTaxi);
+app.get('/taxis', authorize(SYSTEM_ADMIN, CUSTOMER), viewAllTaxis);
+app.get('/taxis/:id', authorize(SYSTEM_ADMIN, CUSTOMER), viewATaxi);
+app.put('/taxis/:id', authorize(SYSTEM_ADMIN), updateTaxi);
+app.delete('/taxis/:id', authorize(SYSTEM_ADMIN), removeTaxi);
 
 app.post('/customers', authorize(CUSTOMER), addCustomer);
-app.get('/customers', authorize(CUSTOMER, ADMIN), viewAllCustomers);
-app.get('/customers/:id', authorize(ADMIN), viewACustomer);
-app.put('/customers/:id', authorize(ADMIN), updateCustomer);
-app.delete('/customers/:id', authorize(CUSTOMER, ADMIN), removeCustomer);
+app.get('/customers', authorize(CUSTOMER, SYSTEM_ADMIN), viewAllCustomers);
+app.get('/customers/:id', authorize(SYSTEM_ADMIN), viewACustomer);
+app.put('/customers/:id', authorize(SYSTEM_ADMIN), updateCustomer);
+app.delete('/customers/:id', authorize(CUSTOMER, SYSTEM_ADMIN), removeCustomer);
 
 app.listen(process.env.PORT, () =>{
     console.log(`Server is running on port ${PORT}`);

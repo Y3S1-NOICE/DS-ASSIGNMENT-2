@@ -1,9 +1,9 @@
 import jwtDecode from 'jwt-decode';
 
 export const roles = {
-    ADMIN: 'Admin',
-    WORKER: 'Worker',
-    CUSTOMER: 'Customer'
+    CUSTOMER: 'Customer',
+    HOTEL_ADMIN: 'HotelAdmin',
+    SYSTEM_ADMIN: 'SystemAdmin'
 }
 
 export const getAuth = () => {
