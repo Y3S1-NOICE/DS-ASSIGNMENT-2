@@ -16,7 +16,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { BillForm } from '../../components/payment/BillForm';
-import { createBill, fetchCards } from '../../api/paymentServiceApi';
+import { createBill } from '../../api/billServiceApi';
+import { makePayment } from '../../api/paymentServiceApi';
 import { fetchReservation } from '../../api/reservationCustomerApi';
 import { fetchUsers } from '../../api/userServiceApi';
 import { getAuth } from '../../util/Utils';
@@ -26,6 +27,7 @@ import { errorToast, successToast } from '../../helper/helper';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { red } from '@mui/material/colors';
 import { sendSms } from '../../api/smsServiceApi';
+import { fetchCards } from '../../api/cardServiceApi';
 
 export default function PaymentGateway() {
     const userId = getAuth().id;
@@ -96,9 +98,16 @@ export default function PaymentGateway() {
     };
 
     const onSubmit = (data) =>{
-        createBill(userId, data)
+        makePayment(userId, data)
         .then((res) =>{
             if(res.status === 201){
+                createBill(userId, data)
+                .then((res) =>{
+                    successToast("Bill Created!")
+                }).catch((err) =>{
+                    errorToast("Bill Create Failed!");
+                })
+
                 let emailObj ={
                     email:data.email,
                     subject:"Reservation Payment",
@@ -123,14 +132,16 @@ export default function PaymentGateway() {
                 }).catch((error)=>{
                     errorToast("SMS Sending Failed!");
                 })
+                
+                successToast("Payment Completed!");
+                setOpen(false);
+                setStatus("Paid")
             }
-            successToast("Payment Successful!")
-            setOpen(false);
-            setStatus("Paid")
-        }).catch((err) =>{
-            errorToast("Payment Unsuccessful!")
+        }).catch((error) =>{
+            errorToast("Payment Failed!");
             setOpen(false);
         })
+      
     }
 
     const clear = () =>{

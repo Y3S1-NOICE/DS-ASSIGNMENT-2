@@ -16,7 +16,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
-import { addCard, fetchCard, fetchCards, removeCard, updateCard } from '../../api/paymentServiceApi';
+import { addCard, fetchCard, fetchCards, removeCard, updateCard } from '../../api/cardServiceApi.jsx';
 import { CardForm } from '../../components/payment/CardForm'
 import { getAuth } from '../../util/Utils';
 import {yellow} from '@mui/material/colors'
