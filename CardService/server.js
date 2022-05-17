@@ -5,7 +5,7 @@ import connectDatabase from "./database/connection.js";
 import { addCard, fetchCard, fetchCards, removeCard, updateCard } from "./services/cardService.js";
 import { roles } from "./utils/utilities.js";
 import { authenticate, authorize } from "./middleware/auth.js";
-const {ADMIN, CUSTOMER} = roles;
+const { CUSTOMER } = roles;
 
 //Enable .env file
 dotenv.config();

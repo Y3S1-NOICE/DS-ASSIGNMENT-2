@@ -11,28 +11,14 @@ const createBill = (req, res) =>{
         billDate:req.body.billDate,
         reservationId:req.body.reservationId,
         cardId:req.body.cardId,
+        cardNo:req.body.cardNo,
         checkoutPrice:req.body.checkoutPrice 
     })
-    if(newBill.cardId){ //checks if the new bill has a card ID
-        let message = "The card payment of Rs: " + newBill.checkoutPrice + "/= is completed! Used pre-registered card with ID: " + req.body.cardId;
-        newBill.save((error) =>{
-            error ?
-                res.status(400).json("Payment record unsuccessfull!"):
-                res.status(201).json(message);
-        });
-    }else{
-        let message = "";
-        if(req.body.cardNo){//checks if the request body has a cardNumber
-            message = "The card payment of Rs: " + newBill.checkoutPrice +"/= is completed! Used Card No.: " + req.body.cardNo;
-        }else{
-            message = "The cash payment of Rs: " + newBill.checkoutPrice +"/= is completed!";
-        }
-        newBill.save((error) =>{
-            error ?
-                res.status(400).json("Payment record unsuccessfull!"):
-                res.status(201).json(message);
-        })
-    } 
+    newBill.save((error) =>{
+        error ?
+            res.status(400).json("Bill Creation unsuccessful!"):
+            res.status(201).json("Bill creation successful!");
+    })
 }
 
 //fetchAllBills
