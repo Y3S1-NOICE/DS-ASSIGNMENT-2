@@ -4,11 +4,13 @@ import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import MapComponent from "../../components/MapComponent";
+import { getAuth, logout } from "../../util/Utils";
 
 export default function Home() {
 
     useEffect(() => {
-
+        const auth = getAuth();
+        !auth && logout();
     }, []);
 
 
