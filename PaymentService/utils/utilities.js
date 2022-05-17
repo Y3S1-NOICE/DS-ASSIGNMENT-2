@@ -1,7 +1,7 @@
 export const roles = {
     CUSTOMER: 'Customer',
-    ADMIN: 'Admin',
-    WORKER: 'Worker'
+    HOTEL_ADMIN: 'HotelAdmin',
+    SYSTEM_ADMIN: 'SystemAdmin'
 }
 
 export const decodeJwt = (token) => {

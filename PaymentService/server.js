@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import connectDatabase from "./database/connection.js";
 import { roles } from "./utils/utilities.js";
 import { authenticate, authorize } from "./middleware/auth.js";
 import { makePayment } from "./services/paymentService.js";

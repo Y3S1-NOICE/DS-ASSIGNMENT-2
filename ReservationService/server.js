@@ -20,7 +20,7 @@ import {
 
 import { roles } from "./utils/utilities.js";
 import { authenticate, authorize } from "./middleware/auth.js";
-const {ADMIN, CUSTOMER} = roles;
+const {SYSTEM_ADMIN, HOTEL_ADMIN, CUSTOMER} = roles;
 
 //Enable .env file
 dotenv.config();
@@ -38,18 +38,18 @@ app.use(express.json());
 
 app.use(authenticate);
 
-app.post('/admin/reservations', authorize(ADMIN), addHotelReservation);
-app.get('/admin/reservations', authorize(ADMIN, CUSTOMER), getAllHotelReservations);
-app.get('/admin/reservations/:id', authorize(ADMIN), getAHotelReservation);
-app.put('/admin/reservations/:id', authorize(ADMIN), updateHotelReservation);
-app.delete('/admin/reservations/:id', authorize(ADMIN), removeHotelReservation);
+app.post('/admin/reservations', authorize(SYSTEM_ADMIN, HOTEL_ADMIN ), addHotelReservation);
+app.get('/admin/reservations', authorize(SYSTEM_ADMIN, HOTEL_ADMIN, CUSTOMER), getAllHotelReservations);
+app.get('/admin/reservations/:id', authorize(SYSTEM_ADMIN, HOTEL_ADMIN), getAHotelReservation);
+app.put('/admin/reservations/:id', authorize(SYSTEM_ADMIN, HOTEL_ADMIN), updateHotelReservation);
+app.delete('/admin/reservations/:id', authorize(SYSTEM_ADMIN, HOTEL_ADMIN), removeHotelReservation);
 
 app.post('/customer/reservations', authorize(CUSTOMER), addCustomerReservation);
-app.get('/customer/reservations', authorize(CUSTOMER, ADMIN),getAllCustomerReservations);
+app.get('/customer/reservations', authorize(CUSTOMER, SYSTEM_ADMIN),getAllCustomerReservations);
 app.get('/customer/reservations/:id', authorize(CUSTOMER),getACustomerReservation);
 app.put('/customer/reservations/:id', authorize(CUSTOMER),updateCustomerReservation);
 app.delete('/customer/reservations/:id', authorize(CUSTOMER),removeCustomerReservation);
-app.put('/updateStatus/:id', authorize(ADMIN), updateStatus);
+app.put('/updateStatus/:id', authorize(SYSTEM_ADMIN), updateStatus);
 
 app.listen(process.env.PORT, () =>{
     console.log(`Server is running on port ${PORT}`);
