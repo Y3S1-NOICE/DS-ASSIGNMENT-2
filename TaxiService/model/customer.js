@@ -25,6 +25,6 @@ const customerSchema = new mongoose.Schema({
 
 });
 
-const customer = mongoose.model('customer', customerSchema);;
+const customer = mongoose.model('bookedtaxi', customerSchema);
 
 export default customer;
