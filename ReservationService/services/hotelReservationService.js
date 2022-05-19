@@ -1,6 +1,6 @@
 import hotelReservation from "../model/hotelReservationModel.js";
 
-//Add
+//Add hotel
 const addHotelReservation = (req, res) => {
     const newReservation = hotelReservation(req.body);
     newReservation.save((error) =>{
@@ -10,7 +10,7 @@ const addHotelReservation = (req, res) => {
     })
 }
 
-//View
+//View created hotels
 const getAllHotelReservations = (req, res) =>{
     hotelReservation.find((error, reservationDetails) =>{
         !reservationDetails ?
@@ -21,7 +21,7 @@ const getAllHotelReservations = (req, res) =>{
     })
 }
 
-//fetch ome
+//fetch one hotel
 const getAHotelReservation = (req, res) =>{
     const filter = {id: req.params.id};
     hotelReservation.findOne(filter, (error, reservationDetails) =>{
@@ -33,7 +33,7 @@ const getAHotelReservation = (req, res) =>{
     })
 };
 
-//update
+//update hotel
 const updateHotelReservation = (req, res) =>{
     const filter = {id: req.params.id};
     const updatedReservationDetails = {
@@ -57,7 +57,7 @@ const updateHotelReservation = (req, res) =>{
     })
 }
 
-//Remove
+//Remove a hotel
 const removeHotelReservation = (req, res) =>{
     const filter = {id:req.params.id};
     hotelReservation.findOneAndDelete(filter, (error, reservationDetails) =>{
