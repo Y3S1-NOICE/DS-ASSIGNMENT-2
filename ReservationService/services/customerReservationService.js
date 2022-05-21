@@ -1,9 +1,9 @@
 import customerReservation from "../model/customerReservationModel.js";
 
-//Add
+//make a reservation 
 const addCustomerReservation = (req, res) => {
-    const room = 5000 
-    let totRoom = (5000 * req.body.roomCount) * req.body.nightCount; 
+    const oneRoomPrice = 5000;
+    let totRoomPrice = (oneRoomPrice * req.body.roomCount) * req.body.nightCount; 
     const newReservation = customerReservation(
        {    "userId":req.body.userId,
             "hotelName":req.body.hotelName,
@@ -14,7 +14,7 @@ const addCustomerReservation = (req, res) => {
             "checkOutDate":req.body.checkOutDate,
             "nightCount":req.body.nightCount,
             "roomCount":req.body.roomCount,
-            "totalPrice":totRoom,
+            "totalPrice":totRoomPrice,
             "adultCount":req.body.adultCount,
             "childCount":req.body.childCount
         }
@@ -26,7 +26,7 @@ const addCustomerReservation = (req, res) => {
     })
 }
 
-//View
+//View all maked reservations 
 const getAllCustomerReservations = (req, res) =>{
     customerReservation.find((error, reservationDetails) =>{
         !reservationDetails ?
@@ -37,7 +37,7 @@ const getAllCustomerReservations = (req, res) =>{
     })
 }
 
-//fetch ome
+//fetch one reservation 
 const getACustomerReservation = (req, res) =>{
     const filter = {id: req.params.id};
     customerReservation.findOne(filter, (error, reservationDetails) =>{
@@ -49,11 +49,11 @@ const getACustomerReservation = (req, res) =>{
     })
 };
 
-//update
+//update reservation 
 const updateCustomerReservation = (req, res) =>{
     const filter = {id: req.params.id};
-    const room = 5000 
-    let totRoom = (5000 * req.body.roomCount) * req.body.nightCount;
+    const oneRoomPrice = 5000; 
+    let totRoomPrice = (oneRoomPrice * req.body.roomCount) * req.body.nightCount;
     const updatedReservationDetails = {
         hotelName: req.body.hotelName,
         reserveeName: req.body.reserveeName,
@@ -64,7 +64,7 @@ const updateCustomerReservation = (req, res) =>{
         nightCount: req.body.nightCount,
         roomCount: req.body.roomCount,
         adultCount: req.body.adultCount,
-        totalPrice: totRoom,
+        totalPrice: totRoomPrice,
         childCount: req.body.childCount
     }
     customerReservation.findOneAndUpdate(filter, updatedReservationDetails, (error, reservationDetails) =>{
@@ -76,7 +76,7 @@ const updateCustomerReservation = (req, res) =>{
     })
 }
 
-//Remove
+//Remove a reservation 
 const removeCustomerReservation = (req, res) =>{
     const filter = {id:req.params.id};
     customerReservation.findOneAndDelete(filter, (error, reservationDetails) =>{
