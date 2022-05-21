@@ -1,5 +1,6 @@
 import user from "../model/user.js";
 
+//Find user by quer parameters
 const findUsers = (req, res) => {
     const filter = {};
     const {id, name, role} = req.query;
@@ -14,6 +15,7 @@ const findUsers = (req, res) => {
         })
 }
 
+//Register user function
 const registerUser = (req, res) => {
     const newUser = user(req.body);
     newUser.save((error) => {
@@ -23,6 +25,7 @@ const registerUser = (req, res) => {
     });
 }
 
+//Update user by id
 const updateUser = (req, res) => {
     const filter = { id: req.params.id || 'inavlidId' };
     const getUpdatedData = { new: true };
@@ -36,6 +39,7 @@ const updateUser = (req, res) => {
     });       
 }
 
+//Delete user by id
 const deleteUser = (req, res) => {
     const filter = { id: req.params.id || 'inavlidId' };
 

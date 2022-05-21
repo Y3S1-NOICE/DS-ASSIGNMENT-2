@@ -66,14 +66,12 @@ const Signup = () => {
     }
     return (
         <> 
-            <Grid container
-                sx={{ boxShadow: 3 }}
-                spacing={0}
-                direction="column"
-                alignItems="center"
+            <Grid container my={2}
+                direction="row"
             >
-                <h1>SIGN UP</h1>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={0} md={3}></Grid>
+                <Grid item sx={{ boxShadow: 1 }} px={3} py={3} xs={12} md={6}>
+                    <center><h1>Sign Up</h1></center>
                     <TextField
                         style ={{minWidth: '400px'}}
                         autoFocus
@@ -84,8 +82,6 @@ const Signup = () => {
                         variant="standard"
                         onChange={handleChange}
                     />
-                </Grid>
-                <Grid item xs={12} md={12}>
                     <TextField
                         autoFocus
                         style ={{minWidth: '400px'}}
@@ -96,8 +92,6 @@ const Signup = () => {
                         variant="standard"
                         onChange={handleChange}
                     />
-                </Grid>
-                <Grid item xs={12} md={12}>
                     <TextField
                         autoFocus
                         style ={{minWidth: '400px'}}
@@ -108,8 +102,6 @@ const Signup = () => {
                         variant="standard"
                         onChange={handleChange}
                     />
-                </Grid>
-                <Grid item xs={12} md={12}>
                     <TextField
                         autoFocus
                         style ={{minWidth: '400px'}}
@@ -120,8 +112,6 @@ const Signup = () => {
                         variant="standard"
                         onChange={handleChange}
                     />
-                </Grid>
-                <Grid item xs={12} md={12}>
                     <TextField
                         autoFocus
                         style ={{minWidth: '400px'}}
@@ -134,9 +124,10 @@ const Signup = () => {
                         variant="standard"
                         onChange={handleChange}
                         />
+                <center><Button onClick={handleSubmit}>Sign Up</Button></center>
                 </Grid>
-                <Button onClick={handleSubmit}>Sign Up</Button>
-            </Grid>
+                <Grid item xs={0} md={3} ></Grid>
+            </Grid> 
         </>
     );
 }

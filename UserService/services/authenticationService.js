@@ -1,6 +1,7 @@
 import user from "../model/user.js";
 import jwt from "jsonwebtoken";
 
+//Login 
 const login = (req, res) => {
     const { email, password } = req.body;
     const filter = { email, password };
@@ -22,6 +23,7 @@ const login = (req, res) => {
     });
 }
 
+//Access token creation
 const renewAccessToken = (req, res) => {
     const { refreshToken } = req.headers;
     if(!refreshToken) return res.status(401).json('No refresh token!');

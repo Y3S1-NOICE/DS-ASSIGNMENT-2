@@ -3,9 +3,10 @@ import { Grid, Paper, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useForm} from 'react-hook-form'
+import Divider from '@mui/material/Divider';
 
 export const CardForm = ({card, onSubmit})=>{
-    const {register, handleSubmit} = useForm({
+    const {register, handleSubmit, formState:{errors}} = useForm({
         defaultValues: {
             userId:card ? card.userId : "",
             cardType:card ? card.cardType : "",
@@ -29,11 +30,11 @@ export const CardForm = ({card, onSubmit})=>{
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6}>
                     <TextField label="User ID" name="userId" type="text" size="small" fullWidth="true" 
-                    {...register("userId")} />
+                    {...register("userId")} disabled/>
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField label="Card Type" name="cardType" type="text" size="small" fullWidth="true"
-                    {...register("cardType" )} />
+                    <TextField error={errors.cardType} label="Card Type" name="cardType" type="text" size="small" fullWidth="true"
+                    {...register("cardType", {required: true} )} helperText={errors.cardType && "This is a required field!"} />
                 </Grid>
             </Grid><br />
         </Paper><br/>
@@ -41,25 +42,31 @@ export const CardForm = ({card, onSubmit})=>{
             <Typography variant='h6'><b>CARD DETAILS</b></Typography><br/>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={6}>
-                <TextField label="Bank Name" name="bankName" type="text" size="small" fullWidth="true" 
-                {...register("bankName")} />
+                <TextField error={errors.bankName} label="Bank Name" name="bankName" type="text" size="small" fullWidth="true" 
+                {...register("bankName", {required: true} )} helperText={errors.bankName && "This is a required field!"} />
             </Grid>
             <Grid item xs={6}>
-                    <TextField label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
-                    {...register("cardNo")} />
+                    <TextField error={errors.cardNo} label="Card Number" name="cardNo" type="text" size="small" fullWidth="true"
+                    {...register("cardNo", {required: true} )} helperText={errors.cardNo && "This is a required field!"} />
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField label="Name On Card" name="nameOnCard" type="text" size="small" fullWidth="true"
-                    {...register("nameOnCard")} />
+                    <TextField error={errors.nameOnCard} label="Name On Card" name="nameOnCard" type="text" size="small" fullWidth="true"
+                    {...register("nameOnCard", {required: true} )} helperText={errors.nameOnCard && "This is a required field!"} />
                 </Grid>
                 <Grid item xs={6}>
-                    {/* <Typography><b>Valid Thru</b></Typography> */}
-                    <TextField  type="date" name="validThru" size="small" fullWidth="true" 
-                    {...register("validThru")} />
+                    <Grid container rowSpacing={1} direction="row" alignItems="center" columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                        <Grid item xs={3}>
+                            <Typography > Valid Thru :</Typography>
+                        </Grid>
+                        <Grid item xs ={9}>
+                            <TextField error={errors.validThru} name="validThru" type="date" size="small" fullWidth="true"
+                            {...register("validThru", {required: true} )} helperText={errors.validThru && "This is a required field!"} />
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField label="CVC" name="cvc" type="text" size="small" fullWidth="true" 
-                    {...register("cvc")} />
+                    <TextField error={errors.cvc} label="CVC" name="cvc" type="text" size="small" fullWidth="true" 
+                    {...register("cvc", {required: true} )} helperText={errors.cvc && "This is a required field!"} />
                 </Grid>
             </Grid>
             <br/>

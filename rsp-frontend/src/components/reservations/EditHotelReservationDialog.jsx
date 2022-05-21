@@ -123,7 +123,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelName || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         {/* <TextField
@@ -137,11 +137,11 @@ const EditReservation = (props) =>{
                             variant="outlined"
                             onChange={handleChange}
                         /> */}
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Ratings</InputLabel>
+                        <FormControl fullWidth style={{marginTop:"8px"}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Hotel Ratings</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
                                 value={reservation.hotelRatings || 0}
                                 label="Hotel Ratings"
                                 onChange={handleChange}
@@ -164,7 +164,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelAddress || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         <TextField
@@ -175,7 +175,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelContact || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                     </Grid>
@@ -188,7 +188,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.hotelImage || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                         <TextField
@@ -199,7 +199,7 @@ const EditReservation = (props) =>{
                             type="text"
                             value={reservation.description || ''}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
                     </Grid>
@@ -212,14 +212,14 @@ const EditReservation = (props) =>{
                             type="number"
                             value={reservation.availableRooms || 0}
                             fullWidth
-                            variant="outlined"
+                            variant="standard"
                             onChange={handleChange}
                         />
-                        <FormControl fullWidth style={{marginTop:"8px"}}>
-                            <InputLabel id="demo-simple-select-label">Hotel Available Status</InputLabel>
+                        <FormControl fullWidth style={{marginTop:"8px"}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-standard-label">Hotel Available Status</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
                                 value={reservation.isHotelAvailable || ''}
                                 label="Hotel Available Status"
                                 onChange={handleChange}
