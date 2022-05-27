@@ -20,8 +20,37 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const CreateHotelReservation = (props) =>{    
     const [reservation, setReservation] = useState({});
+    const [errors, setErrors] = useState({
+        hotelName: '',
+        hotelAddress: '',
+        hotelContact: '',
+        hotelImage: '',
+        availableRooms: '',
+        isHotelAvailable: '',
+        init: true
+    });
+
+    const validateHotel = () => {
+        let hotelName = '';
+        let hotelAddress = '';
+        let hotelContact = '';
+        let hotelImage = '';
+        let availableRooms = '';
+        let isHotelAvailable = ''
+
+        !reservation.hotelName && (hotelName = 'Required. Hotel name cannot be empty.');
+        !reservation.hotelAddress && (hotelAddress = 'Required. Address cannot be empty.');
+        !reservation.hotelImage && (hotelImage = 'Required. Image cannot be empty.');
+        !reservation.availableRooms && (availableRooms = 'Required. Available rooms cannot be empty.');
+        !reservation.isHotelAvailable && (isHotelAvailable = 'Required. Availability cannot be empty.');
+        reservation.hotelContact && reservation.hotelContact.length > 0 && reservation.hotelContact.length != 10 && (hotelContact = 'Required. Phone number must contain 10 digits.');
+
+        setErrors({...errors, hotelName, hotelAddress, hotelImage, availableRooms, isHotelAvailable, hotelContact, init: false});
+    }
 
     const handleSubmit = () => {
+        validateHotel();
+        if(errors.hotelName === '' && errors.hotelAddress === '' && errors.hotelImage === '' && errors.availableRooms === '' && errors.isHotelAvailable === '' &&  errors.hotelContact === '' &&!errors.init) {
         createReservation(reservation)
         .then(res => {
             props.setAddOpen(false);
@@ -54,12 +83,27 @@ const CreateHotelReservation = (props) =>{
                 },
             });
         });
+        } else {
+            toast.info('Please input valid details.', {
+                position: "top-right",
+                style: {
+                  padding: '16px',
+                  color: 'white',
+                  background: 'blue'
+                },
+                iconTheme: {
+                  primary: 'blue',
+                  secondary: 'white',
+                },
+            });
+        }
     }
 
     const handleChange = (event) => {
         const {name, value} = event.target;
         switch(name) {
             case 'hotelName': {
+                setErrors({ ...errors, hotelName: '' })
                 setReservation({...reservation, hotelName: value});
                 break;
             }
@@ -68,14 +112,19 @@ const CreateHotelReservation = (props) =>{
                 break;
             }
             case 'hotelAddress': {
+                setErrors({ ...errors, hotelAddress: '' })
                 setReservation({...reservation, hotelAddress: value});
                 break;
             }
             case 'hotelContact': {
+                setErrors({ ...errors, hotelContact: '' });
+                value.length > 0 && !(/^\d+$/.test(value)) && setErrors({...errors, hotelContact: 'Phone number cannot contain letters.'});
+                value.length > 10 && setErrors({...errors, phone: 'Phone number should contain only 10 digits.'});
                 setReservation({...reservation, hotelContact: value});
                 break;
             }
             case 'hotelImage': {
+                setErrors({ ...errors, hotelImage: '' })
                 setReservation({...reservation, hotelImage: value});
                 break;
             }
@@ -84,6 +133,7 @@ const CreateHotelReservation = (props) =>{
                 break;
             }
             case 'availableRooms': {
+                setErrors({ ...errors, availableRooms: '' })
                 setReservation({...reservation, availableRooms: value});
                 break;
             }
@@ -92,6 +142,7 @@ const CreateHotelReservation = (props) =>{
                 break;
             }
             case 'isHotelAvailable': {
+                setErrors({ ...errors, isHotelAvailable: '' })
                 setReservation({...reservation, isHotelAvailable: value});
                 break;
             }
@@ -123,6 +174,8 @@ const CreateHotelReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.hotelName !== ''}
+                            helperText={errors.hotelName}
                         />
                         {/* <TextField
                             autoFocus
@@ -166,6 +219,8 @@ const CreateHotelReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.hotelAddress !== ''}
+                            helperText={errors.hotelAddress}
                         />
                         <TextField
                             autoFocus
@@ -178,6 +233,8 @@ const CreateHotelReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.hotelContact !== ''}
+                            helperText={errors.hotelContact}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -192,6 +249,8 @@ const CreateHotelReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.hotelImage !== ''}
+                            helperText={errors.hotelImage}
                         />
                         <TextField
                             autoFocus
@@ -218,6 +277,8 @@ const CreateHotelReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.availableRooms !== ''}
+                            helperText={errors.availableRooms}
                         />
                         {/* <TextField
                             autoFocus
@@ -240,6 +301,8 @@ const CreateHotelReservation = (props) =>{
                                 onChange={handleChange}
                                 name="isHotelAvailable"
                                 InputLabelProps={{ shrink: true, required: true }}
+                                error={errors.isHotelAvailable !== ''}
+                                helperText={errors.isHotelAvailable}
                             >
                             <MenuItem value="Available">Available</MenuItem>
                             <MenuItem value="Not Available">Not Available</MenuItem>

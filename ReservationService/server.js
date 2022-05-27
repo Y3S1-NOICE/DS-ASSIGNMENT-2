@@ -43,8 +43,8 @@ app.get('/admin/reservations', authorize(SYSTEM_ADMIN, HOTEL_ADMIN, CUSTOMER), g
 app.get('/admin/reservations/:id', authorize(SYSTEM_ADMIN, HOTEL_ADMIN), getAHotelReservation);
 app.put('/admin/reservations/:id', authorize(SYSTEM_ADMIN, HOTEL_ADMIN), updateHotelReservation);
 app.delete('/admin/reservations/:id', authorize(SYSTEM_ADMIN, HOTEL_ADMIN), removeHotelReservation);
-app.post('/customer/reservations', authorize(CUSTOMER), addCustomerReservation);
-app.get('/customer/reservations', authorize(CUSTOMER, SYSTEM_ADMIN),getAllCustomerReservations);
+app.post('/customer/reservations', authorize(CUSTOMER, SYSTEM_ADMIN, HOTEL_ADMIN), addCustomerReservation);
+app.get('/customer/reservations', authorize(CUSTOMER, SYSTEM_ADMIN, HOTEL_ADMIN),getAllCustomerReservations);
 app.get('/customer/reservations/:id', authorize(CUSTOMER),getACustomerReservation);
 app.put('/customer/reservations/:id', authorize(CUSTOMER),updateCustomerReservation);
 app.delete('/customer/reservations/:id', authorize(CUSTOMER),removeCustomerReservation);
