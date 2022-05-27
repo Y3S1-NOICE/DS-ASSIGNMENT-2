@@ -2,8 +2,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { createUser } from '../../api/userServiceApi';
-import { handleError } from '../../helper/helper';
-
+import { errorToast, successToast } from "../../helper/helper";
 const CreateUser = () => {
     const [user, setUser] = useState({});
 
@@ -11,10 +10,11 @@ const CreateUser = () => {
         createUser(user)
             .then(res => {
                 res.data ?
-                    console.log(res.data) :
-                    handleError()
+                    window.location.reload(true) :
+                    errorToast("Something went wrong!")
+                ;
             })
-            .catch(() => handleError())
+            .catch(() => errorToast("Something went wrong!"))
     }
 
     const handleChange = (event) => {

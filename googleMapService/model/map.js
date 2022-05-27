@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 
 const mapSchema = new mongoose.Schema({
+    hotelId: {
+        type: String
+    },
+    hotelName: {
+        type: String
+    },
     lat:{
         type: String, required: true
     },
@@ -9,6 +15,6 @@ const mapSchema = new mongoose.Schema({
     }
 });
 
-const map = mongoose.model('map', mapSchema);;
+const map = mongoose.model('map', mapSchema);
 
 export default map;

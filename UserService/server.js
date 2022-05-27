@@ -25,6 +25,7 @@ app.post('/users/login', login);
 app.get('users/refreshtoken', renewAccessToken);
 app.post('/users', registerUser);
 
+// Authentication middleware
 app.use(authenticate);
 
 app.get('/users', authorize(SYSTEM_ADMIN, CUSTOMER), findUsers);

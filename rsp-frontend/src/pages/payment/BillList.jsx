@@ -103,11 +103,9 @@ export default function BillList() {
             position="top-right"
             reverseOrder={false}
         />
-        <center>
             <Typography variant='h5'><b>PAID BILLS</b></Typography><br/>
-        </center>
         <Grid>
-                <Paper elevation={0} style={{padding:10, backgroundColor:'transparent'}} sx={{ display: 'grid'}} >
+                <Paper  sx={{ display: 'grid'}} >
                     <TableContainer  style={{opacity: 1, background: 'transparent'}}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
@@ -148,7 +146,7 @@ export default function BillList() {
                                                                         <div>
                                                                             <br/>
                                                                             <Container maxWidth="100%">
-                                                                            <Paper elevation={3} style={{padding:20}}>
+                                                                            <Paper >
                                                                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                                                                     <Grid item xs={6}>
                                                                                         <Typography align='left'><b>Bill ID : </b> {bill.billId}</Typography>

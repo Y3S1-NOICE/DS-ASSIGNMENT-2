@@ -33,7 +33,7 @@ const Reservations = () => {
   const handleGetReservations = () => {
     getAllReservations().then(res => {
         setReservations(res.data);
-        // console.log(res.data)
+        console.log(res.data)
     }).catch(() => {
         toast.error('Error!', {
             position: "top-right",

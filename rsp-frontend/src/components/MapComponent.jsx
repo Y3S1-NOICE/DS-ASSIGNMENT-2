@@ -13,28 +13,26 @@ class MapComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lat: 0,
-            lng: 0,
+            lat: this.props.lat,
+            lng: this.props.lng,
             lat_: '',
             lng_: '',
             open: false,
-            role: ''
+            role: '',
+            width: this.props.width
         };
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    componentDidMount() {
-        fetchMap()
-            .then(res => {
-                if (res && res.data) {
-                    const { lat, lng } = res.data;
-                    const auth = getAuth();
-                    this.setState({ lat: parseFloat(lat), lng: parseFloat(lng), role: auth.role })
-                }
-            })
-
-    }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            lat: this.props.lat,
+            lng: this.props.lng,
+            width: this.props.width
+        })
+        console.log(this.state.lat, this.state.lng)
+    };
 
     handleChange(event) {
         event.preventDefault();
@@ -64,7 +62,7 @@ class MapComponent extends Component {
 
     render() {
         const containerStyle = {
-            width: '500px',
+            width: this.state.width,
             height: '500px'
         }
         return (
