@@ -20,6 +20,36 @@ const MakeReservation = (props) =>{
     const loggedUserId = getAuth().id;
     const [reservation, setReservation] = useState(props.reservation);
     const [user, setUser] = useState([]);
+    const [errors, setErrors] = useState({
+        hotelName: '',
+        reserveeName: '',
+        contact: '',
+        checkInDate: '',
+        checkOutDate: '',
+        nightCount: '',
+        roomCount: '',
+        init: true
+    });
+
+    const validateReservation = () => {
+        let hotelName = '';
+        let reserveeName = '';
+        let contact = '';
+        let checkInDate = '';
+        let checkOutDate = '';
+        let nightCount = '';
+        let roomCount = '';
+
+        !reservation.hotelName && (hotelName = 'Required. Hotel name cannot be empty.');
+        !reservation.reserveeName && (reserveeName = 'Required. Name cannot be empty.');
+        !reservation.checkInDate && (checkInDate = 'Required. Check-In-Date cannot be empty.');
+        !reservation.checkOutDate && (checkOutDate = 'Required. Check-Out-Date rooms cannot be empty.');
+        !reservation.nightCount && (nightCount = 'Required. Night Count cannot be empty.');
+        !reservation.roomCount && (roomCount = 'Required. Room Count cannot be empty.');
+        reservation.contact && reservation.contact.length > 0 && reservation.contact.length != 10 && (contact = 'Required. Phone number must contain 10 digits.');
+
+        setErrors({...errors, hotelName, reserveeName, checkInDate, checkOutDate, nightCount, roomCount, contact, init: false});
+    }
 
     useEffect(() =>{
         function getUser(){
@@ -48,6 +78,8 @@ const MakeReservation = (props) =>{
             adultCount: reservation.adultCount,
             childCount: reservation.childCount,
         }
+        validateReservation();
+        if(errors.hotelName === '' && errors.reserveeName === '' && errors.checkInDate === '' && errors.checkOutDate === '' && errors.nightCount === '' &&  errors.roomCount === '' && errors.contact === '' && !errors.init) {
         makeReservation(resObj)
             .then((res) => {
                 console.log(res.data)
@@ -82,6 +114,20 @@ const MakeReservation = (props) =>{
                     },
                 });
             });
+        } else {
+                toast.info('Please input valid details.', {
+                    position: "top-right",
+                    style: {
+                      padding: '16px',
+                      color: 'white',
+                      background: 'blue'
+                    },
+                    iconTheme: {
+                      primary: 'blue',
+                      secondary: 'white',
+                    },
+                });
+            }
     }
 
     const handleChange = (event) => {
@@ -92,14 +138,17 @@ const MakeReservation = (props) =>{
                 break;
             }
             case 'hotelName': {
+                setErrors({ ...errors, hotelName: '' })
                 setReservation({...reservation, hotelName: value});
                 break;
             }
             case 'reserveeName': {
+                setErrors({ ...errors, reserveeName: '' })
                 setReservation({...reservation, reserveeName: value});
                 break;
             }
             case 'contact': {
+                setErrors({ ...errors, contact: '' })
                 setReservation({...reservation, contact: value});
                 break;
             }
@@ -108,18 +157,22 @@ const MakeReservation = (props) =>{
                 break;
             }
             case 'checkInDate': {
+                setErrors({ ...errors, checkInDate: '' })
                 setReservation({...reservation, checkInDate: value});
                 break;
             }
             case 'checkOutDate': {
+                setErrors({ ...errors, checkOutDate: '' })
                 setReservation({...reservation, checkOutDate: value});
                 break;
             }
             case 'nightCount': {
+                setErrors({ ...errors, nightCount: '' })
                 setReservation({...reservation, nightCount: value});
                 break;
             }
             case 'roomCount': {
+                setErrors({ ...errors, roomCount: '' })
                 setReservation({...reservation, roomCount: value});
                 break;
             }
@@ -159,6 +212,8 @@ const MakeReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             disabled={true}
+                            error={errors.hotelName !== ''}
+                            helperText={errors.hotelName}
                         />
                         <TextField
                             autoFocus
@@ -172,6 +227,8 @@ const MakeReservation = (props) =>{
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
                             required
+                            error={errors.reserveeName !== ''}
+                            helperText={errors.reserveeName}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -212,6 +269,8 @@ const MakeReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.checkInDate !== ''}
+                            helperText={errors.checkInDate}
                         />
                         <TextField
                             autoFocus
@@ -224,6 +283,8 @@ const MakeReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.checkOutDate !== ''}
+                            helperText={errors.checkOutDate}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -238,6 +299,8 @@ const MakeReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.nightCount !== ''}
+                            helperText={errors.nightCount}
                         />
                         <TextField
                             autoFocus
@@ -250,6 +313,8 @@ const MakeReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true, required: true }}
+                            error={errors.roomCount !== ''}
+                            helperText={errors.roomCount}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -264,6 +329,8 @@ const MakeReservation = (props) =>{
                             variant="standard"
                             onChange={handleChange}
                             InputLabelProps={{ required: true }}
+                            error={errors.contact !== ''}
+                            helperText={errors.contact}
                         />
                         <TextField
                             autoFocus
