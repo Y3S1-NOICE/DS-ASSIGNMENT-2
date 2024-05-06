@@ -1,7 +1,7 @@
 import map from "../model/map.js";
 
 const getMap = (req, res) => {
-    map.findOne((error, maps) => {
+    map.find({}, (error, maps) => {
         error ? 
             res.status(500).json(error) :
             res.status(200).json(maps);
@@ -18,12 +18,16 @@ const createMap = (req, res) => {
 }
 
 const updateMap = (req, res) => {
-    const getUpdatedData = { new: true };
-    console.log(req.body)
+    const options = {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true
+      };
+    const query = {hotelName: req.body.hotelName}
 
-    map.updateOne({}, req.body, getUpdatedData, (error, updatedMap) => {
+    map.findOneAndUpdate(query, req.body, options, (error, updatedMap) => {
         !updatedMap ? 
-            res.status(404).json('user not found') :
+            res.status(404).json('map not found') :
             error ? 
                 res.status(400).json(error) :
                 res.status(200).json(updatedMap);
